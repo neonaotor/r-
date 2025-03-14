@@ -3,57 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Goodboy Shop - Animierter Store</title>
-    <link rel="stylesheet" href="style.css">  <!-- Verknüpfung mit CSS -->
+    <title>Goodboy Shop - Premium Produkte</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="rain"></div>  <!-- Regen-Effekt -->
-
-    <header class="animated-header">
+    <header>
         <h1>Goodboy Shop</h1>
-        <p>Erlebe die besten Deals mit epischen Effekten!</p>
+        <p>Finde die besten digitalen Produkte mit sofortigem Zugang!</p>
     </header>
 
     <main class="product-container">
-        <section class="product fade-in">
-            <img src="https://via.placeholder.com/200" alt="Gaming Headset">
-            <h2>Gaming Headset</h2>
-            <p>49.99€</p>
+        <section class="product">
+            <img src="https://via.placeholder.com/300" alt="Produkt 1">
+            <h2>Premium FiveM Mod Menü</h2>
+            <p class="description">Das beste Mod-Menü für FiveM mit exklusiven Features!</p>
+            <p class="price">29.99€</p>
+            <form action="order.php" method="post">
+                <input type="hidden" name="product" value="Premium FiveM Mod Menü - 29.99€">
+                <input type="text" name="name" placeholder="Dein Name" required>
+                <button type="submit">🛒 Jetzt kaufen</button>
+            </form>
         </section>
 
-        <section class="product fade-in">
-            <img src="https://via.placeholder.com/200" alt="Bluetooth Lautsprecher">
-            <h2>Bluetooth Lautsprecher</h2>
-            <p>39.99€</p>
+        <section class="product">
+            <img src="https://via.placeholder.com/300" alt="Produkt 2">
+            <h2>GTA Online Hack</h2>
+            <p class="description">Maximiere dein Spiel mit diesem professionellen Hack für GTA Online.</p>
+            <p class="price">19.99€</p>
+            <form action="order.php" method="post">
+                <input type="hidden" name="product" value="GTA Online Hack - 19.99€">
+                <input type="text" name="name" placeholder="Dein Name" required>
+                <button type="submit">🛒 Jetzt kaufen</button>
+            </form>
         </section>
 
-        <section class="product fade-in">
-            <img src="https://via.placeholder.com/200" alt="Mechanische Tastatur">
-            <h2>Mechanische Tastatur</h2>
-            <p>89.99€</p>
-        </section>
-
-        <section class="product fade-in">
-            <img src="https://via.placeholder.com/200" alt="Gaming Maus">
-            <h2>Gaming Maus</h2>
-            <p>29.99€</p>
-        </section>
-
-        <section class="product fade-in">
-            <img src="https://via.placeholder.com/200" alt="4K Monitor">
-            <h2>4K Monitor</h2>
-            <p>299.99€</p>
-        </section>
-
-        <section class="product fade-in">
-            <img src="https://via.placeholder.com/200" alt="Gaming Stuhl">
-            <h2>Gaming Stuhl</h2>
-            <p>199.99€</p>
+        <section class="product">
+            <img src="https://via.placeholder.com/300" alt="Produkt 3">
+            <h2>Call of Duty ESP & Aimbot</h2>
+            <p class="description">Verschaffe dir den unfairen Vorteil mit diesem unsichtbaren Aimbot.</p>
+            <p class="price">39.99€</p>
+            <form action="order.php" method="post">
+                <input type="hidden" name="product" value="Call of Duty ESP & Aimbot - 39.99€">
+                <input type="text" name="name" placeholder="Dein Name" required>
+                <button type="submit">🛒 Jetzt kaufen</button>
+            </form>
         </section>
     </main>
 
-    <footer class="footer-glow">
+    <footer>
         <p>© 2025 Goodboy Shop | Alle Rechte vorbehalten</p>
     </footer>
 
