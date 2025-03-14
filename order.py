@@ -2,10 +2,10 @@ import sqlite3
 import requests
 import datetime
 
-# Webhook URL
+# Discord Webhook URL
 WEBHOOK_URL = "https://discord.com/api/webhooks/1349850414543142912/your-webhook"
 
-# Verbindung zur Datenbank
+# Verbindung zur SQLite-Datenbank
 conn = sqlite3.connect('shop.db')
 cursor = conn.cursor()
 
@@ -16,15 +16,14 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS orders (
                     product TEXT,
                     date TEXT)''')
 
-# Bestellung speichern & senden
 def order_product(name, product):
     date = datetime.datetime.now().strftime("%d.%m.%Y %H:%M")
-    
-    # Datenbank speichern
+
+    # Bestellung in Datenbank speichern
     cursor.execute("INSERT INTO orders (name, product, date) VALUES (?, ?, ?)", (name, product, date))
     conn.commit()
 
-    # Webhook senden
+    # Nachricht für Discord vorbereiten
     message = {
         "username": "Goodboy Shop",
         "embeds": [{
@@ -34,12 +33,14 @@ def order_product(name, product):
                 {"name": "🛍️ **Produkt:**", "value": f"**{product}**", "inline": False},
                 {"name": "👤 **Besteller:**", "value": f"**{name}**", "inline": False},
                 {"name": "📅 **Bestellzeit:**", "value": f"**{date}**", "inline": False}
-            ]
+            ],
+            "footer": {"text": "Goodboy Shop - Powered by Discord"}
         }]
     }
-    
+
+    # Bestellung an Discord senden
     requests.post(WEBHOOK_URL, json=message)
     print("✅ Bestellung erfolgreich gesendet!")
 
-# Testfunktion
+# Testbestellung
 order_product("Max Mustermann", "FiveM Premium Mod Menü")
