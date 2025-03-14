@@ -8,40 +8,35 @@
 </head>
 <body>
 
-    <header>
-        <h1>Goodboy Shop</h1>
-        <p>🔥 Die besten Hacks & Cheats für deine Lieblingsspiele! 🔥</p>
-    </header>
+    <nav class="sidebar">
+        <h2>Menü</h2>
+        <ul>
+            <li><a href="index.html">🏠 Startseite</a></li>
+            <li><a href="produkte.html">🛒 Produkte</a></li>
+            <li><a href="https://discord.gg/QgFSaXnS" target="_blank" class="discord-link">🔥 Discord</a></li>
+        </ul>
+    </nav>
 
-    <main class="product-container">
-        <section class="product">
-            <img src="https://via.placeholder.com/400" alt="Produkt 1">
-            <h2>FiveM Premium Mod Menü</h2>
-            <p class="description">✔️ Unbegrenzte Funktionen<br>✔️ Kein Ban-Risiko<br>✔️ Sofortiger Download</p>
-            <p class="price">🔹 **29.99€**</p>
-            <form action="proxy.php" method="post">
-                <input type="hidden" name="product" value="FiveM Premium Mod Menü - 29.99€">
-                <input type="text" name="name" placeholder="Dein Name" required>
-                <button type="submit">🛒 Jetzt kaufen</button>
-            </form>
-        </section>
+    <div class="content">
+        <header>
+            <h1 class="glowing-text">Willkommen im Goodboy Shop</h1>
+            <p>🔥 Die besten Hacks & Cheats für deine Lieblingsspiele! 🔥</p>
+        </header>
 
-        <section class="product">
-            <img src="https://via.placeholder.com/400" alt="Produkt 2">
-            <h2>GTA Online Money Hack</h2>
-            <p class="description">💰 Unendlich Geld & RP<br>💎 VIP Zugriff<br>🚀 Anti-Ban Schutz</p>
-            <p class="price">🔹 **19.99€**</p>
-            <form action="proxy.php" method="post">
-                <input type="hidden" name="product" value="GTA Online Money Hack - 19.99€">
-                <input type="text" name="name" placeholder="Dein Name" required>
-                <button type="submit">🛒 Jetzt kaufen</button>
-            </form>
-        </section>
-    </main>
-
-    <footer>
-        <p>© 2025 Goodboy Shop | Alle Rechte vorbehalten</p>
-    </footer>
+        <main class="product-container">
+            <section class="product">
+                <img src="https://via.placeholder.com/400" alt="Produkt 1">
+                <h2>FiveM Premium Mod Menü</h2>
+                <p class="description">✔️ Unbegrenzte Funktionen<br>✔️ Kein Ban-Risiko<br>✔️ Sofortiger Download</p>
+                <p class="price">🔹 **29.99€**</p>
+                <form action="order.py" method="post">
+                    <input type="hidden" name="product" value="FiveM Premium Mod Menü - 29.99€">
+                    <input type="text" name="name" placeholder="Dein Name" required>
+                    <button type="submit">🛒 Jetzt kaufen</button>
+                </form>
+            </section>
+        </main>
+    </div>
 
 </body>
 </html>
