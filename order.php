@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         "avatar_url" => "https://via.placeholder.com/100",
         "embeds" => [[
             "title" => "🛒 **Neue Bestellung erhalten!**",
-            "color" => 3447003,
+            "color" => 16753920,
             "fields" => [
                 ["name" => "🛍️ **Produkt:**", "value" => $product, "inline" => false],
                 ["name" => "👤 **Besteller:**", "value" => $name, "inline" => false],
