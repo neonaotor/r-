@@ -5,9 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Goodboy Shop - PC Tools</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
 </head>
 <body>
+    <!-- Video-Hintergrund mit Blur-Effekt -->
+    <div class="video-wrapper">
+        <video class="video-background" autoplay loop muted playsinline>
+            <source src="mein-video.mp4" type="video/mp4">
+            Dein Browser unterstützt kein HTML5-Video.
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- Navbar -->
     <nav class="navbar">
         <h1>Goodboy Shop</h1>
         <ul>
@@ -17,11 +27,16 @@
         </ul>
     </nav>
 
+    <!-- Intro mit Schreibmaschinen-Effekt -->
+    <div class="intro-text">GOODBOY SERVICE</div>
+
+    <!-- Hero Section -->
     <section class="hero">
         <h1>Willkommen im Goodboy Shop</h1>
         <p>💻 Die besten PC Tools für mehr Leistung und Sicherheit! 🚀</p>
     </section>
 
+    <!-- Produktbereich -->
     <section id="products" class="product-container">
         <div class="product">
             <img src="https://via.placeholder.com/400" alt="Produkt 1">
@@ -46,8 +61,10 @@
         </div>
     </section>
 
+    <!-- Footer -->
     <footer>
         <p>© 2025 Goodboy Shop | Alle Rechte vorbehalten</p>
     </footer>
 </body>
 </html>
+
