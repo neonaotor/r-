@@ -1,6 +1,28 @@
+<!DOCTYPE html>
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Goodboy Service</title>
-    <link rel="stylesheet" href="style.css">  <!-- Externe CSS-Datei -->
+    <title>Goodboy Shop</title>
+    <link rel="stylesheet" href="style.css">  <!-- Externe CSS-Datei für Design -->
 </head>
+<body>
+
+    <header>
+        <h1>Goodboy Shop</h1>
+        <div class="cart-icon" onclick="toggleCart()">🛒 <span id="cart-count">0</span></div>
+    </header>
+
+    <main id="product-container"></main>
+
+    <div class="cart-overlay" id="cart-overlay">
+        <h2>Warenkorb</h2>
+        <div id="cart-items"></div>
+        <p><strong>Gesamt: <span id="cart-total">0.00</span>€</strong></p>
+        <button class="cart-clear" onclick="clearCart()">Warenkorb leeren</button>
+        <button class="cart-buy" onclick="buyItems()">Kaufen</button>
+    </div>
+
+    <script src="script.js"></script>  <!-- JavaScript Datei für Funktionalität -->
+</body>
+</html>
