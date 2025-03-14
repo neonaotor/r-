@@ -4,25 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Goodboy Shop</title>
-    <link rel="stylesheet" href="style.css">  <!-- Externe CSS-Datei für Design -->
+    <link rel="stylesheet" href="style.css">  <!-- Verknüpfung mit CSS -->
 </head>
 <body>
 
     <header>
         <h1>Goodboy Shop</h1>
-        <div class="cart-icon" onclick="toggleCart()">🛒 <span id="cart-count">0</span></div>
+        <p>Finde die besten Produkte für dich!</p>
     </header>
 
-    <main id="product-container"></main>
+    <main>
+        <section class="product">
+            <img src="https://via.placeholder.com/200" alt="Gaming Headset">
+            <h2>Gaming Headset</h2>
+            <p>Preis: 49.99€</p>
+        </section>
 
-    <div class="cart-overlay" id="cart-overlay">
-        <h2>Warenkorb</h2>
-        <div id="cart-items"></div>
-        <p><strong>Gesamt: <span id="cart-total">0.00</span>€</strong></p>
-        <button class="cart-clear" onclick="clearCart()">Warenkorb leeren</button>
-        <button class="cart-buy" onclick="buyItems()">Kaufen</button>
-    </div>
+        <section class="product">
+            <img src="https://via.placeholder.com/200" alt="Bluetooth Lautsprecher">
+            <h2>Bluetooth Lautsprecher</h2>
+            <p>Preis: 39.99€</p>
+        </section>
 
-    <script src="script.js"></script>  <!-- JavaScript Datei für Funktionalität -->
+        <section class="product">
+            <img src="https://via.placeholder.com/200" alt="Mechanische Tastatur">
+            <h2>Mechanische Tastatur</h2>
+            <p>Preis: 89.99€</p>
+        </section>
+
+        <section class="product">
+            <img src="https://via.placeholder.com/200" alt="Gaming Maus">
+            <h2>Gaming Maus</h2>
+            <p>Preis: 29.99€</p>
+        </section>
+
+        <section class="product">
+            <img src="https://via.placeholder.com/200" alt="4K Monitor">
+            <h2>4K Monitor</h2>
+            <p>Preis: 299.99€</p>
+        </section>
+
+        <section class="product">
+            <img src="https://via.placeholder.com/200" alt="Gaming Stuhl">
+            <h2>Gaming Stuhl</h2>
+            <p>Preis: 199.99€</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 Goodboy Shop | Alle Rechte vorbehalten</p>
+    </footer>
+
 </body>
 </html>
