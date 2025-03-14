@@ -1,18 +1,68 @@
 body {
-    background-color: #111;
+    background-color: #0a0a0a;
     font-family: Arial, sans-serif;
     color: white;
     margin: 0;
     padding: 0;
+    display: flex;
+}
+
+/* Seitenleiste */
+.sidebar {
+    width: 250px;
+    background: #111;
+    padding: 20px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    box-shadow: 5px 0 10px rgba(255, 69, 0, 0.5);
+}
+
+.sidebar h2 {
+    color: #ff4500;
     text-align: center;
 }
 
-header {
-    background: linear-gradient(90deg, #ff8000, #ff0080);
-    padding: 20px;
-    font-size: 24px;
+.sidebar ul {
+    list-style: none;
+    padding: 0;
 }
 
+.sidebar ul li {
+    margin: 15px 0;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    padding: 10px;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background: #ff4500;
+}
+
+/* Inhalt */
+.content {
+    margin-left: 270px;
+    padding: 20px;
+    width: 100%;
+}
+
+/* Glühender Header */
+header {
+    background: linear-gradient(90deg, #ff4500, #ff1493);
+    padding: 20px;
+    font-size: 24px;
+    box-shadow: 0 0 20px #ff4500;
+    text-align: center;
+}
+
+/* Produktcontainer */
 .product-container {
     display: flex;
     flex-wrap: wrap;
@@ -21,44 +71,23 @@ header {
     padding: 20px;
 }
 
+/* Produktbox */
 .product {
     background-color: #222;
     padding: 20px;
     border-radius: 10px;
-    width: 300px;
+    width: 350px;
     text-align: center;
-    box-shadow: 0 0 10px #ff8000;
+    box-shadow: 0 0 15px #ff4500;
+    transition: 0.3s;
 }
 
-.product img {
-    width: 100%;
-    border-radius: 10px;
+.product:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px #ff4500;
 }
 
-.product h2 {
-    font-size: 18px;
-    margin: 10px 0;
-}
-
-.product .description {
-    font-size: 14px;
-    color: #bbb;
-}
-
-.product .price {
-    font-size: 16px;
-    font-weight: bold;
-    color: #ff8000;
-}
-
-input {
-    width: 80%;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 5px;
-    border: none;
-}
-
+/* Kaufen-Button */
 button {
     display: block;
     width: 100%;
@@ -68,19 +97,12 @@ button {
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-    background: #ff8000;
+    background: #ff4500;
     color: white;
     border: none;
     transition: 0.3s;
 }
 
 button:hover {
-    background: #ff5500;
-}
-
-footer {
-    background-color: #222;
-    padding: 10px;
-    margin-top: 20px;
-    box-shadow: 0 0 15px #ff8000;
+    background: #ff0000;
 }
