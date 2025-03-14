@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Goodboy Shop - Startseite</title>
+    <title>Goodboy Shop - Premium Cheats</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <nav class="sidebar">
         <h2>Menü</h2>
         <ul>
-            <li><a href="index.html">🏠 Startseite</a></li>
-            <li><a href="produkte.html">🛒 Produkte</a></li>
-            <li><a href="https://discord.gg/QgFSaXnS" target="_blank" class="discord-link">🔥 Discord</a></li>
+            <li><a href="#home">🏠 Startseite</a></li>
+            <li><a href="#products">🛒 Produkte</a></li>
+            <li><a href="#cart">🛍️ Warenkorb</a></li>
         </ul>
+        <a href="https://discord.gg/QgFSaXnS" target="_blank" class="discord-link">🔥 Discord</a>
     </nav>
 
     <div class="content">
@@ -23,11 +23,69 @@
             <p>🔥 Die besten Hacks & Cheats für deine Lieblingsspiele! 🔥</p>
         </header>
 
-        <section class="hero">
-            <h2>🚀 Kaufe jetzt deine exklusiven Cheats & Hacks!</h2>
-            <a href="produkte.html" class="btn">🛒 Jetzt Produkte ansehen</a>
+        <section id="products" class="product-container">
+            <h2>🛒 Unsere Produkte</h2>
+            <div class="product">
+                <img src="https://via.placeholder.com/400" alt="Produkt 1">
+                <h3>FiveM Premium Mod Menü</h3>
+                <p class="description">✔️ Unbegrenzte Funktionen<br>✔️ Kein Ban-Risiko<br>✔️ Sofortiger Download</p>
+                <p class="price">🔹 **29.99€**</p>
+                <form action="order.py" method="post">
+                    <input type="hidden" name="product" value="FiveM Premium Mod Menü - 29.99€">
+                    <input type="text" name="name" placeholder="Dein Name" required>
+                    <button type="submit">🛒 Jetzt kaufen</button>
+                </form>
+            </div>
+            <div class="product">
+                <img src="https://via.placeholder.com/400" alt="Produkt 2">
+                <h3>GTA Online Money Hack</h3>
+                <p class="description">💰 Unendlich Geld & RP<br>💎 VIP Zugriff<br>🚀 Anti-Ban Schutz</p>
+                <p class="price">🔹 **19.99€**</p>
+                <form action="order.py" method="post">
+                    <input type="hidden" name="product" value="GTA Online Money Hack - 19.99€">
+                    <input type="text" name="name" placeholder="Dein Name" required>
+                    <button type="submit">🛒 Jetzt kaufen</button>
+                </form>
+            </div>
+            <div class="product">
+                <img src="https://via.placeholder.com/400" alt="Produkt 3">
+                <h3>Call of Duty Aimbot & ESP</h3>
+                <p class="description">🎯 Perfektes Zielen<br>🔍 Wallhack + ESP<br>⚡ Sofortige Lieferung</p>
+                <p class="price">🔹 **39.99€**</p>
+                <form action="order.py" method="post">
+                    <input type="hidden" name="product" value="Call of Duty Aimbot & ESP - 39.99€">
+                    <input type="text" name="name" placeholder="Dein Name" required>
+                    <button type="submit">🛒 Jetzt kaufen</button>
+                </form>
+            </div>
+            <!-- Zusätzliche Produkte für mehr Zeilen -->
+            <div class="product">
+                <img src="https://via.placeholder.com/400" alt="Produkt 4">
+                <h3>CS:GO Wallhack + Aimbot</h3>
+                <p class="description">🎯 Präzises Zielen<br>🔍 Unsichtbar für VAC<br>⚡ Sofortige Lieferung</p>
+                <p class="price">🔹 **24.99€**</p>
+                <form action="order.py" method="post">
+                    <input type="hidden" name="product" value="CS:GO Wallhack + Aimbot - 24.99€">
+                    <input type="text" name="name" placeholder="Dein Name" required>
+                    <button type="submit">🛒 Jetzt kaufen</button>
+                </form>
+            </div>
+            <div class="product">
+                <img src="https://via.placeholder.com/400" alt="Produkt 5">
+                <h3>Fortnite ESP & No Recoil</h3>
+                <p class="description">🎯 Kein Rückstoß<br>🔍 Gegner sichtbar durch Wände<br>⚡ 100% undetected</p>
+                <p class="price">🔹 **34.99€**</p>
+                <form action="order.py" method="post">
+                    <input type="hidden" name="product" value="Fortnite ESP & No Recoil - 34.99€">
+                    <input type="text" name="name" placeholder="Dein Name" required>
+                    <button type="submit">🛒 Jetzt kaufen</button>
+                </form>
+            </div>
         </section>
     </div>
 
+    <footer>
+        <p>© 2025 Goodboy Shop | Alle Rechte vorbehalten</p>
+    </footer>
 </body>
 </html>
