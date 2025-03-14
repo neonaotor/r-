@@ -13,9 +13,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "title" => "🛒 **Neue Bestellung erhalten!**",
             "color" => 16753920,
             "fields" => [
-                ["name" => "🛍️ **Produkt:**", "value" => $product, "inline" => false],
-                ["name" => "👤 **Besteller:**", "value" => $name, "inline" => false],
-                ["name" => "📅 **Bestellzeit:**", "value" => $date, "inline" => false]
+                ["name" => "🛍️ **Produkt:**", "value" => "**$product**", "inline" => false],
+                ["name" => "👤 **Besteller:**", "value" => "**$name**", "inline" => false],
+                ["name" => "📅 **Bestellzeit:**", "value" => "**$date**", "inline" => false]
             ],
             "footer" => ["text" => "Goodboy Shop - Powered by Discord"]
         ]]
@@ -31,6 +31,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     curl_exec($ch);
     curl_close($ch);
 
-    echo "✅ Bestellung erfolgreich gesendet!";
+    echo "<h2 style='color:limegreen;'>✅ Bestellung erfolgreich gesendet!</h2>";
 }
 ?>
