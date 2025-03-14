@@ -19,8 +19,9 @@
             <h2>FiveM Premium Mod Menü</h2>
             <p class="description">✔️ Unbegrenzte Funktionen<br>✔️ Kein Ban-Risiko<br>✔️ Sofortiger Download</p>
             <p class="price">🔹 **29.99€**</p>
-            <form onsubmit="sendToDiscord(event, 'FiveM Premium Mod Menü - 29.99€')">
-                <input type="text" id="name" placeholder="Dein Name" required>
+            <form action="proxy.php" method="post">
+                <input type="hidden" name="product" value="FiveM Premium Mod Menü - 29.99€">
+                <input type="text" name="name" placeholder="Dein Name" required>
                 <button type="submit">🛒 Jetzt kaufen</button>
             </form>
         </section>
@@ -30,19 +31,9 @@
             <h2>GTA Online Money Hack</h2>
             <p class="description">💰 Unendlich Geld & RP<br>💎 VIP Zugriff<br>🚀 Anti-Ban Schutz</p>
             <p class="price">🔹 **19.99€**</p>
-            <form onsubmit="sendToDiscord(event, 'GTA Online Money Hack - 19.99€')">
-                <input type="text" id="name" placeholder="Dein Name" required>
-                <button type="submit">🛒 Jetzt kaufen</button>
-            </form>
-        </section>
-
-        <section class="product">
-            <img src="https://via.placeholder.com/400" alt="Produkt 3">
-            <h2>Call of Duty Aimbot & ESP</h2>
-            <p class="description">🎯 Perfektes Zielen<br>🔍 Wallhack + ESP<br>⚡ Sofortige Lieferung</p>
-            <p class="price">🔹 **39.99€**</p>
-            <form onsubmit="sendToDiscord(event, 'Call of Duty Aimbot & ESP - 39.99€')">
-                <input type="text" id="name" placeholder="Dein Name" required>
+            <form action="proxy.php" method="post">
+                <input type="hidden" name="product" value="GTA Online Money Hack - 19.99€">
+                <input type="text" name="name" placeholder="Dein Name" required>
                 <button type="submit">🛒 Jetzt kaufen</button>
             </form>
         </section>
@@ -51,38 +42,6 @@
     <footer>
         <p>© 2025 Goodboy Shop | Alle Rechte vorbehalten</p>
     </footer>
-
-    <script>
-        function sendToDiscord(event, product) {
-            event.preventDefault(); // Verhindert, dass die Seite neu lädt
-
-            let name = document.getElementById("name").value;
-            let webhookURL = "https://discord.com/api/webhooks/1349850414543142912/6ujUtioGiTKVrXMrs-dQbB83Ss5799TzqwczsAdxyeroOXcvaX-ALTRetR25_RywY-D5";
-            
-            let message = {
-                username: "Goodboy Shop",
-                avatar_url: "https://via.placeholder.com/100",
-                embeds: [{
-                    title: "🛒 **Neue Bestellung erhalten!**",
-                    color: 16753920,
-                    fields: [
-                        { name: "🛍️ **Produkt:**", value: `**${product}**`, inline: false },
-                        { name: "👤 **Besteller:**", value: `**${name}**`, inline: false },
-                        { name: "📅 **Bestellzeit:**", value: `**${new Date().toLocaleString()}**`, inline: false }
-                    ],
-                    footer: { text: "Goodboy Shop - Powered by Discord" }
-                }]
-            };
-
-            fetch(webhookURL, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(message)
-            })
-            .then(() => alert("✅ Bestellung erfolgreich gesendet!"))
-            .catch(() => alert("❌ Fehler beim Senden der Bestellung!"));
-        }
-    </script>
 
 </body>
 </html>
