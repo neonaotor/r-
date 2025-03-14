@@ -1,5 +1,5 @@
 body {
-    background-color: #0a0a0a;
+    background-color: #111;
     font-family: Arial, sans-serif;
     color: white;
     margin: 0;
@@ -7,89 +7,80 @@ body {
     text-align: center;
 }
 
-/* Header */
 header {
-    background: linear-gradient(90deg, cyan, blue, purple);
-    color: white;
+    background: linear-gradient(90deg, #ff8000, #ff0080);
     padding: 20px;
     font-size: 24px;
-    animation: glowing 3s infinite alternate;
 }
 
-@keyframes glowing {
-    0% { box-shadow: 0 0 10px cyan; }
-    100% { box-shadow: 0 0 30px cyan; }
-}
-
-/* Produktbereich */
-main {
+.product-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 20px;
     padding: 20px;
 }
 
-label, select, input {
-    font-size: 18px;
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 5px;
-    width: 80%;
-    max-width: 300px;
+.product {
+    background-color: #222;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 0 10px #ff8000;
 }
 
-/* Bestell-Button */
+.product img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.product h2 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.product .description {
+    font-size: 14px;
+    color: #bbb;
+}
+
+.product .price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ff8000;
+}
+
+input {
+    width: 80%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
 button {
     display: block;
-    width: 220px;
-    padding: 15px;
-    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
     border-radius: 5px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
-    text-transform: uppercase;
     cursor: pointer;
-    background: limegreen;
+    background: #ff8000;
     color: white;
     border: none;
-    box-shadow: 0 0 10px limegreen;
     transition: 0.3s;
 }
 
 button:hover {
-    background: green;
-    box-shadow: 0 0 20px green;
+    background: #ff5500;
 }
 
-/* Regen-Effekt */
-.rain {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-
-.rain::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-image: linear-gradient(transparent, rgba(255, 255, 255, 0.2));
-    animation: rain-animation 0.5s linear infinite;
-}
-
-@keyframes rain-animation {
-    from { transform: translateY(-100vh); }
-    to { transform: translateY(100vh); }
-}
-
-/* Footer mit Neon-Glow */
 footer {
-    background-color: #111;
+    background-color: #222;
     padding: 10px;
     margin-top: 20px;
-    box-shadow: 0 0 15px cyan;
+    box-shadow: 0 0 15px #ff8000;
 }
