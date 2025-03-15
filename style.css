@@ -4,6 +4,11 @@ body {
     background-size: cover;
     overflow: hidden;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
 
 /* Sterneffekt */
@@ -30,17 +35,13 @@ body {
 
 /* Login-Kasten */
 .container.large-box {
-    width: 50%;
-    height: 80vh;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    width: 50vw;
+    height: 70vh;
     display: flex;
     justify-content: center;
     align-items: center;
     background: rgba(0, 0, 0, 0.9);
-    box-shadow: 0px 0px 100px rgba(180, 100, 255, 0.8);
+    box-shadow: 0px 0px 50px rgba(180, 100, 255, 0.8);
     padding: 60px;
     border-radius: 20px;
 }
