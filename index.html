@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="style.css">
     <style>
         body {
-            background: radial-gradient(circle, rgba(45, 0, 70, 1) 0%, rgba(15, 0, 30, 1) 100%);
+            background: black;
             background-size: cover;
             overflow: hidden;
+            position: relative;
         }
         .loading-screen {
             position: fixed;
@@ -42,19 +43,43 @@
             height: 100%;
             top: 0;
             left: 0;
-            background: url('https://source.unsplash.com/1920x1080/?stars,galaxy') no-repeat center center fixed;
+            background: radial-gradient(circle at center, rgba(120, 0, 200, 0.2) 0%, rgba(0, 0, 0, 1) 70%);
+        }
+        .rain {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: url('https://source.unsplash.com/1920x1080/?rain') no-repeat center center fixed;
             background-size: cover;
-            opacity: 0.2;
+            opacity: 0.1;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0px 0px 30px rgba(180, 100, 255, 0.6);
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
         .sign-in-container {
-            background: rgba(77, 166, 255, 0.9);
             color: white;
         }
         .btn {
-            background: #4da6ff;
+            background: #b464ff;
+            border: none;
+            padding: 10px 20px;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
         }
         .btn:hover {
-            background: #3385ff;
+            background: #8a30d8;
         }
         .message-box {
             position: fixed;
@@ -81,6 +106,14 @@
                 }, 1000);
             }, 2000);
         });
+        function showMessage(message) {
+            const messageBox = document.querySelector(".message-box");
+            messageBox.textContent = message;
+            messageBox.classList.add("show");
+            setTimeout(() => {
+                messageBox.classList.remove("show");
+            }, 3000);
+        }
     </script>
 </head>
 <body>
@@ -88,6 +121,8 @@
         <div class="loading-circle"></div>
     </div>
     <div class="stars"></div>
+    <div class="rain"></div>
+    <div class="message-box"></div>
     <div class="container">
         <div class="form-wrapper">
             <div class="form-container sign-in-container">
@@ -95,7 +130,7 @@
                 <p>To keep connected with us please login with your personal info</p>
                 <input type="email" class="input-field" placeholder="Email" id="login-email">
                 <input type="password" class="input-field" placeholder="Password" id="login-password">
-                <button class="btn" id="login-btn">Sign in</button>
+                <button class="btn" id="login-btn" onclick="showMessage('Login successful!')">Sign in</button>
                 <p>Don't have an account? <button class="switch-btn" id="signup-btn">Sign Up</button></p>
             </div>
             <div class="form-container sign-up-container">
@@ -104,11 +139,10 @@
                 <input type="text" class="input-field" placeholder="Name" id="signup-name">
                 <input type="email" class="input-field" placeholder="Email" id="signup-email">
                 <input type="password" class="input-field" placeholder="Password" id="signup-password">
-                <button class="btn" id="register-btn">Sign up</button>
+                <button class="btn" id="register-btn" onclick="showMessage('Account created successfully!')">Sign up</button>
                 <p>Already have an account? <button class="switch-btn" id="signin-btn">Sign In</button></p>
             </div>
         </div>
     </div>
 </body>
 </html>
-
