@@ -23,22 +23,25 @@
 </head>
 <body>
     <div class="container">
-        <div class="form-container sign-in-container">
-            <h2>Welcome Back!</h2>
-            <p>To keep connected with us please login with your personal info</p>
-            <input type="text" class="input-field" placeholder="Email">
-            <input type="password" class="input-field" placeholder="Password">
-            <button class="btn" id="signin-btn">Sign in</button>
-        </div>
-        <div class="form-container sign-up-container">
-            <h2>Hello, Friend!</h2>
-            <p>Enter your personal details and start your journey with us</p>
-            <input type="text" class="input-field" placeholder="Name">
-            <input type="email" class="input-field" placeholder="Email">
-            <input type="password" class="input-field" placeholder="Password">
-            <button class="btn" id="signup-btn">Sign up</button>
+        <div class="form-wrapper">
+            <div class="form-container sign-in-container">
+                <h2>Welcome Back!</h2>
+                <p>To keep connected with us please login with your personal info</p>
+                <input type="email" class="input-field" placeholder="Email">
+                <input type="password" class="input-field" placeholder="Password">
+                <button class="btn">Sign in</button>
+                <p>Don't have an account? <button class="switch-btn" id="signup-btn">Sign Up</button></p>
+            </div>
+            <div class="form-container sign-up-container">
+                <h2>Hello, Friend!</h2>
+                <p>Enter your personal details and start your journey with us</p>
+                <input type="text" class="input-field" placeholder="Name">
+                <input type="email" class="input-field" placeholder="Email">
+                <input type="password" class="input-field" placeholder="Password">
+                <button class="btn">Sign up</button>
+                <p>Already have an account? <button class="switch-btn" id="signin-btn">Sign In</button></p>
+            </div>
         </div>
     </div>
 </body>
 </html>
-
