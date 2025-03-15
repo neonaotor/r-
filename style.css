@@ -1,4 +1,3 @@
-
 /* Hintergrund */
 body {
     background: black;
@@ -12,6 +11,16 @@ body {
     margin: 0;
 }
 
+/* Sterneffekt */
+.stars {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: radial-gradient(circle at center, rgba(120, 0, 200, 0.2) 0%, rgba(0, 0, 0, 1) 80%);
+}
+
 /* Regen-Effekt */
 .rain {
     position: fixed;
@@ -21,7 +30,7 @@ body {
     left: 0;
     background: url('https://source.unsplash.com/1920x1080/?rain') no-repeat center center fixed;
     background-size: cover;
-    opacity: 0.1;
+    opacity: 0.15;
 }
 
 /* Login-Kasten */
@@ -33,7 +42,7 @@ body {
     justify-content: center;
     align-items: center;
     background: rgba(0, 0, 0, 0.9);
-    box-shadow: none;
+    box-shadow: 0px 0px 80px rgba(180, 100, 255, 0.9);
     padding: 80px;
     border-radius: 30px;
     backdrop-filter: blur(10px);
