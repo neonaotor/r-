@@ -18,7 +18,13 @@ body {
     height: 100%;
     top: 0;
     left: 0;
-    background: radial-gradient(circle at center, rgba(120, 0, 200, 0.2) 0%, rgba(0, 0, 0, 1) 70%);
+    background: radial-gradient(circle at center, rgba(150, 50, 250, 0.3) 0%, rgba(0, 0, 0, 1) 80%);
+    animation: pulse 4s infinite alternate ease-in-out;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.3; }
+    100% { opacity: 0.6; }
 }
 
 /* Regen-Effekt */
@@ -30,7 +36,7 @@ body {
     left: 0;
     background: url('https://source.unsplash.com/1920x1080/?rain') no-repeat center center fixed;
     background-size: cover;
-    opacity: 0.1;
+    opacity: 0.15;
 }
 
 /* Login-Kasten */
@@ -40,8 +46,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.9);
-    box-shadow: 0px 0px 50px rgba(180, 100, 255, 0.8);
+    background: rgba(0, 0, 0, 0.95);
+    box-shadow: 0px 0px 80px rgba(180, 100, 255, 0.9);
     padding: 60px;
-    border-radius: 20px;
+    border-radius: 25px;
+    backdrop-filter: blur(8px);
+    border: 2px solid rgba(180, 100, 255, 0.4);
 }
+
