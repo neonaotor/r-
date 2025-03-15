@@ -11,19 +11,21 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(rgba(100, 0, 150, 0.3), rgba(0, 0, 0, 0.9)), url('https://source.unsplash.com/1920x1080/?rain') no-repeat center center fixed;
+    background: linear-gradient(rgba(130, 0, 200, 0.4), rgba(20, 0, 50, 0.9)), url('https://source.unsplash.com/1920x1080/?rain') no-repeat center center fixed;
     background-size: cover;
 }
 
 .container {
     position: relative;
-    width: 800px;
+    width: 750px;
     height: 500px;
-    border-radius: 15px;
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.5);
     overflow: hidden;
-    background: white;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
     text-align: center;
+    border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .form-wrapper {
@@ -49,12 +51,12 @@ body {
 }
 
 .sign-in-container {
-    background: #800080;
+    background: rgba(128, 0, 128, 0.9);
     color: white;
 }
 
 .sign-up-container {
-    background: white;
+    background: rgba(255, 255, 255, 0.9);
     color: black;
 }
 
@@ -62,16 +64,24 @@ body {
     width: 80%;
     padding: 12px;
     margin: 12px 0;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
     font-size: 16px;
+    text-align: center;
+    outline: none;
+}
+
+.input-field::placeholder {
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .btn {
     width: 80%;
     padding: 12px;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     background: #800080;
     color: white;
     font-size: 18px;
@@ -87,7 +97,7 @@ body {
 .switch-btn {
     background: none;
     border: none;
-    color: #800080;
+    color: #d8a2ff;
     font-weight: bold;
     cursor: pointer;
     font-size: 16px;
