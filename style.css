@@ -1,164 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
 body {
-    background: linear-gradient(180deg, #0a0a0a, #141414);
-    font-family: 'Poppins', sans-serif;
-    color: white;
-    margin: 0;
-    padding: 0;
+    background: url('https://wallpaperaccess.com/full/1900853.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Orbitron', sans-serif;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    overflow-x: hidden;
-}
-
-/* Schreibmaschinen-Effekt */
-@keyframes typing {
-    from { width: 0; }
-    to { width: 100%; }
-}
-
-@keyframes blink {
-    50% { border-color: transparent; }
-}
-
-.intro-text {
-    font-size: 42px;
-    color: white;
-    white-space: nowrap;
-    overflow: hidden;
-    border-right: 3px solid white;
-    width: 0;
-    animation: typing 3s steps(20, end) forwards, blink 0.8s infinite;
-    text-transform: uppercase;
-    text-align: center;
-    margin-top: 20vh;
-    font-weight: bold;
-}
-
-.navbar {
-    width: 100%;
-    padding: 20px 10%;
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    background: rgba(10, 10, 10, 0.9);
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
+    height: 100vh;
+    margin: 0;
 }
 
-.navbar h1 {
-    font-size: 24px;
-    color: white;
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-.navbar ul {
-    list-style: none;
-    display: flex;
-}
-
-.navbar ul li {
-    margin: 0 15px;
-}
-
-.navbar ul li a {
-    text-decoration: none;
-    color: white;
-    font-size: 16px;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: 0.3s;
-}
-
-.navbar ul li a:hover {
-    background: white;
-    color: black;
-    box-shadow: 0 0 10px white;
-}
-
-.hero {
-    margin-top: 150px;
+.login-container {
+    background: rgba(0, 0, 0, 0.85);
+    color: #ff0033;
+    padding: 20px;
+    width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 0, 51, 0.8);
     text-align: center;
-    padding: 80px 10%;
-    background: rgba(0, 0, 0, 0.8);
-    box-shadow: 0 0 50px rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    max-width: 1200px;
 }
 
-.hero h1 {
-    font-size: 58px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: 0 0 20px white;
+h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
 }
 
-.hero p {
-    font-size: 20px;
-    color: #d3d3d3;
+.shield {
+    color: #ff0033;
+    font-size: 26px;
+}
+
+label {
+    display: block;
+    text-align: left;
     margin-top: 10px;
 }
 
-.product-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 40px;
-    padding: 80px 10%;
-    max-width: 1200px;
-}
-
-.product {
-    background: rgba(0, 0, 0, 0.7);
-    padding: 30px;
-    border-radius: 15px;
-    width: 380px;
-    text-align: center;
-    box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
-    transition: 0.3s;
-}
-
-.product:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
-}
-
-.product img {
+input[type="email"], input[type="password"] {
     width: 100%;
-    border-radius: 10px;
-}
-
-button {
-    display: block;
-    width: 100%;
-    padding: 14px;
-    margin-top: 12px;
-    border-radius: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    background: white;
-    color: black;
+    padding: 10px;
+    margin-top: 5px;
     border: none;
-    transition: 0.3s;
+    border-radius: 5px;
+    background: #222;
+    color: white;
+    font-size: 14px;
 }
 
-button:hover {
-    background: #d3d3d3;
-    box-shadow: 0 0 20px white;
+.remember-me {
+    text-align: left;
+    margin-top: 10px;
+    font-size: 14px;
 }
 
-footer {
-    margin-top: 50px;
-    padding: 30px;
-    background: rgba(10, 10, 10, 0.8);
-    box-shadow: 0 -5px 20px rgba(255, 255, 255, 0.1);
-    text-align: center;
-    font-weight: bold;
+.login-btn {
     width: 100%;
+    padding: 10px;
+    background: #ff0033;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
 }
+
+.login-btn:hover {
+    background: #cc002a;
+}
+
+.links {
+    margin-top: 15px;
+    font-size: 12px;
+}
+
+.links a {
+    color: #ff0033;
+    text-decoration: none;
+}
+
+.links a:hover {
+    text-decoration: underline;
+}
+
