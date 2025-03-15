@@ -6,45 +6,39 @@
     <title>Login & Sign Up</title>
     <link rel="stylesheet" href="style.css">
     <script>
-        document.addEventListener("mousemove", function(event) {
+        document.addEventListener("DOMContentLoaded", function() {
             const container = document.querySelector(".container");
-            const rect = container.getBoundingClientRect();
-            const x = event.clientX - rect.left;
-            const middle = rect.width / 2;
+            const signUpBtn = document.getElementById("signup-btn");
+            const signInBtn = document.getElementById("signin-btn");
             
-            if (x < middle) {
-                container.querySelector(".login-box").style.background = "#E63946";
-                container.querySelector(".login-box").style.color = "white";
-                container.querySelector(".signup-box").style.background = "white";
-                container.querySelector(".signup-box").style.color = "black";
-            } else {
-                container.querySelector(".login-box").style.background = "white";
-                container.querySelector(".login-box").style.color = "black";
-                container.querySelector(".signup-box").style.background = "#E63946";
-                container.querySelector(".signup-box").style.color = "white";
-            }
+            signUpBtn.addEventListener("click", function() {
+                container.classList.add("active");
+            });
+            
+            signInBtn.addEventListener("click", function() {
+                container.classList.remove("active");
+            });
         });
     </script>
 </head>
 <body>
     <div class="container">
         <div class="login-box">
-            <h2>Sign in</h2>
+            <h2>Welcome Back!</h2>
+            <p>To keep connected with us please login with your personal info</p>
+            <button class="btn" id="signin-btn">Sign in</button>
+        </div>
+        <div class="signup-box">
+            <h2>Create Account</h2>
             <div class="social-icons">
                 <a href="#">F</a>
                 <a href="#">G</a>
                 <a href="#">in</a>
             </div>
-            <p>or use your account</p>
-            <input type="text" class="input-field" placeholder="Email">
-            <input type="password" class="input-field" placeholder="Password">
-            <p class="forgot">Forgot your password?</p>
-            <button class="btn">Sign in</button>
-        </div>
-        <div class="signup-box">
-            <h2>Hello, Friend!</h2>
-            <p>Enter your personal details and start your journey with us</p>
-            <button class="btn">Sign up</button>
+            <p>or use your email for registration</p>
+            <input type="text" id="signup-email" class="input-field" placeholder="Email">
+            <input type="password" id="signup-password" class="input-field" placeholder="Password">
+            <button class="btn" id="signup-btn">Sign up</button>
         </div>
     </div>
 </body>
