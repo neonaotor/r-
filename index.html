@@ -7,49 +7,39 @@
     <link rel="stylesheet" href="style.css">
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            setTimeout(() => {
-                document.querySelector(".loading-screen").style.opacity = "0";
-                setTimeout(() => {
-                    document.querySelector(".loading-screen").style.display = "none";
-                }, 1000);
-            }, 2000);
+            const container = document.querySelector(".container");
+            const signUpBtn = document.getElementById("signup-btn");
+            const signInBtn = document.getElementById("signin-btn");
+            
+            signUpBtn.addEventListener("click", function() {
+                container.classList.add("active");
+            });
+            
+            signInBtn.addEventListener("click", function() {
+                container.classList.remove("active");
+            });
         });
-        
-        function showMessage(message) {
-            const messageBox = document.querySelector(".message-box");
-            messageBox.textContent = message;
-            messageBox.classList.add("show");
-            setTimeout(() => {
-                messageBox.classList.remove("show");
-            }, 3000);
-        }
     </script>
 </head>
 <body>
-    <div class="loading-screen">
-        <div class="loading-circle"></div>
-    </div>
-    <div class="stars"></div>
-    <div class="rain"></div>
-    <div class="message-box"></div>
-    <div class="container large-box">
+    <div class="container">
         <div class="form-wrapper">
             <div class="form-container sign-in-container">
-                <h2 class="title">Sign In</h2>
-                <p class="description">To keep connected with us please login with your personal info</p>
-                <input type="email" class="input-field" placeholder="Email" id="login-email">
-                <input type="password" class="input-field" placeholder="Password" id="login-password">
-                <button class="btn" id="login-btn" onclick="showMessage('Login successful!')">Sign in</button>
-                <p class="switch-text">Don't have an account? <button class="switch-btn" id="signup-btn">Sign Up</button></p>
+                <h2>Welcome Back!</h2>
+                <p>To keep connected with us please login with your personal info</p>
+                <input type="email" class="input-field" placeholder="Email">
+                <input type="password" class="input-field" placeholder="Password">
+                <button class="btn">Sign in</button>
+                <p>Don't have an account? <button class="switch-btn" id="signup-btn">Sign Up</button></p>
             </div>
             <div class="form-container sign-up-container">
-                <h2 class="title">Sign Up</h2>
-                <p class="description">Enter your personal details and start your journey with us</p>
-                <input type="text" class="input-field" placeholder="Name" id="signup-name">
-                <input type="email" class="input-field" placeholder="Email" id="signup-email">
-                <input type="password" class="input-field" placeholder="Password" id="signup-password">
-                <button class="btn" id="register-btn" onclick="showMessage('Account created successfully!')">Sign up</button>
-                <p class="switch-text">Already have an account? <button class="switch-btn" id="signin-btn">Sign In</button></p>
+                <h2>Hello, Friend!</h2>
+                <p>Enter your personal details and start your journey with us</p>
+                <input type="text" class="input-field" placeholder="Name">
+                <input type="email" class="input-field" placeholder="Email">
+                <input type="password" class="input-field" placeholder="Password">
+                <button class="btn">Sign up</button>
+                <p>Already have an account? <button class="switch-btn" id="signin-btn">Sign In</button></p>
             </div>
         </div>
     </div>
