@@ -1,4 +1,4 @@
-/* Allgemeines Styling */
+/* Hintergrund */
 body {
     background: black;
     background-size: cover;
@@ -6,36 +6,7 @@ body {
     position: relative;
 }
 
-/* Ladeanimation */
-.loading-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    transition: opacity 1s ease-in-out;
-}
-
-.loading-circle {
-    width: 60px;
-    height: 60px;
-    border: 6px solid rgba(255, 255, 255, 0.3);
-    border-top: 6px solid white;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Hintergrund mit Sternen und Lichtschein */
+/* Sterneffekt */
 .stars {
     position: fixed;
     width: 100%;
@@ -45,6 +16,7 @@ body {
     background: radial-gradient(circle at center, rgba(120, 0, 200, 0.2) 0%, rgba(0, 0, 0, 1) 70%);
 }
 
+/* Regen-Effekt */
 .rain {
     position: fixed;
     width: 100%;
@@ -56,52 +28,19 @@ body {
     opacity: 0.1;
 }
 
-/* Login-Container mit leichtem lila Licht */
-.container {
-    background: rgba(0, 0, 0, 0.8);
-    box-shadow: 0px 0px 30px rgba(180, 100, 255, 0.6);
-    padding: 40px;
-    border-radius: 10px;
-    text-align: center;
+/* Login-Kasten */
+.container.large-box {
+    width: 50%;
+    height: 80vh;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-
-.sign-in-container {
-    color: white;
-}
-
-/* Buttons */
-.btn {
-    background: #b464ff;
-    border: none;
-    padding: 10px 20px;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.btn:hover {
-    background: #8a30d8;
-}
-
-/* Nachrichteneffekte */
-.message-box {
-    position: fixed;
-    top: -50px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 15px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: top 0.5s ease-in-out;
-}
-
-.message-box.show {
-    top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.9);
+    box-shadow: 0px 0px 100px rgba(180, 100, 255, 0.8);
+    padding: 60px;
+    border-radius: 20px;
 }
