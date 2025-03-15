@@ -9,6 +9,7 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
+    color: white;
 }
 
 /* Sterneffekt */
@@ -18,7 +19,7 @@ body {
     height: 100%;
     top: 0;
     left: 0;
-    background: radial-gradient(circle at center, rgba(120, 0, 200, 0.2) 0%, rgba(0, 0, 0, 1) 80%);
+    background: black;
 }
 
 /* Regen-Effekt */
@@ -30,21 +31,74 @@ body {
     left: 0;
     background: url('https://source.unsplash.com/1920x1080/?rain') no-repeat center center fixed;
     background-size: cover;
-    opacity: 0.15;
+    opacity: 0.1;
 }
 
 /* Login-Kasten */
 .container.large-box {
-    width: 60vw;
-    height: 80vh;
+    width: 50vw;
+    height: 70vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.9);
-    box-shadow: 0px 0px 80px rgba(180, 100, 255, 0.9);
-    padding: 80px;
-    border-radius: 30px;
-    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.95);
+    box-shadow: none;
+    padding: 50px;
+    border-radius: 15px;
     border: 2px solid rgba(50, 50, 50, 0.5);
+}
+
+/* Texte und Felder */
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.description {
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.input-field {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-radius: 5px;
+    outline: none;
+}
+
+.btn {
+    background: #6a0dad;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background: #5500a3;
+}
+
+.switch-text {
+    font-size: 14px;
+}
+
+.switch-btn {
+    background: none;
+    border: none;
+    color: #6a0dad;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.switch-btn:hover {
+    color: #5500a3;
 }
