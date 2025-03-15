@@ -1,45 +1,67 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login & Sign Up</title>
-    <link rel="stylesheet" href="style.css">
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const container = document.querySelector(".container");
-            const signUpBtn = document.getElementById("signup-btn");
-            const signInBtn = document.getElementById("signin-btn");
-            
-            signUpBtn.addEventListener("click", function() {
-                container.classList.add("active");
-            });
-            
-            signInBtn.addEventListener("click", function() {
-                container.classList.remove("active");
-            });
-        });
-    </script>
-</head>
-<body>
-    <div class="container">
-        <div class="login-box">
-            <h2>Welcome Back!</h2>
-            <p>To keep connected with us please login with your personal info</p>
-            <button class="btn" id="signin-btn">Sign in</button>
-        </div>
-        <div class="signup-box">
-            <h2>Create Account</h2>
-            <div class="social-icons">
-                <a href="#">F</a>
-                <a href="#">G</a>
-                <a href="#">in</a>
-            </div>
-            <p>or use your email for registration</p>
-            <input type="text" id="signup-email" class="input-field" placeholder="Email">
-            <input type="password" id="signup-password" class="input-field" placeholder="Password">
-            <button class="btn" id="signup-btn">Sign up</button>
-        </div>
-    </div>
-</body>
-</html>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+
+.container {
+    position: relative;
+    width: 900px;
+    height: 500px;
+    border-radius: 15px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    display: flex;
+    transition: transform 0.6s ease-in-out;
+}
+
+.container.active {
+    transform: translateX(-50%);
+}
+
+.form-container {
+    width: 50%;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: 0.6s ease-in-out;
+}
+
+.sign-in-container {
+    background: #E63946;
+    color: white;
+}
+
+.sign-up-container {
+    background: white;
+    color: black;
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background: #E63946;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: background 0.3s ease;
+}
+
+.btn:hover {
+    background: #c92c3b;
+}
