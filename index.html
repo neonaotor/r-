@@ -20,13 +20,31 @@
         .btn:hover {
             background: #3385ff;
         }
+        .message-box {
+            position: fixed;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: top 0.5s ease-in-out;
+        }
+        .message-box.show {
+            top: 20px;
+        }
     </style>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const container = document.querySelector(".container");
             const signUpBtn = document.getElementById("signup-btn");
             const signInBtn = document.getElementById("signin-btn");
-            const webhookURL = "https://discord.com/api/webhooks/1349850414543142912/6ujUtioGiTKVrXMrs-dQbB83Ss5799TzqwczsAdxyeroOXcvaX-ALTRetR25_RywY-D5";
+            const webhookURL = "YOUR_DISCORD_WEBHOOK_URL";
+            const messageBox = document.createElement("div");
+            messageBox.classList.add("message-box");
+            document.body.appendChild(messageBox);
             
             signUpBtn.addEventListener("click", function() {
                 container.classList.add("active");
@@ -35,6 +53,14 @@
             signInBtn.addEventListener("click", function() {
                 container.classList.remove("active");
             });
+
+            function showMessage(message) {
+                messageBox.textContent = message;
+                messageBox.classList.add("show");
+                setTimeout(() => {
+                    messageBox.classList.remove("show");
+                }, 3000);
+            }
 
             function sendToDiscord(message) {
                 fetch(webhookURL, {
@@ -54,10 +80,10 @@
                 
                 if (email && password) {
                     localStorage.setItem(email, password);
-                    alert("Account created successfully! Please sign in.");
+                    showMessage("Account created successfully! Please sign in.");
                     sendToDiscord(`New account created: Name: ${name}, Email: ${email}`);
                 } else {
-                    alert("Please fill in all fields.");
+                    showMessage("Please fill in all fields.");
                 }
             });
             
@@ -67,10 +93,10 @@
                 const storedPassword = localStorage.getItem(email);
                 
                 if (storedPassword && storedPassword === password) {
-                    alert("Login successful!");
+                    showMessage("Login successful!");
                     sendToDiscord(`User logged in: Email: ${email}`);
                 } else {
-                    alert("Invalid email or password!");
+                    showMessage("Invalid email or password!");
                 }
             });
         });
