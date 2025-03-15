@@ -1,128 +1,151 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login & Sign Up</title>
+    <title>GOODBOY Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        * {
+        body {
+            background-color: #0a0216;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
-        body {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: white;
-        }
-
-        .container {
             position: relative;
-            width: 400px;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.1);
-            background: white;
-            text-align: center;
-            border: 2px solid rgba(0, 0, 0, 0.2);
-            transition: transform 0.5s ease-in-out;
         }
-
-        .input-field {
-            width: 100%;
-            padding: 12px;
-            margin: 12px 0;
-            border: 1px solid gray;
-            border-radius: 8px;
-            background: white;
-            color: black;
+        .sidebar {
+            width: 260px;
+            height: 100vh;
+            background: linear-gradient(180deg, #1b012e, #3a013d);
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 5px 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .sidebar h2 {
+            color: #a600ff;
+            text-align: center;
+            font-size: 24px;
+        }
+        .sidebar a {
+            color: #ddd;
+            text-decoration: none;
+            padding: 14px 22px;
+            margin: 6px 0;
+            display: block;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-weight: 600;
             font-size: 16px;
-            text-align: center;
-            outline: none;
-        }
-
-        .input-field::placeholder {
-            color: gray;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            background: black;
-            color: white;
-            font-size: 18px;
             cursor: pointer;
-            margin-top: 12px;
-            transition: background 0.3s ease;
         }
-
-        .btn:hover {
-            background: gray;
+        .sidebar a:hover, .sidebar a.active {
+            background-color: #a600ff;
+            color: #fff;
         }
-
-        .error-message {
-            display: none;
-            color: red;
+        .content {
+            margin-left: 280px;
+            padding: 30px;
+            width: 100%;
+            text-align: center;
+        }
+        .profile-box {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #1b012e;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            width: 200px;
+        }
+        .profile-box img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+        .profile-box p {
+            margin: 0;
             font-size: 16px;
-            margin-top: 5px;
+            color: #a600ff;
         }
-
-        .error-icon {
-            display: none;
-            font-size: 20px;
-            color: red;
-            margin-top: 5px;
+        .login-button {
+            background: none;
+            border: 2px solid #a600ff;
+            padding: 5px 10px;
+            border-radius: 6px;
+            color: #a600ff;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+        .login-button:hover {
+            background: #a600ff;
+            color: #fff;
         }
     </style>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            let registeredUsers = {};
+        const CLIENT_ID = 'YOUR_DISCORD_CLIENT_ID';
+        const REDIRECT_URI = 'YOUR_REDIRECT_URI';
+        const API_ENDPOINT = 'https://discord.com/api/v10/users/@me';
 
-            function switchToSignUp() {
-                document.querySelector(".container").innerHTML = `
-                    <h2>Hello, Friend!</h2>
-                    <p>Enter your personal details and start your journey with us</p>
-                    <input type="text" class="input-field" placeholder="Name">
-                    <input type="email" id="signup-email" class="input-field" placeholder="Email">
-                    <input type="password" id="signup-password" class="input-field" placeholder="Password">
-                    <button class="btn" id="signup-submit">Sign up</button>
-                    <p style="margin-top: 15px;"><a href="#" id="signin-link">Sign in</a></p>
-                `;
-                document.getElementById("signin-link").addEventListener("click", function(event) {
-                    event.preventDefault();
-                    location.reload();
-                });
-                document.getElementById("signup-submit").addEventListener("click", function() {
-                    const email = document.getElementById("signup-email").value;
-                    const password = document.getElementById("signup-password").value;
-                    registeredUsers[email] = password;
-                    alert("Account created successfully!");
-                });
+        function loginWithDiscord() {
+            const authURL = `https://discord.com/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify`;
+            window.location.href = authURL;
+        }
+
+        function getDiscordUser() {
+            const hash = window.location.hash.substr(1);
+            const params = new URLSearchParams(hash);
+            const accessToken = params.get('access_token');
+
+            if (accessToken) {
+                fetch(API_ENDPOINT, {
+                    headers: { 'Authorization': `Bearer ${accessToken}` }
+                })
+                .then(response => response.json())
+                .then(user => {
+                    document.getElementById("profile-img").src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
+                    document.getElementById("profile-name").innerText = user.username;
+                    document.getElementById("login-button").style.display = 'none';
+                })
+                .catch(error => console.error('Error fetching Discord user:', error));
             }
+        }
 
-            document.getElementById("signup-link").addEventListener("click", function(event) {
-                event.preventDefault();
-                switchToSignUp();
-            });
-        });
+        window.onload = function() { 
+            getDiscordUser();
+        };
     </script>
 </head>
 <body>
-    <div class="container">
-        <h2>Welcome Back!</h2>
-        <p>To keep connected with us please login with your personal info</p>
-        <input type="email" id="signin-email" class="input-field" placeholder="Email">
-        <input type="password" id="signin-password" class="input-field" placeholder="Password">
-        <p id="error-message" class="error-message">Incorrect email or password <span id="error-icon" class="error-icon">❌</span></p>
-        <button class="btn" id="signin-submit">Sign in</button>
-        <p style="margin-top: 15px;">Don't have an account? <a href="#" id="signup-link">Sign up</a></p>
+    <div class="sidebar">
+        <h2>GOODBOY</h2>
+        <a onclick="showPage('dashboard')">Dashboard</a>
+        <a onclick="showPage('pins')">Pins</a>
+        <a onclick="showPage('results')">Results</a>
+        <a onclick="showPage('profile')">Profile</a>
+    </div>
+    <div class="content">
+        <div class="page-title" id="page-title">Dashboard</div>
+        <div class="page-content" id="page-content">
+            <p>Welcome to the GOODBOY Dashboard.</p>
+            <p>Choose a section from the menu to explore more details.</p>
+        </div>
+    </div>
+    <div class="profile-box">
+        <img id="profile-img" src="" alt="Profile Picture">
+        <p id="profile-name">Not Logged In</p>
+        <button id="login-button" class="login-button" onclick="loginWithDiscord()">Login with Discord</button>
     </div>
 </body>
 </html>
+
 
