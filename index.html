@@ -3,99 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Goodboy Shop - PC Tools</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-        .video-wrapper {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: -1;
-        }
-        .video-background {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: blur(10px) brightness(40%);
-        }
-        .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-        }
-    </style>
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Video-Hintergrund mit Blur-Effekt -->
-    <div class="video-wrapper">
-        <video class="video-background" autoplay loop muted playsinline>
-            <source src="mein-video.mp4" type="video/mp4">
-            Dein Browser unterstützt kein HTML5-Video.
-        </video>
-        <div class="video-overlay"></div>
+    <div class="login-container">
+        <h2><span class="shield">🛡️</span> Login</h2>
+        <form action="#" method="post">
+            <label for="email">📧 Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+            <label for="password">🔒 Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+            <div class="remember-me">
+                <input type="checkbox" id="remember" name="remember">
+                <label for="remember">Remember me</label>
+            </div>
+
+            <button type="submit" class="login-btn">➡️ Login</button>
+
+            <div class="links">
+                <a href="#" class="forgot">🔑 Forgot Password?</a>
+                <span>•</span>
+                <a href="#" class="create">👤 Create Account</a>
+            </div>
+        </form>
     </div>
-
-    <!-- Navbar -->
-    <nav class="navbar">
-        <h1>Goodboy Shop</h1>
-        <ul>
-            <li><a href="#home">🏠 Startseite</a></li>
-            <li><a href="#products">🛠️ PC Tools</a></li>
-            <li><a href="#cart">🛍️ Warenkorb</a></li>
-        </ul>
-    </nav>
-
-    <!-- Intro mit Schreibmaschinen-Effekt -->
-    <div class="intro-text">GOODBOY SERVICE</div>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Willkommen im Goodboy Shop</h1>
-        <p>💻 Die besten PC Tools für mehr Leistung und Sicherheit! 🚀</p>
-    </section>
-
-    <!-- Produktbereich -->
-    <section id="products" class="product-container">
-        <div class="product">
-            <img src="https://via.placeholder.com/400" alt="Produkt 1">
-            <h3>System Optimizer</h3>
-            <p class="description">⚡ Beschleunigt dein System<br>🛡️ Entfernt Junk-Dateien<br>🔧 Automatische Optimierung</p>
-            <p class="price">🔹 **19.99€**</p>
-            <button>🛒 Jetzt kaufen</button>
-        </div>
-        <div class="product">
-            <img src="https://via.placeholder.com/400" alt="Produkt 2">
-            <h3>Advanced VPN</h3>
-            <p class="description">🌍 Sicheres & anonymes Surfen<br>🔐 Schutz gegen Tracking<br>🚀 Hohe Geschwindigkeiten</p>
-            <p class="price">🔹 **29.99€**</p>
-            <button>🛒 Jetzt kaufen</button>
-        </div>
-        <div class="product">
-            <img src="https://via.placeholder.com/400" alt="Produkt 3">
-            <h3>Malware Defender</h3>
-            <p class="description">🛡️ Echtzeitschutz<br>🔍 Scannt & entfernt Viren<br>🚀 Schutz ohne Performance-Verlust</p>
-            <p class="price">🔹 **39.99€**</p>
-            <button>🛒 Jetzt kaufen</button>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <p>© 2025 Goodboy Shop | Alle Rechte vorbehalten</p>
-    </footer>
 </body>
 </html>
