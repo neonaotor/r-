@@ -18,7 +18,7 @@ body {
     height: 100%;
     top: 0;
     left: 0;
-    background: radial-gradient(circle at center, rgba(150, 50, 250, 0.3) 0%, rgba(0, 0, 0, 1) 80%);
+    background: radial-gradient(circle at center, rgba(150, 50, 250, 0.5) 10%, rgba(0, 0, 0, 1) 80%);
     animation: pulse 4s infinite alternate ease-in-out;
 }
 
@@ -36,21 +36,21 @@ body {
     left: 0;
     background: url('https://source.unsplash.com/1920x1080/?rain') no-repeat center center fixed;
     background-size: cover;
-    opacity: 0.15;
+    opacity: 0.1;
 }
 
 /* Login-Kasten */
 .container.large-box {
-    width: 50vw;
-    height: 70vh;
+    width: 60vw;
+    height: 80vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.95);
-    box-shadow: 0px 0px 80px rgba(180, 100, 255, 0.9);
-    padding: 60px;
-    border-radius: 25px;
-    backdrop-filter: blur(8px);
-    border: 2px solid rgba(180, 100, 255, 0.4);
+    background: rgba(0, 0, 0, 0.9);
+    box-shadow: 0px 0px 100px rgba(180, 100, 255, 1);
+    padding: 80px;
+    border-radius: 30px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(200, 120, 255, 0.5);
 }
-
