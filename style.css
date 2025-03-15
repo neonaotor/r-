@@ -11,7 +11,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: url('https://source.unsplash.com/1920x1080/?rain') no-repeat center center fixed;
+    background: linear-gradient(rgba(100, 0, 150, 0.3), rgba(0, 0, 0, 0.9)), url('https://source.unsplash.com/1920x1080/?rain') no-repeat center center fixed;
     background-size: cover;
 }
 
