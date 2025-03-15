@@ -76,7 +76,7 @@
             font-size: 16px;
             color: #a600ff;
         }
-        .login-button {
+        .login-button, .logout-button, .download-button {
             background: none;
             border: 2px solid #a600ff;
             padding: 5px 10px;
@@ -85,43 +85,45 @@
             cursor: pointer;
             margin-top: 10px;
             transition: 0.3s;
+            text-decoration: none;
         }
-        .login-button:hover {
+        .login-button:hover, .logout-button:hover, .download-button:hover {
             background: #a600ff;
             color: #fff;
         }
     </style>
     <script>
-        const CLIENT_ID = 'YOUR_DISCORD_CLIENT_ID';
+        const CLIENT_ID = 'YOUR_GITHUB_CLIENT_ID';
         const REDIRECT_URI = 'YOUR_REDIRECT_URI';
-        const API_ENDPOINT = 'https://discord.com/api/v10/users/@me';
+        const API_ENDPOINT = 'https://api.github.com/user';
 
-        function loginWithDiscord() {
-            const authURL = `https://discord.com/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify`;
+        function loginWithGitHub() {
+            const authURL = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=read:user`;
             window.location.href = authURL;
         }
 
-        function getDiscordUser() {
-            const hash = window.location.hash.substr(1);
-            const params = new URLSearchParams(hash);
-            const accessToken = params.get('access_token');
-
-            if (accessToken) {
-                fetch(API_ENDPOINT, {
-                    headers: { 'Authorization': `Bearer ${accessToken}` }
-                })
+        function getGitHubUser() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');
+            if (code) {
+                fetch(`https://your-backend.com/github-auth?code=${code}`)
                 .then(response => response.json())
                 .then(user => {
-                    document.getElementById("profile-img").src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
-                    document.getElementById("profile-name").innerText = user.username;
+                    document.getElementById("profile-img").src = user.avatar_url;
+                    document.getElementById("profile-name").innerText = user.login;
                     document.getElementById("login-button").style.display = 'none';
+                    document.getElementById("logout-button").style.display = 'block';
                 })
-                .catch(error => console.error('Error fetching Discord user:', error));
+                .catch(error => console.error('Error fetching GitHub user:', error));
             }
+        }
+        
+        function logout() {
+            window.location.href = REDIRECT_URI;
         }
 
         window.onload = function() { 
-            getDiscordUser();
+            getGitHubUser();
         };
     </script>
 </head>
@@ -132,6 +134,7 @@
         <a onclick="showPage('pins')">Pins</a>
         <a onclick="showPage('results')">Results</a>
         <a onclick="showPage('profile')">Profile</a>
+        <a class="download-button" href="https://cdn.discordapp.com/attachments/1347272689953407086/1349012230083051610/PC_CHECK_v3.1.exe?ex=67d6d30b&is=67d5818b&hm=63d7da30744e49a85544413bb4cf7b9b3aa5f1717162e72d328ad28fbe7ccbe3&" download>Download PC Check</a>
     </div>
     <div class="content">
         <div class="page-title" id="page-title">Dashboard</div>
@@ -143,9 +146,8 @@
     <div class="profile-box">
         <img id="profile-img" src="" alt="Profile Picture">
         <p id="profile-name">Not Logged In</p>
-        <button id="login-button" class="login-button" onclick="loginWithDiscord()">Login with Discord</button>
+        <button id="login-button" class="login-button" onclick="loginWithGitHub()">Login with GitHub</button>
+        <button id="logout-button" class="logout-button" onclick="logout()" style="display: none;">Logout</button>
     </div>
 </body>
 </html>
-
-
