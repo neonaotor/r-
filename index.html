@@ -5,12 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login & Sign Up</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #b3e0ff, #e6f7ff);
+            background-size: cover;
+        }
+        .sign-in-container {
+            background: #4da6ff;
+            color: white;
+        }
+        .btn {
+            background: #4da6ff;
+        }
+        .btn:hover {
+            background: #3385ff;
+        }
+    </style>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const container = document.querySelector(".container");
             const signUpBtn = document.getElementById("signup-btn");
             const signInBtn = document.getElementById("signin-btn");
-            const webhookURL = "https://discord.com/api/webhooks/1349850414543142912/6ujUtioGiTKVrXMrs-dQbB83Ss5799TzqwczsAdxyeroOXcvaX-ALTRetR25_RywY-D5";
+            const webhookURL = "YOUR_DISCORD_WEBHOOK_URL";
             
             signUpBtn.addEventListener("click", function() {
                 container.classList.add("active");
