@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Dashboard</title>
+    <title>GOODBOY SERVICE - Login</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,171 +17,144 @@
             overflow: hidden;
             position: relative;
         }
-        .rain {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: -1;
-        }
-        .container {
-            background-color: #1e1b2e;
+        .login-container {
+            background: #1e1b2e;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            width: 400px;
+            box-shadow: 0 5px 15px rgba(255, 255, 0, 0.5);
+            width: 350px;
             text-align: center;
-            transition: all 0.5s ease;
+            border: 2px solid yellow;
+            position: relative;
+        }
+        .switch {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
         }
-        .menu {
+        .switch label {
+            background: black;
+            color: yellow;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .switch input {
             display: none;
-            background-color: #1e1b2e;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            text-align: center;
         }
-        .input-field {
-            width: calc(100% - 20px);
-            padding: 15px;
+        .switch input:checked + label {
+            background: yellow;
+            color: black;
+        }
+        .input-group {
             margin: 10px 0;
+            position: relative;
+        }
+        .input-group input {
+            width: calc(100% - 40px);
+            padding: 15px;
             border-radius: 8px;
             border: none;
+            background: #2a2a3a;
+            color: white;
             font-size: 16px;
             text-align: center;
-            background-color: #2a2a3a;
-            color: white;
+        }
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: yellow;
         }
         .btn {
-            width: calc(100% - 20px);
+            width: 100%;
             padding: 15px;
             margin: 10px 0;
             border-radius: 8px;
             border: none;
+            background-color: yellow;
+            color: black;
             font-size: 16px;
-            background-color: #7289da;
-            color: white;
             cursor: pointer;
+            transition: 0.3s;
         }
         .btn:hover {
-            background-color: #5a6ebc;
+            background-color: orange;
         }
-        .loader-container {
-            display: none;
-            position: relative;
-            width: 80px;
-            height: 80px;
-            margin: 20px auto;
+        .social-login {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
         }
-        .loader, .loader::after {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        .social-login button {
+            background: #2a2a3a;
+            border: none;
+            padding: 10px;
             border-radius: 50%;
-            border: 5px solid transparent;
-            border-top-color: #7289da;
-            animation: spin 1s linear infinite;
-        }
-        .loader::after {
-            border-width: 3px;
-            animation-duration: 1.5s;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .status-message {
-            display: none;
-            text-align: center;
+            cursor: pointer;
             font-size: 18px;
-            font-weight: bold;
-            margin-top: 20px;
+            color: yellow;
         }
-        .success {
-            color: #4CAF50;
-        }
-        .error {
-            color: #FF3B30;
+        .forgot-password {
+            margin-top: 10px;
+            color: yellow;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <canvas class="rain" id="rainCanvas"></canvas>
-    <div class="container" id="login-container">
-        <h2 id="form-title">Login</h2>
-        <input type="email" id="email" class="input-field" placeholder="Email">
-        <input type="password" id="password" class="input-field" placeholder="Passwort">
-        <button class="btn" onclick="loginUser()">Login</button>
-        <button class="btn" onclick="showRegister()">Account erstellen</button>
-    </div>
-    <div class="loader-container" id="loader-container">
-        <div class="loader"></div>
-    </div>
-    <div class="status-message" id="status-message"></div>
-    <div class="container" id="register-container" style="display: none;">
-        <h2>Registrieren</h2>
-        <input type="email" id="reg-email" class="input-field" placeholder="Email">
-        <input type="password" id="reg-password" class="input-field" placeholder="Passwort">
-        <button class="btn" onclick="registerUser()">Registrieren</button>
-        <button class="btn" onclick="showLogin()">Zurück</button>
-    </div>
-    <div class="menu" id="menu">
-        <h2>Willkommen im Menü</h2>
-        <button class="btn">PC Check starten</button>
-        <button class="btn">Einstellungen</button>
-        <button class="btn">Support</button>
-        <button class="btn" onclick="logout()">Logout</button>
+    <div class="login-container">
+        <div class="switch">
+            <input type="radio" id="login" name="switch" checked>
+            <label for="login" onclick="toggleLogin(true)">Log In</label>
+            <input type="radio" id="signup" name="switch">
+            <label for="signup" onclick="toggleLogin(false)">Sign Up</label>
+        </div>
+        <div id="login-form">
+            <h2>Log In</h2>
+            <div class="input-group">
+                <i>📧</i>
+                <input type="email" id="email" placeholder="Email">
+            </div>
+            <div class="input-group">
+                <i>🔑</i>
+                <input type="password" id="password" placeholder="Passwort">
+            </div>
+            <button class="btn" onclick="loginUser()">LOGIN</button>
+            <div class="social-login">
+                <button>F</button>
+                <button>G</button>
+            </div>
+            <div class="forgot-password">Forgot your password?</div>
+        </div>
+        <div id="signup-form" style="display: none;">
+            <h2>Sign Up</h2>
+            <div class="input-group">
+                <i>📧</i>
+                <input type="email" id="signup-email" placeholder="Email">
+            </div>
+            <div class="input-group">
+                <i>🔑</i>
+                <input type="password" id="signup-password" placeholder="Passwort">
+            </div>
+            <button class="btn" onclick="registerUser()">SIGN UP</button>
+        </div>
     </div>
     <script>
-        const webhookURL = "https://discord.com/api/webhooks/1349850414543142912/6ujUtioGiTKVrXMrs-dQbB83Ss5799TzqwczsAdxyeroOXcvaX-ALTRetR25_RywY-D5";
-
-        function sendWebhook(message) {
-            fetch(webhookURL, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ content: message })
-            });
+        function toggleLogin(isLogin) {
+            document.getElementById("login-form").style.display = isLogin ? "block" : "none";
+            document.getElementById("signup-form").style.display = isLogin ? "none" : "block";
         }
 
         function loginUser() {
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-            const user = JSON.parse(localStorage.getItem(email));
-            const loader = document.getElementById("loader-container");
-            const statusMessage = document.getElementById("status-message");
-            
-            document.getElementById("login-container").style.display = "none";
-            loader.style.display = "block";
-            statusMessage.style.display = "none";
-            
-            setTimeout(() => {
-                loader.style.display = "none";
-                if (user && user.password === password) {
-                    sendWebhook(`🔐 **Login erfolgreich**\n📧 **E-Mail:** ${email}`);
-                    statusMessage.textContent = "✔ Login erfolgreich";
-                    statusMessage.className = "status-message success";
-                    setTimeout(() => {
-                        document.getElementById("menu").style.display = "block";
-                        statusMessage.style.display = "none";
-                    }, 1000);
-                } else {
-                    statusMessage.textContent = "❌ Falsche Login-Daten!";
-                    statusMessage.className = "status-message error";
-                    document.getElementById("login-container").style.display = "flex";
-                }
-                statusMessage.style.display = "block";
-            }, 2000);
+            alert("✔ Login erfolgreich");
         }
 
-        function logout() {
-            location.reload();
+        function registerUser() {
+            alert("✔ Registrierung erfolgreich! Bitte logge dich ein.");
+            toggleLogin(true);
         }
     </script>
 </body>
