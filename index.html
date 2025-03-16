@@ -19,7 +19,7 @@
 
         .container {
             width: 350px;
-            height: 450px;
+            height: 500px;
             position: relative;
             perspective: 1000px;
         }
@@ -28,7 +28,7 @@
             width: 100%;
             height: 100%;
             position: absolute;
-            transition: transform 0.6s;
+            transition: transform 0.6s ease-in-out;
             transform-style: preserve-3d;
         }
 
@@ -53,18 +53,18 @@
         }
 
         .form-container h2 {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .input-group {
             position: relative;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             width: 100%;
         }
 
         .input-group input {
             width: calc(100% - 40px);
-            padding: 10px;
+            padding: 12px;
             border-radius: 8px;
             border: none;
             background: #2a2a3a;
@@ -75,7 +75,7 @@
 
         .btn {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border-radius: 8px;
             border: none;
             background-color: yellow;
@@ -83,6 +83,7 @@
             font-size: 16px;
             cursor: pointer;
             transition: 0.3s;
+            margin-top: 10px;
         }
 
         .btn:hover {
@@ -92,13 +93,13 @@
         .social-login {
             display: flex;
             justify-content: space-around;
-            margin-top: 10px;
+            margin-top: 20px;
         }
 
         .social-login button {
             background: #2a2a3a;
             border: none;
-            padding: 10px;
+            padding: 12px;
             border-radius: 50%;
             cursor: pointer;
             font-size: 18px;
@@ -106,7 +107,7 @@
         }
 
         .forgot-password {
-            margin-top: 10px;
+            margin-top: 15px;
             color: yellow;
             cursor: pointer;
         }
@@ -114,31 +115,40 @@
         /* SCHIEBEREGLER DESIGN */
         .toggle-container {
             position: absolute;
-            top: -40px;
+            top: -50px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             align-items: center;
-            background: black;
-            padding: 5px;
-            border-radius: 20px;
-            width: 100px;
+            background: white;
+            padding: 8px;
+            border-radius: 30px;
+            width: 130px;
             justify-content: space-between;
             cursor: pointer;
             transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(255, 255, 0, 0.5);
+        }
+
+        .toggle-text {
+            color: black;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 0 10px;
         }
 
         .toggle-circle {
-            width: 25px;
-            height: 25px;
+            width: 30px;
+            height: 30px;
             background: yellow;
             border-radius: 50%;
             position: absolute;
             transition: 0.3s;
+            left: 5px;
         }
 
         .active .toggle-circle {
-            transform: translateX(50px);
+            transform: translateX(80px);
         }
 
         .back {
@@ -150,9 +160,9 @@
 
     <div class="container">
         <div class="toggle-container" onclick="flipCard()">
-            <span style="color: yellow;">Log In</span>
+            <span class="toggle-text">Log In</span>
             <div class="toggle-circle"></div>
-            <span style="color: yellow;">Sign Up</span>
+            <span class="toggle-text">Sign Up</span>
         </div>
 
         <div class="card" id="card">
@@ -191,6 +201,8 @@
         function flipCard() {
             let card = document.getElementById("card");
             let toggle = document.querySelector(".toggle-container");
+            let circle = document.querySelector(".toggle-circle");
+
             card.classList.toggle("flip");
             toggle.classList.toggle("active");
         }
