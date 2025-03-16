@@ -147,15 +147,20 @@
             transform: translate(75px, -50%);
         }
 
+        /* Menü im alten Stil */
         .menu {
             display: none;
-            text-align: center;
-            width: 300px;
+            width: 350px;
             padding: 20px;
             background: black;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 195, 255, 0.8);
             border: 2px solid #00c3ff;
+            text-align: center;
+        }
+
+        .menu h2 {
+            color: #00c3ff;
         }
 
         .menu button {
@@ -223,7 +228,10 @@
     </div>
 
     <div class="menu" id="menu">
-        <h2>Willkommen im Menü</h2>
+        <h2>GOODBOY SERVICE</h2>
+        <button onclick="startPCCheck()">PC Check starten</button>
+        <button onclick="showSettings()">Einstellungen</button>
+        <button onclick="contactSupport()">Support</button>
         <button onclick="logout()">Logout</button>
     </div>
 
@@ -231,11 +239,8 @@
         let users = {};
 
         function flipCard() {
-            let card = document.getElementById("card");
-            let toggle = document.querySelector(".toggle-container");
-
-            card.classList.toggle("flipped");
-            toggle.classList.toggle("active");
+            document.getElementById("card").classList.toggle("flipped");
+            document.querySelector(".toggle-container").classList.toggle("active");
         }
 
         function loginUser() {
@@ -247,19 +252,6 @@
                 document.getElementById("menu").style.display = "block";
             } else {
                 document.getElementById("login-error").style.display = "block";
-            }
-        }
-
-        function registerUser() {
-            let email = document.getElementById("signup-email").value;
-            let password = document.getElementById("signup-password").value;
-
-            if (email.includes("@") && password !== "") {
-                users[email] = password;
-                alert("✔ Registrierung erfolgreich! Jetzt einloggen.");
-                flipCard();
-            } else {
-                document.getElementById("signup-error").style.display = "block";
             }
         }
 
