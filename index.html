@@ -16,12 +16,14 @@
             margin: 0;
             overflow: hidden;
         }
+
         .container {
             width: 350px;
-            height: 400px;
+            height: 450px;
             position: relative;
             perspective: 1000px;
         }
+
         .card {
             width: 100%;
             height: 100%;
@@ -29,9 +31,11 @@
             transition: transform 0.6s;
             transform-style: preserve-3d;
         }
+
         .flip .card {
             transform: rotateY(180deg);
         }
+
         .form-container {
             width: 100%;
             height: 100%;
@@ -47,14 +51,17 @@
             padding: 20px;
             border: 2px solid yellow;
         }
+
         .form-container h2 {
             margin-bottom: 15px;
         }
+
         .input-group {
             position: relative;
             margin-bottom: 15px;
             width: 100%;
         }
+
         .input-group input {
             width: calc(100% - 40px);
             padding: 10px;
@@ -65,6 +72,7 @@
             font-size: 16px;
             text-align: center;
         }
+
         .btn {
             width: 100%;
             padding: 10px;
@@ -76,14 +84,17 @@
             cursor: pointer;
             transition: 0.3s;
         }
+
         .btn:hover {
             background-color: orange;
         }
+
         .social-login {
             display: flex;
             justify-content: space-around;
             margin-top: 10px;
         }
+
         .social-login button {
             background: #2a2a3a;
             border: none;
@@ -93,27 +104,43 @@
             font-size: 18px;
             color: yellow;
         }
+
         .forgot-password {
             margin-top: 10px;
             color: yellow;
             cursor: pointer;
         }
-        .toggle-btn {
+
+        /* SCHIEBEREGLER DESIGN */
+        .toggle-container {
             position: absolute;
-            top: -30px;
+            top: -40px;
             left: 50%;
             transform: translateX(-50%);
-            background: yellow;
-            color: black;
-            padding: 5px 15px;
+            display: flex;
+            align-items: center;
+            background: black;
+            padding: 5px;
             border-radius: 20px;
-            font-size: 14px;
+            width: 100px;
+            justify-content: space-between;
             cursor: pointer;
             transition: 0.3s;
         }
-        .toggle-btn:hover {
-            background: orange;
+
+        .toggle-circle {
+            width: 25px;
+            height: 25px;
+            background: yellow;
+            border-radius: 50%;
+            position: absolute;
+            transition: 0.3s;
         }
+
+        .active .toggle-circle {
+            transform: translateX(50px);
+        }
+
         .back {
             transform: rotateY(180deg);
         }
@@ -122,10 +149,15 @@
 <body>
 
     <div class="container">
+        <div class="toggle-container" onclick="flipCard()">
+            <span style="color: yellow;">Log In</span>
+            <div class="toggle-circle"></div>
+            <span style="color: yellow;">Sign Up</span>
+        </div>
+
         <div class="card" id="card">
             <!-- LOGIN FORM -->
             <div class="form-container front">
-                <span class="toggle-btn" onclick="flipCard()">Sign Up →</span>
                 <h2>Log In</h2>
                 <div class="input-group">
                     <input type="email" id="email" placeholder="Email">
@@ -143,7 +175,6 @@
 
             <!-- SIGN UP FORM -->
             <div class="form-container back">
-                <span class="toggle-btn" onclick="flipCard()">← Log In</span>
                 <h2>Sign Up</h2>
                 <div class="input-group">
                     <input type="email" id="signup-email" placeholder="Email">
@@ -158,7 +189,10 @@
 
     <script>
         function flipCard() {
-            document.getElementById("card").classList.toggle("flip");
+            let card = document.getElementById("card");
+            let toggle = document.querySelector(".toggle-container");
+            card.classList.toggle("flip");
+            toggle.classList.toggle("active");
         }
 
         function loginUser() {
