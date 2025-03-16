@@ -92,53 +92,29 @@
             transition: 0.3s;
             margin-top: 10px;
             box-shadow: 0 0 15px rgba(0, 195, 255, 0.8);
+            position: relative;
+            overflow: hidden;
         }
 
         .btn:hover {
             background-color: #009bcc;
         }
 
-        /* Schieberegler */
-        .toggle-container {
+        /* Ladeanimation */
+        .btn::after {
+            content: "";
             position: absolute;
-            top: -50px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            align-items: center;
-            background: white;
-            padding: 8px;
-            border-radius: 30px;
-            width: 150px;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 0 15px rgba(0, 195, 255, 0.8);
-            justify-content: space-between;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            border: 3px solid white;
+            animation: loadEffect 1s linear infinite;
         }
 
-        .toggle-text {
-            color: black;
-            font-size: 14px;
-            font-weight: bold;
-            width: 50px;
-            text-align: center;
-        }
-
-        .toggle-circle {
-            width: 30px;
-            height: 30px;
-            background: #00c3ff;
-            border-radius: 50%;
-            position: absolute;
-            transition: 0.3s;
-            left: 25px;
-            top: 50%;
-            transform: translateY(-50%);
-            box-shadow: 0 0 10px rgba(0, 195, 255, 0.8);
-        }
-
-        .active .toggle-circle {
-            transform: translate(75px, -50%);
+        @keyframes loadEffect {
+            0% { width: 0%; }
+            100% { width: 100%; }
         }
 
         /* Menü im alten Stil */
@@ -186,12 +162,6 @@
 <body>
 
     <div class="container" id="login-container">
-        <div class="toggle-container" onclick="flipCard()">
-            <span class="toggle-text">Log In</span>
-            <div class="toggle-circle"></div>
-            <span class="toggle-text">Sign Up</span>
-        </div>
-
         <div class="card" id="card">
             <!-- LOGIN FORM -->
             <div class="form-container front">
@@ -232,11 +202,6 @@
     <script>
         let users = {};
 
-        function flipCard() {
-            document.getElementById("card").classList.toggle("flipped");
-            document.querySelector(".toggle-container").classList.toggle("active");
-        }
-
         function loginUser() {
             let email = document.getElementById("email").value;
             let password = document.getElementById("password").value;
@@ -262,8 +227,25 @@
             }
         }
 
+        function flipCard() {
+            let card = document.getElementById("card");
+            card.classList.toggle("flipped");
+        }
+
         function logout() {
             location.reload();
+        }
+
+        function startPCCheck() {
+            alert("🔍 PC Check gestartet!");
+        }
+
+        function showSettings() {
+            alert("⚙️ Einstellungen geöffnet!");
+        }
+
+        function contactSupport() {
+            alert("📞 Support kontaktiert!");
         }
     </script>
 
