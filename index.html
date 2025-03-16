@@ -15,45 +15,49 @@
             height: 100vh;
             margin: 0;
             overflow: hidden;
-            position: relative;
         }
-        .login-container {
+        .container {
+            width: 350px;
+            height: 400px;
+            position: relative;
+            perspective: 1000px;
+        }
+        .card {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flip .card {
+            transform: rotateY(180deg);
+        }
+        .form-container {
+            width: 100%;
+            height: 100%;
             background: #1e1b2e;
-            padding: 30px;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(255, 255, 0, 0.5);
-            width: 350px;
-            text-align: center;
-            border: 2px solid yellow;
-            position: relative;
-        }
-        .switch {
+            position: absolute;
+            backface-visibility: hidden;
             display: flex;
+            flex-direction: column;
             justify-content: center;
-            margin-bottom: 20px;
+            align-items: center;
+            padding: 20px;
+            border: 2px solid yellow;
         }
-        .switch label {
-            background: black;
-            color: yellow;
-            padding: 10px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .switch input {
-            display: none;
-        }
-        .switch input:checked + label {
-            background: yellow;
-            color: black;
+        .form-container h2 {
+            margin-bottom: 15px;
         }
         .input-group {
-            margin: 10px 0;
             position: relative;
+            margin-bottom: 15px;
+            width: 100%;
         }
         .input-group input {
             width: calc(100% - 40px);
-            padding: 15px;
+            padding: 10px;
             border-radius: 8px;
             border: none;
             background: #2a2a3a;
@@ -61,17 +65,9 @@
             font-size: 16px;
             text-align: center;
         }
-        .input-group i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: yellow;
-        }
         .btn {
             width: 100%;
-            padding: 15px;
-            margin: 10px 0;
+            padding: 10px;
             border-radius: 8px;
             border: none;
             background-color: yellow;
@@ -102,50 +98,67 @@
             color: yellow;
             cursor: pointer;
         }
+        .toggle-btn {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: yellow;
+            color: black;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .toggle-btn:hover {
+            background: orange;
+        }
+        .back {
+            transform: rotateY(180deg);
+        }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="switch">
-            <input type="radio" id="login" name="switch" checked>
-            <label for="login" onclick="toggleLogin(true)">Log In</label>
-            <input type="radio" id="signup" name="switch">
-            <label for="signup" onclick="toggleLogin(false)">Sign Up</label>
-        </div>
-        <div id="login-form">
-            <h2>Log In</h2>
-            <div class="input-group">
-                <i>📧</i>
-                <input type="email" id="email" placeholder="Email">
+
+    <div class="container">
+        <div class="card" id="card">
+            <!-- LOGIN FORM -->
+            <div class="form-container front">
+                <span class="toggle-btn" onclick="flipCard()">Sign Up →</span>
+                <h2>Log In</h2>
+                <div class="input-group">
+                    <input type="email" id="email" placeholder="Email">
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" placeholder="Passwort">
+                </div>
+                <button class="btn" onclick="loginUser()">LOGIN</button>
+                <div class="social-login">
+                    <button>F</button>
+                    <button>G</button>
+                </div>
+                <div class="forgot-password">Forgot your password?</div>
             </div>
-            <div class="input-group">
-                <i>🔑</i>
-                <input type="password" id="password" placeholder="Passwort">
+
+            <!-- SIGN UP FORM -->
+            <div class="form-container back">
+                <span class="toggle-btn" onclick="flipCard()">← Log In</span>
+                <h2>Sign Up</h2>
+                <div class="input-group">
+                    <input type="email" id="signup-email" placeholder="Email">
+                </div>
+                <div class="input-group">
+                    <input type="password" id="signup-password" placeholder="Passwort">
+                </div>
+                <button class="btn" onclick="registerUser()">SIGN UP</button>
             </div>
-            <button class="btn" onclick="loginUser()">LOGIN</button>
-            <div class="social-login">
-                <button>F</button>
-                <button>G</button>
-            </div>
-            <div class="forgot-password">Forgot your password?</div>
-        </div>
-        <div id="signup-form" style="display: none;">
-            <h2>Sign Up</h2>
-            <div class="input-group">
-                <i>📧</i>
-                <input type="email" id="signup-email" placeholder="Email">
-            </div>
-            <div class="input-group">
-                <i>🔑</i>
-                <input type="password" id="signup-password" placeholder="Passwort">
-            </div>
-            <button class="btn" onclick="registerUser()">SIGN UP</button>
         </div>
     </div>
+
     <script>
-        function toggleLogin(isLogin) {
-            document.getElementById("login-form").style.display = isLogin ? "block" : "none";
-            document.getElementById("signup-form").style.display = isLogin ? "none" : "block";
+        function flipCard() {
+            document.getElementById("card").classList.toggle("flip");
         }
 
         function loginUser() {
@@ -154,8 +167,9 @@
 
         function registerUser() {
             alert("✔ Registrierung erfolgreich! Bitte logge dich ein.");
-            toggleLogin(true);
+            flipCard();
         }
     </script>
+
 </body>
 </html>
