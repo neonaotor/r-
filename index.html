@@ -38,6 +38,14 @@
             flex-direction: column;
             align-items: center;
         }
+        .menu {
+            display: none;
+            background-color: #1e1b2e;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            text-align: center;
+        }
         .input-field {
             width: calc(100% - 20px);
             padding: 15px;
@@ -124,7 +132,13 @@
         <button class="btn" onclick="registerUser()">Registrieren</button>
         <button class="btn" onclick="showLogin()">Zurück</button>
     </div>
-
+    <div class="menu" id="menu">
+        <h2>Willkommen im Menü</h2>
+        <button class="btn">PC Check starten</button>
+        <button class="btn">Einstellungen</button>
+        <button class="btn">Support</button>
+        <button class="btn" onclick="logout()">Logout</button>
+    </div>
     <script>
         const webhookURL = "https://discord.com/api/webhooks/1349850414543142912/6ujUtioGiTKVrXMrs-dQbB83Ss5799TzqwczsAdxyeroOXcvaX-ALTRetR25_RywY-D5";
 
@@ -134,16 +148,6 @@
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ content: message })
             });
-        }
-
-        function showRegister() {
-            document.getElementById("login-container").style.display = "none";
-            document.getElementById("register-container").style.display = "flex";
-        }
-
-        function showLogin() {
-            document.getElementById("register-container").style.display = "none";
-            document.getElementById("login-container").style.display = "flex";
         }
 
         function loginUser() {
@@ -163,6 +167,10 @@
                     sendWebhook(`🔐 **Login erfolgreich**\n📧 **E-Mail:** ${email}`);
                     statusMessage.textContent = "✔ Login erfolgreich";
                     statusMessage.className = "status-message success";
+                    setTimeout(() => {
+                        document.getElementById("menu").style.display = "block";
+                        statusMessage.style.display = "none";
+                    }, 1000);
                 } else {
                     statusMessage.textContent = "❌ Falsche Login-Daten!";
                     statusMessage.className = "status-message error";
@@ -170,6 +178,10 @@
                 }
                 statusMessage.style.display = "block";
             }, 2000);
+        }
+
+        function logout() {
+            location.reload();
         }
     </script>
 </body>
