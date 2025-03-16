@@ -41,7 +41,6 @@
             height: 100%;
             background: black;
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 195, 255, 0.8);
             position: absolute;
             backface-visibility: hidden;
             display: flex;
@@ -50,10 +49,28 @@
             align-items: center;
             padding: 20px;
             border: 2px solid #00c3ff;
+            box-shadow: 0 0 20px rgba(0, 195, 255, 0.8);
+            position: relative;
+            overflow: hidden;
         }
 
-        .back {
-            transform: rotateY(180deg);
+        .form-container::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 3px solid white;
+            top: 0;
+            left: 0;
+            animation: loadEffect 2s linear infinite;
+        }
+
+        @keyframes loadEffect {
+            0% { clip-path: inset(0 100% 100% 0); }
+            25% { clip-path: inset(0 0 100% 0); }
+            50% { clip-path: inset(0 0 0 100%); }
+            75% { clip-path: inset(100% 0 0 0); }
+            100% { clip-path: inset(100% 100% 0 0); }
         }
 
         .form-container h2 {
@@ -92,32 +109,13 @@
             transition: 0.3s;
             margin-top: 10px;
             box-shadow: 0 0 15px rgba(0, 195, 255, 0.8);
-            position: relative;
-            overflow: hidden;
         }
 
         .btn:hover {
             background-color: #009bcc;
         }
 
-        /* Ladeanimation */
-        .btn::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 100%;
-            border: 3px solid white;
-            animation: loadEffect 1s linear infinite;
-        }
-
-        @keyframes loadEffect {
-            0% { width: 0%; }
-            100% { width: 100%; }
-        }
-
-        /* Menü im alten Stil */
+        /* Menü */
         .menu {
             display: none;
             width: 350px;
