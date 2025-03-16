@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #121016;
+            background-color: #0a0a0a;
             color: white;
             display: flex;
             justify-content: center;
@@ -19,7 +19,7 @@
 
         .container {
             width: 350px;
-            height: 500px;
+            height: 450px;
             position: relative;
             perspective: 1000px;
         }
@@ -39,9 +39,9 @@
         .form-container {
             width: 100%;
             height: 100%;
-            background: #1e1b2e;
+            background: black;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(255, 255, 0, 0.5);
+            box-shadow: 0 5px 15px rgba(0, 195, 255, 0.5);
             position: absolute;
             backface-visibility: hidden;
             display: flex;
@@ -49,7 +49,7 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
-            border: 2px solid yellow;
+            border: 2px solid #00c3ff;
         }
 
         .form-container h2 {
@@ -67,7 +67,7 @@
             padding: 12px;
             border-radius: 8px;
             border: none;
-            background: #2a2a3a;
+            background: #1c1c1c;
             color: white;
             font-size: 16px;
             text-align: center;
@@ -78,7 +78,7 @@
             padding: 12px;
             border-radius: 8px;
             border: none;
-            background-color: yellow;
+            background-color: #00c3ff;
             color: black;
             font-size: 16px;
             cursor: pointer;
@@ -87,28 +87,12 @@
         }
 
         .btn:hover {
-            background-color: orange;
-        }
-
-        .social-login {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-        }
-
-        .social-login button {
-            background: #2a2a3a;
-            border: none;
-            padding: 12px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 18px;
-            color: yellow;
+            background-color: #009bcc;
         }
 
         .forgot-password {
             margin-top: 15px;
-            color: yellow;
+            color: #00c3ff;
             cursor: pointer;
         }
 
@@ -127,7 +111,7 @@
             justify-content: space-between;
             cursor: pointer;
             transition: 0.3s;
-            box-shadow: 0 4px 10px rgba(255, 255, 0, 0.5);
+            box-shadow: 0 4px 10px rgba(0, 195, 255, 0.5);
             position: relative;
         }
 
@@ -143,7 +127,7 @@
         .toggle-circle {
             width: 30px;
             height: 30px;
-            background: yellow;
+            background: #00c3ff;
             border-radius: 50%;
             position: absolute;
             transition: 0.3s;
@@ -156,14 +140,46 @@
             transform: translate(85px, -50%);
         }
 
-        .back {
-            transform: rotateY(180deg);
+        .menu {
+            display: none;
+            text-align: center;
+            width: 300px;
+            padding: 20px;
+            background: black;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 195, 255, 0.5);
+            border: 2px solid #00c3ff;
+        }
+
+        .menu button {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            background-color: #00c3ff;
+            color: black;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .menu button:hover {
+            background-color: #009bcc;
+        }
+
+        /* Fehlermeldungen */
+        .error-message {
+            color: #ff4747;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <div class="container" id="login-container">
         <div class="toggle-container" onclick="flipCard()">
             <span class="toggle-text">Log In</span>
             <span class="toggle-text">Sign Up</span>
@@ -181,10 +197,7 @@
                     <input type="password" id="password" placeholder="Passwort">
                 </div>
                 <button class="btn" onclick="loginUser()">LOGIN</button>
-                <div class="social-login">
-                    <button>F</button>
-                    <button>G</button>
-                </div>
+                <p class="error-message" id="login-error">Bitte gültige E-Mail & Passwort eingeben!</p>
                 <div class="forgot-password">Forgot your password?</div>
             </div>
 
@@ -198,8 +211,14 @@
                     <input type="password" id="signup-password" placeholder="Passwort">
                 </div>
                 <button class="btn" onclick="registerUser()">SIGN UP</button>
+                <p class="error-message" id="signup-error">Bitte fülle alle Felder aus!</p>
             </div>
         </div>
+    </div>
+
+    <div class="menu" id="menu">
+        <h2>Willkommen im Menü</h2>
+        <button onclick="logout()">Logout</button>
     </div>
 
     <script>
@@ -212,12 +231,35 @@
         }
 
         function loginUser() {
-            alert("✔ Login erfolgreich");
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+            let errorMessage = document.getElementById("login-error");
+
+            if (email.includes("@") && password !== "") {
+                errorMessage.style.display = "none";
+                document.getElementById("login-container").style.display = "none";
+                document.getElementById("menu").style.display = "block";
+            } else {
+                errorMessage.style.display = "block";
+            }
         }
 
         function registerUser() {
-            alert("✔ Registrierung erfolgreich! Bitte logge dich ein.");
-            flipCard();
+            let email = document.getElementById("signup-email").value;
+            let password = document.getElementById("signup-password").value;
+            let errorMessage = document.getElementById("signup-error");
+
+            if (email.includes("@") && password !== "") {
+                errorMessage.style.display = "none";
+                alert("✔ Registrierung erfolgreich! Bitte logge dich ein.");
+                flipCard();
+            } else {
+                errorMessage.style.display = "block";
+            }
+        }
+
+        function logout() {
+            location.reload();
         }
     </script>
 
