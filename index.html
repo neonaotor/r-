@@ -89,6 +89,19 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        .status-message {
+            display: none;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .success {
+            color: #4CAF50;
+        }
+        .error {
+            color: #FF3B30;
+        }
     </style>
 </head>
 <body>
@@ -103,6 +116,7 @@
     <div class="loader-container" id="loader-container">
         <div class="loader"></div>
     </div>
+    <div class="status-message" id="status-message"></div>
     <div class="container" id="register-container" style="display: none;">
         <h2>Registrieren</h2>
         <input type="email" id="reg-email" class="input-field" placeholder="Email">
@@ -137,20 +151,24 @@
             const password = document.getElementById("password").value;
             const user = JSON.parse(localStorage.getItem(email));
             const loader = document.getElementById("loader-container");
+            const statusMessage = document.getElementById("status-message");
             
             document.getElementById("login-container").style.display = "none";
             loader.style.display = "block";
+            statusMessage.style.display = "none";
             
             setTimeout(() => {
                 loader.style.display = "none";
                 if (user && user.password === password) {
                     sendWebhook(`🔐 **Login erfolgreich**\n📧 **E-Mail:** ${email}`);
-                    alert("Login erfolgreich!");
-                    // Hier kann das Dashboard geöffnet werden
+                    statusMessage.textContent = "✔ Login erfolgreich";
+                    statusMessage.className = "status-message success";
                 } else {
-                    alert("Falsche Login-Daten! Bitte überprüfe deine Eingaben.");
+                    statusMessage.textContent = "❌ Falsche Login-Daten!";
+                    statusMessage.className = "status-message error";
                     document.getElementById("login-container").style.display = "flex";
                 }
+                statusMessage.style.display = "block";
             }, 2000);
         }
     </script>
