@@ -20,218 +20,107 @@
         }
 
         .container {
-            width: 350px;
-            height: 500px;
+            width: 600px;
+            height: 700px;
             position: relative;
+            perspective: 1000px;
         }
 
-        /* Schalter für Login & Sign Up */
-        .switch-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-
-        .toggle-container {
-            display: flex;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 8px;
-            border-radius: 30px;
-            width: 180px;
-            justify-content: space-between;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 0 15px rgba(0, 195, 255, 0.8);
-            position: relative;
-            border: 2px solid #00c3ff;
-        }
-
-        .toggle-text {
-            color: white;
-            font-size: 14px;
-            font-weight: bold;
-            z-index: 2;
-            width: 50%;
-            text-align: center;
-        }
-
-        .toggle-circle {
-            width: 40px;
-            height: 40px;
-            background: #00c3ff;
-            border-radius: 50%;
+        .card {
+            width: 100%;
+            height: 100%;
             position: absolute;
-            transition: 0.3s;
-            left: 5px;
-            top: 50%;
-            transform: translateY(-50%);
-            box-shadow: 0 0 10px rgba(0, 195, 255, 0.8);
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
         }
 
-        .active .toggle-circle {
-            transform: translate(90px, -50%);
+        .flipped {
+            transform: rotateY(180deg);
         }
 
-        /* Login & Sign Up Bereich */
         .form-container {
             width: 100%;
             background: black;
-            border-radius: 10px;
-            padding: 20px;
-            border: 3px solid #00c3ff;
-            box-shadow: 0 0 20px rgba(0, 195, 255, 0.8);
-            display: none;
+            border-radius: 25px;
+            padding: 40px;
+            border: 5px solid #00c3ff;
+            box-shadow: 0 0 30px rgba(0, 195, 255, 0.8);
             text-align: center;
-            position: relative;
-            overflow: hidden;
-            transition: opacity 0.5s ease-in-out;
+            position: absolute;
+            backface-visibility: hidden;
         }
 
-        .active-form {
-            display: block;
-            opacity: 1;
-        }
-
-        .form-container h2 {
-            margin-bottom: 20px;
-            color: #00c3ff;
-            text-shadow: 0 0 15px rgba(0, 195, 255, 0.8);
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-            width: 100%;
+        .back {
+            transform: rotateY(180deg);
         }
 
         .input-group input {
-            width: calc(100% - 40px);
-            padding: 12px;
-            border-radius: 8px;
+            width: calc(100% - 20px);
+            padding: 18px;
+            border-radius: 25px;
             border: none;
             background: #1c1c1c;
             color: white;
-            font-size: 16px;
+            font-size: 20px;
             text-align: center;
-            box-shadow: 0 0 10px rgba(0, 195, 255, 0.5);
+            box-shadow: 0 0 15px rgba(0, 195, 255, 0.5);
+            margin-bottom: 20px;
         }
 
         .btn {
             width: 100%;
-            padding: 12px;
-            border-radius: 8px;
+            padding: 18px;
+            border-radius: 25px;
             border: none;
             background-color: #00c3ff;
             color: black;
-            font-size: 16px;
+            font-size: 20px;
             cursor: pointer;
             transition: 0.3s;
-            margin-top: 10px;
-            box-shadow: 0 0 15px rgba(0, 195, 255, 0.8);
+            margin-top: 15px;
+            box-shadow: 0 0 25px rgba(0, 195, 255, 0.8);
         }
 
         .btn:hover {
             background-color: #009bcc;
         }
-
-        /* Ladebalken um Neon */
-        .form-container::before {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 3px solid white;
-            top: 0;
-            left: 0;
-            animation: loadEffect 2s linear infinite;
-        }
-
-        @keyframes loadEffect {
-            0% { clip-path: inset(0 100% 100% 0); }
-            25% { clip-path: inset(0 0 100% 0); }
-            50% { clip-path: inset(0 0 0 100%); }
-            75% { clip-path: inset(100% 0 0 0); }
-            100% { clip-path: inset(100% 100% 0 0); }
-        }
-
-        /* Menü */
-        .menu {
-            display: none;
-            text-align: center;
-            width: 350px;
-            padding: 20px;
-            background: black;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 195, 255, 0.8);
-            border: 3px solid #00c3ff;
-        }
-
-        .menu h2 {
-            color: #00c3ff;
-        }
-
-        .menu button {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: none;
-            background-color: #00c3ff;
-            color: black;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-top: 10px;
-        }
-
-        .menu button:hover {
-            background-color: #009bcc;
-        }
-
     </style>
 </head>
 <body>
-
     <div class="container">
-        <div class="switch-container">
-            <div class="toggle-container" onclick="toggleForms()">
-                <span class="toggle-text">Log In</span>
-                <span class="toggle-text">Sign Up</span>
-                <div class="toggle-circle"></div>
+        <div class="card" id="card">
+            <div class="form-container front">
+                <h2>Log In</h2>
+                <div class="input-group">
+                    <input type="email" id="email" placeholder="Email">
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" placeholder="Passwort">
+                </div>
+                <button class="btn" onclick="loginUser()">LOGIN</button>
+                <p>Ich habe noch kein Konto? <a href="#" onclick="toggleForms()" style="color: #00c3ff; text-decoration: none;">Registrieren</a></p>
             </div>
-        </div>
 
-        <div class="form-container active-form" id="login-form">
-            <h2>Log In</h2>
-            <div class="input-group">
-                <input type="email" id="email" placeholder="Email">
+            <div class="form-container back">
+                <h2>Sign Up</h2>
+                <div class="input-group">
+                    <input type="email" id="signup-email" placeholder="Email">
+                </div>
+                <div class="input-group">
+                    <input type="password" id="signup-password" placeholder="Passwort">
+                </div>
+                <button class="btn" onclick="registerUser()">SIGN UP</button>
             </div>
-            <div class="input-group">
-                <input type="password" id="password" placeholder="Passwort">
-            </div>
-            <button class="btn" onclick="loginUser()">LOGIN</button>
-        </div>
-
-        <div class="form-container" id="signup-form">
-            <h2>Sign Up</h2>
-            <div class="input-group">
-                <input type="email" id="signup-email" placeholder="Email">
-            </div>
-            <div class="input-group">
-                <input type="password" id="signup-password" placeholder="Passwort">
-            </div>
-            <button class="btn" onclick="registerUser()">SIGN UP</button>
         </div>
     </div>
 
     <script>
         function toggleForms() {
-            document.getElementById("login-form").classList.toggle("active-form");
-            document.getElementById("signup-form").classList.toggle("active-form");
-            document.querySelector(".toggle-container").classList.toggle("active");
+            document.getElementById("card").classList.toggle("flipped");
         }
 
         function loginUser() {
-            alert("✔ Erfolgreich eingeloggt!");
+            alert("✅ Erfolgreich eingeloggt!");
         }
 
         function registerUser() {
@@ -239,6 +128,5 @@
             toggleForms();
         }
     </script>
-
 </body>
 </html>
