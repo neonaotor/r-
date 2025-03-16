@@ -32,7 +32,7 @@
             transform-style: preserve-3d;
         }
 
-        .flip .card {
+        .flipped {
             transform: rotateY(180deg);
         }
 
@@ -123,18 +123,21 @@
             background: white;
             padding: 8px;
             border-radius: 30px;
-            width: 130px;
+            width: 160px;
             justify-content: space-between;
             cursor: pointer;
             transition: 0.3s;
             box-shadow: 0 4px 10px rgba(255, 255, 0, 0.5);
+            position: relative;
         }
 
         .toggle-text {
             color: black;
             font-size: 14px;
             font-weight: bold;
-            margin: 0 10px;
+            z-index: 2;
+            width: 50%;
+            text-align: center;
         }
 
         .toggle-circle {
@@ -145,10 +148,12 @@
             position: absolute;
             transition: 0.3s;
             left: 5px;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
         .active .toggle-circle {
-            transform: translateX(80px);
+            transform: translate(85px, -50%);
         }
 
         .back {
@@ -161,8 +166,8 @@
     <div class="container">
         <div class="toggle-container" onclick="flipCard()">
             <span class="toggle-text">Log In</span>
-            <div class="toggle-circle"></div>
             <span class="toggle-text">Sign Up</span>
+            <div class="toggle-circle"></div>
         </div>
 
         <div class="card" id="card">
@@ -201,9 +206,8 @@
         function flipCard() {
             let card = document.getElementById("card");
             let toggle = document.querySelector(".toggle-container");
-            let circle = document.querySelector(".toggle-circle");
 
-            card.classList.toggle("flip");
+            card.classList.toggle("flipped");
             toggle.classList.toggle("active");
         }
 
