@@ -204,8 +204,7 @@
                     <input type="password" id="password" placeholder="Passwort">
                 </div>
                 <button class="btn" onclick="loginUser()">LOGIN</button>
-                <p class="error-message" id="login-error">Bitte gültige E-Mail & Passwort eingeben!</p>
-                <div class="forgot-password">Forgot your password?</div>
+                <p class="error-message" id="login-error">Falsche E-Mail oder Passwort!</p>
             </div>
 
             <!-- SIGN UP FORM -->
@@ -218,7 +217,7 @@
                     <input type="password" id="signup-password" placeholder="Passwort">
                 </div>
                 <button class="btn" onclick="registerUser()">SIGN UP</button>
-                <p class="error-message" id="signup-error">Bitte fülle alle Felder aus!</p>
+                <p class="error-message" id="signup-error">Bitte gültige E-Mail & Passwort eingeben!</p>
             </div>
         </div>
     </div>
@@ -229,6 +228,8 @@
     </div>
 
     <script>
+        let users = {};
+
         function flipCard() {
             let card = document.getElementById("card");
             let toggle = document.querySelector(".toggle-container");
@@ -240,14 +241,25 @@
         function loginUser() {
             let email = document.getElementById("email").value;
             let password = document.getElementById("password").value;
-            let errorMessage = document.getElementById("login-error");
 
-            if (email.includes("@") && password !== "") {
-                errorMessage.style.display = "none";
+            if (users[email] === password) {
                 document.getElementById("login-container").style.display = "none";
                 document.getElementById("menu").style.display = "block";
             } else {
-                errorMessage.style.display = "block";
+                document.getElementById("login-error").style.display = "block";
+            }
+        }
+
+        function registerUser() {
+            let email = document.getElementById("signup-email").value;
+            let password = document.getElementById("signup-password").value;
+
+            if (email.includes("@") && password !== "") {
+                users[email] = password;
+                alert("✔ Registrierung erfolgreich! Jetzt einloggen.");
+                flipCard();
+            } else {
+                document.getElementById("signup-error").style.display = "block";
             }
         }
 
