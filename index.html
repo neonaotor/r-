@@ -3,38 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cheat Log Upload</title>
+    <title>Cheat Checker</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
         input, button { margin-top: 10px; padding: 10px; font-size: 16px; }
+        #results { margin-top: 20px; white-space: pre-wrap; text-align: left; max-width: 600px; margin: auto; }
     </style>
 </head>
 <body>
 
-    <h2>Log-Datei Hochladen</h2>
-    <input type="file" id="fileInput">
-    <button onclick="uploadFile()">Hochladen</button>
+    <h2>🔍 Online Cheat Checker</h2>
+    <button onclick="scanSystem()">🔎 System scannen</button>
+    <button onclick="uploadResults()">📤 Hochladen</button>
     
-    <p id="status"></p>
+    <h3>📌 Ergebnisse:</h3>
+    <pre id="results">Noch keine Daten...</pre>
+
+    <h3>📜 Ergebnisse abrufen</h3>
+    <input type="text" id="codeInput" placeholder="Code eingeben">
+    <button onclick="getFile()">📥 Download</button>
+    <p id="fileStatus"></p>
 
     <script>
-        function uploadFile() {
-            let fileInput = document.getElementById("fileInput").files[0];
-            if (!fileInput) {
-                document.getElementById("status").innerText = "Bitte eine Datei auswählen!";
-                return;
-            }
+        let scanResults = "";
+        let accessCode = "";
 
-            let formData = new FormData();
-            formData.append("file", fileInput);
+        function scanSystem() {
+            scanResults = "🔎 Cheat-Check Ergebnisse\n===========================\n";
+            scanResults += "📌 Laufende Prozesse:\n";
+
+            fetch('scan.php?action=processes')
+            .then(response => response.json())
+            .then(data => {
+                scanResults += data.join("\n") + "\n\n";
+                scanResults += "📂 Verdächtige Dateien:\n";
+
+                return fetch('scan.php?action=files');
+            })
+            .then(response => response.json())
+            .then(data => {
+                scanResults += data.join("\n") + "\n";
+                document.getElementById("results").innerText = scanResults;
+            })
+            .catch(error => {
+                document.getElementById("results").innerText = "Fehler beim Scannen: " + error;
+            });
+        }
+
+        function uploadResults() {
+            if (!scanResults) { alert("Bitte zuerst scannen!"); return; }
 
             fetch("upload.php", {
                 method: "POST",
-                body: formData
+                body: JSON.stringify({ content: scanResults }),
+                headers: { "Content-Type": "application/json" }
             })
-            .then(response => response.text())
-            .then(data => document.getElementById("status").innerText = data)
-            .catch(error => document.getElementById("status").innerText = "Fehler: " + error);
+            .then(response => response.json())
+            .then(data => {
+                accessCode = data.code;
+                alert("Hochgeladen! Dein Code: " + accessCode);
+            })
+            .catch(error => {
+                alert("Fehler beim Hochladen: " + error);
+            });
+        }
+
+        function getFile() {
+            let code = document.getElementById("codeInput").value;
+            fetch("upload.php?code=" + code)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) { document.getElementById("fileStatus").innerText = data.error; }
+                else { document.getElementById("fileStatus").innerHTML = `<a href="${data.download_url}" download>${data.file}</a>`; }
+            });
         }
     </script>
 
