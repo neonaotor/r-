@@ -3,140 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GOODBOY SERVICE - Login</title>
+    <title>Cheat Log Upload</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
-
-        body {
-            font-family: 'Orbitron', sans-serif;
-            background-color: #0a0a0a;
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-        }
-
-        .container {
-            width: 600px;
-            height: 700px;
-            position: relative;
-            perspective: 1000px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .card {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .flipped {
-            transform: rotateY(180deg);
-        }
-
-        .form-container {
-            width: 100%;
-            background: black;
-            border-radius: 25px;
-            padding: 40px;
-            border: 5px solid #00c3ff;
-            box-shadow: 0 0 30px rgba(0, 195, 255, 0.8);
-            text-align: center;
-            position: absolute;
-            backface-visibility: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .back {
-            transform: rotateY(180deg);
-        }
-
-        .input-group input {
-            width: 90%;
-            padding: 18px;
-            border-radius: 25px;
-            border: none;
-            background: #1c1c1c;
-            color: white;
-            font-size: 20px;
-            text-align: center;
-            box-shadow: 0 0 15px rgba(0, 195, 255, 0.5);
-            margin-bottom: 20px;
-        }
-
-        .btn {
-            width: 90%;
-            padding: 18px;
-            border-radius: 25px;
-            border: none;
-            background-color: #00c3ff;
-            color: black;
-            font-size: 20px;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-top: 15px;
-            box-shadow: 0 0 25px rgba(0, 195, 255, 0.8);
-        }
-
-        .btn:hover {
-            background-color: #009bcc;
-        }
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        input, button { margin-top: 10px; padding: 10px; font-size: 16px; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="card" id="card">
-            <div class="form-container front">
-                <h2>Log In</h2>
-                <div class="input-group">
-                    <input type="email" id="email" placeholder="Email">
-                </div>
-                <div class="input-group">
-                    <input type="password" id="password" placeholder="Passwort">
-                </div>
-                <button class="btn" onclick="loginUser()">LOGIN</button>
-                <p>Ich habe noch kein Konto? <a href="#" onclick="toggleForms()" style="color: #00c3ff; text-decoration: none;">Registrieren</a></p>
-            </div>
 
-            <div class="form-container back">
-                <h2>Sign Up</h2>
-                <div class="input-group">
-                    <input type="email" id="signup-email" placeholder="Email">
-                </div>
-                <div class="input-group">
-                    <input type="password" id="signup-password" placeholder="Passwort">
-                </div>
-                <button class="btn" onclick="registerUser()">SIGN UP</button>
-            </div>
-        </div>
-    </div>
+    <h2>Log-Datei Hochladen</h2>
+    <input type="file" id="fileInput">
+    <button onclick="uploadFile()">Hochladen</button>
+    
+    <p id="status"></p>
 
     <script>
-        function toggleForms() {
-            document.getElementById("card").classList.toggle("flipped");
-        }
+        function uploadFile() {
+            let fileInput = document.getElementById("fileInput").files[0];
+            if (!fileInput) {
+                document.getElementById("status").innerText = "Bitte eine Datei auswählen!";
+                return;
+            }
 
-        function loginUser() {
-            alert("✅ Erfolgreich eingeloggt!");
-        }
+            let formData = new FormData();
+            formData.append("file", fileInput);
 
-        function registerUser() {
-            alert("✔ Registrierung erfolgreich! Bitte logge dich ein.");
-            toggleForms();
+            fetch("upload.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => document.getElementById("status").innerText = data)
+            .catch(error => document.getElementById("status").innerText = "Fehler: " + error);
         }
     </script>
+
 </body>
 </html>
