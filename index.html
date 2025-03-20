@@ -3,33 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cheat Scan Upload</title>
+    <title>Cheat Scan Upload (Kein PHP)</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
         input, button { margin-top: 10px; padding: 10px; font-size: 16px; }
         #uploadStatus, #fileStatus { margin-top: 20px; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
     <h2>📤 Cheat Scan ZIP hochladen</h2>
-    <form action="upload.php" method="POST" enctype="multipart/form-data">
-        <input type="file" name="file" accept=".zip" required>
-        <button type="submit">📤 Hochladen</button>
-    </form>
-    <p id="uploadStatus">
-        <?php if(isset($_GET['upload'])) { echo "✅ Datei erfolgreich hochgeladen! Dein Code: " . htmlspecialchars($_GET['upload']); } ?>
-    </p>
+    <input type="file" id="fileInput" accept=".zip">
+    <button onclick="uploadFile()">📤 Hochladen</button>
+    <p id="uploadStatus"></p>
 
     <h2>📥 Ergebnisse abrufen</h2>
-    <form action="upload.php" method="GET">
-        <input type="text" name="code" placeholder="Code eingeben" required>
-        <button type="submit">🔎 Download</button>
-    </form>
-    <p id="fileStatus">
-        <?php if(isset($_GET['file'])) { echo "🔗 <a href='uploads/" . htmlspecialchars($_GET['file']) . "' download>Hier herunterladen</a>"; } ?>
-        <?php if(isset($_GET['error'])) { echo "❌ Fehler: " . htmlspecialchars($_GET['error']); } ?>
-    </p>
+    <input type="text" id="codeInput" placeholder="Code eingeben">
+    <button onclick="getFile()">🔎 Download</button>
+    <p id="fileStatus"></p>
+
+    <script>
+        let uploadedFiles = {}; // Simulierte Datenbank für Codes
+
+        function uploadFile() {
+            let fileInput = document.getElementById("fileInput").files[0];
+            if (!fileInput) { 
+                document.getElementById("uploadStatus").innerText = "❌ Bitte eine ZIP-Datei auswählen!";
+                return; 
+            }
+
+            if (fileInput.type !== "application/zip") {
+                document.getElementById("uploadStatus").innerText = "❌ Nur ZIP-Dateien erlaubt!";
+                return;
+            }
+
+            // Erzeuge einen zufälligen Code
+            let accessCode = Math.random().toString(36).substring(2, 10);
+            uploadedFiles[accessCode] = fileInput;
+
+            document.getElementById("uploadStatus").innerText = "✅ Hochgeladen! Dein Code: " + accessCode;
+        }
+
+        function getFile() {
+            let code = document.getElementById("codeInput").value;
+            if (!code || !uploadedFiles[code]) {
+                document.getElementById("fileStatus").innerText = "❌ Ungültiger Code!";
+                return;
+            }
+
+            let file = uploadedFiles[code];
+            let url = URL.createObjectURL(file);
+
+            document.getElementById("fileStatus").innerHTML = `✅ Datei gefunden: <a href="${url}" download="${file.name}">Hier herunterladen</a>`;
+        }
+    </script>
 
 </body>
 </html>
