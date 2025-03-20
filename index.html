@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cheat Scan ZIP-Upload (Kein PHP)</title>
+    <title>Textdateien hochladen & abrufen</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
         input, button { margin-top: 10px; padding: 10px; font-size: 16px; }
@@ -12,50 +12,56 @@
 </head>
 <body>
 
-    <h2>📤 ZIP-Datei hochladen</h2>
-    <input type="file" id="fileInput" accept=".zip">
-    <button onclick="uploadFile()">📤 Hochladen</button>
+    <h2>📤 Mehrere TXT-Dateien hochladen</h2>
+    <input type="file" id="fileInput" accept=".txt" multiple>
+    <button onclick="uploadFiles()">📤 Hochladen</button>
     <p id="uploadStatus"></p>
 
-    <h2>📥 Ergebnisse abrufen</h2>
+    <h2>📥 Dateien abrufen</h2>
     <input type="text" id="codeInput" placeholder="Code eingeben">
-    <button onclick="getFile()">🔎 Download</button>
+    <button onclick="getFiles()">🔎 Download</button>
     <p id="fileStatus"></p>
 
     <script>
-        let uploadedFiles = {}; // Simulierte Datenbank für Codes
+        let uploadedFiles = {}; // Speichert die Dateien mit Code
 
-        function uploadFile() {
-            let fileInput = document.getElementById("fileInput").files[0];
-            if (!fileInput) { 
-                document.getElementById("uploadStatus").innerText = "❌ Bitte eine ZIP-Datei auswählen!";
+        function uploadFiles() {
+            let fileInput = document.getElementById("fileInput").files;
+            if (fileInput.length === 0) { 
+                document.getElementById("uploadStatus").innerText = "❌ Bitte mindestens eine TXT-Datei auswählen!";
                 return; 
             }
 
-            // Überprüfe die Datei-Endung anstatt den MIME-Typ
-            if (!fileInput.name.toLowerCase().endsWith(".zip")) {
-                document.getElementById("uploadStatus").innerText = "❌ Nur ZIP-Dateien erlaubt!";
-                return;
+            let validFiles = [];
+            for (let file of fileInput) {
+                if (!file.name.toLowerCase().endsWith(".txt")) {
+                    document.getElementById("uploadStatus").innerText = "❌ Nur TXT-Dateien erlaubt!";
+                    return;
+                }
+                validFiles.push(file);
             }
 
             // Erzeuge einen zufälligen Code
             let accessCode = Math.random().toString(36).substring(2, 10);
-            uploadedFiles[accessCode] = fileInput;
+            uploadedFiles[accessCode] = validFiles;
 
             document.getElementById("uploadStatus").innerText = "✅ Hochgeladen! Dein Code: " + accessCode;
         }
 
-        function getFile() {
+        function getFiles() {
             let code = document.getElementById("codeInput").value;
             if (!code || !uploadedFiles[code]) {
                 document.getElementById("fileStatus").innerText = "❌ Ungültiger Code!";
                 return;
             }
 
-            let file = uploadedFiles[code];
-            let url = URL.createObjectURL(file);
+            let files = uploadedFiles[code];
+            let downloadLinks = files.map(file => {
+                let url = URL.createObjectURL(file);
+                return `<a href="${url}" download="${file.name}">${file.name}</a>`;
+            }).join("<br>");
 
-            document.getElementById("fileStatus").innerHTML = `✅ Datei gefunden: <a href="${url}" download="${file.name}">Hier herunterladen</a>`;
+            document.getElementById("fileStatus").innerHTML = `✅ Dateien gefunden:<br>` + downloadLinks;
         }
     </script>
 
