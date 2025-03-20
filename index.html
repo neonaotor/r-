@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cheat Scan Upload (Kein PHP)</title>
+    <title>Cheat Scan ZIP-Upload (Kein PHP)</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
         input, button { margin-top: 10px; padding: 10px; font-size: 16px; }
         #uploadStatus, #fileStatus { margin-top: 20px; }
-        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-    <h2>📤 Cheat Scan ZIP hochladen</h2>
+    <h2>📤 ZIP-Datei hochladen</h2>
     <input type="file" id="fileInput" accept=".zip">
     <button onclick="uploadFile()">📤 Hochladen</button>
     <p id="uploadStatus"></p>
@@ -33,7 +32,8 @@
                 return; 
             }
 
-            if (fileInput.type !== "application/zip") {
+            // Überprüfe die Datei-Endung anstatt den MIME-Typ
+            if (!fileInput.name.toLowerCase().endsWith(".zip")) {
                 document.getElementById("uploadStatus").innerText = "❌ Nur ZIP-Dateien erlaubt!";
                 return;
             }
