@@ -54,6 +54,12 @@
         details {
             margin: 5px 0;
         }
+        summary::before {
+            content: "▶ ";
+        }
+        details[open] > summary::before {
+            content: "▼ ";
+        }
     </style>
 </head>
 <body>
@@ -69,68 +75,39 @@
     <p id="fileStatus"></p>
 
     <h2>💾 Laufwerke & Verzeichnisse</h2>
+    <button onclick="pickDirectory()">📂 Ordner auswählen</button>
     <div class="directory-container" id="directoryList"></div>
 
-    <div id="fileContents"></div>
-
     <script>
-        let uploadedFiles = {}; // Speichert die Dateien mit Code
-
-        function uploadFiles() {
-            let fileInput = document.getElementById("fileInput").files;
-            if (fileInput.length === 0) { 
-                document.getElementById("uploadStatus").innerText = "❌ Bitte mindestens eine TXT-Datei auswählen!";
-                return; 
+        async function pickDirectory() {
+            try {
+                const directoryHandle = await window.showDirectoryPicker();
+                document.getElementById("directoryList").innerHTML = "";
+                await listDirectory(directoryHandle, document.getElementById("directoryList"));
+            } catch (error) {
+                console.error("Fehler beim Zugriff auf Ordner:", error);
             }
+        }
 
-            let validFiles = [];
-            for (let file of fileInput) {
-                if (!file.name.toLowerCase().endsWith(".txt")) {
-                    document.getElementById("uploadStatus").innerText = "❌ Nur TXT-Dateien erlaubt!";
-                    return;
+        async function listDirectory(directoryHandle, container) {
+            for await (const entry of directoryHandle.values()) {
+                let details = document.createElement("details");
+                let summary = document.createElement("summary");
+                summary.textContent = "📂 " + entry.name;
+                details.appendChild(summary);
+
+                if (entry.kind === "directory") {
+                    let sublist = document.createElement("div");
+                    details.appendChild(sublist);
+                    summary.addEventListener("click", async () => {
+                        if (sublist.childElementCount === 0) {
+                            await listDirectory(entry, sublist);
+                        }
+                    });
                 }
-                validFiles.push(file);
+                container.appendChild(details);
             }
-
-            let accessCode = Math.random().toString(36).substring(2, 10);
-            uploadedFiles[accessCode] = validFiles;
-            document.getElementById("uploadStatus").innerText = "✅ Hochgeladen! Dein Code: " + accessCode;
         }
-
-        function getFiles() {
-            let code = document.getElementById("codeInput").value;
-            if (!code || !uploadedFiles[code]) {
-                document.getElementById("fileStatus").innerText = "❌ Ungültiger Code!";
-                return;
-            }
-
-            let files = uploadedFiles[code];
-            document.getElementById("fileStatus").innerText = "✅ Dateien gefunden:";
-            document.getElementById("fileContents").innerHTML = "";
-
-            files.forEach(file => {
-                let reader = new FileReader();
-                reader.onload = function(event) {
-                    let content = document.createElement("div");
-                    content.classList.add("file-content");
-                    content.innerHTML = `<h3>${file.name}</h3><pre>${event.target.result}</pre>`;
-                    document.getElementById("fileContents").appendChild(content);
-                };
-                reader.readAsText(file);
-            });
-        }
-
-        function listDrives() {
-            navigator.storage.estimate().then(() => {
-                let container = document.getElementById("directoryList");
-                container.innerHTML = "<details><summary>📂 C:\</summary><p>Systemlaufwerk</p></details>";
-                container.innerHTML += "<details><summary>📂 D:\</summary><p>Externe oder zweite Partition</p></details>";
-                container.innerHTML += "<details><summary>📂 E:\</summary><p>USB-Laufwerk oder andere externe Medien</p></details>";
-            });
-        }
-
-        document.addEventListener("DOMContentLoaded", listDrives);
     </script>
-
 </body>
 </html>
