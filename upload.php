@@ -6,15 +6,23 @@ $codeDir = "codes/";
 if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
 if (!is_dir($codeDir)) mkdir($codeDir, 0777, true);
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $content = json_decode(file_get_contents("php://input"), true)['content'];
-    $fileName = "scan_" . time() . ".txt";
-    file_put_contents($uploadDir . $fileName, $content);
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
+    $fileName = basename($_FILES['file']['name']);
+    $filePath = $uploadDir . $fileName;
 
+    // Prüfe, ob eine ZIP-Datei hochgeladen wird
+    if (pathinfo($fileName, PATHINFO_EXTENSION) !== "zip") {
+        echo json_encode(["error" => "Nur ZIP-Dateien erlaubt!"]);
+        exit;
+    }
+
+    move_uploaded_file($_FILES['file']['tmp_name'], $filePath);
+
+    // Erzeuge einen zufälligen Code für den Abruf
     $accessCode = substr(md5(time()), 0, 10);
     file_put_contents($codeDir . $accessCode, $fileName);
 
-    echo json_encode(["message" => "Datei gespeichert!", "code" => $accessCode]);
+    echo json_encode(["message" => "Datei erfolgreich hochgeladen!", "code" => $accessCode]);
 } elseif ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['code'])) {
     $code = $_GET['code'];
     if (file_exists($codeDir . $code)) {
