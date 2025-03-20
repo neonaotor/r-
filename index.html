@@ -13,52 +13,23 @@
 <body>
 
     <h2>📤 Cheat Scan ZIP hochladen</h2>
-    <input type="file" id="fileInput" accept=".zip">
-    <button onclick="uploadFile()">📤 Hochladen</button>
-    <p id="uploadStatus"></p>
+    <form action="upload.php" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".zip" required>
+        <button type="submit">📤 Hochladen</button>
+    </form>
+    <p id="uploadStatus">
+        <?php if(isset($_GET['upload'])) { echo "✅ Datei erfolgreich hochgeladen! Dein Code: " . htmlspecialchars($_GET['upload']); } ?>
+    </p>
 
     <h2>📥 Ergebnisse abrufen</h2>
-    <input type="text" id="codeInput" placeholder="Code eingeben">
-    <button onclick="getFile()">🔎 Download</button>
-    <p id="fileStatus"></p>
-
-    <script>
-        function uploadFile() {
-            let fileInput = document.getElementById("fileInput").files[0];
-            if (!fileInput) { 
-                document.getElementById("uploadStatus").innerText = "Bitte eine ZIP-Datei auswählen!"; 
-                return; 
-            }
-
-            let formData = new FormData();
-            formData.append("file", fileInput);
-
-            fetch("upload.php", {
-                method: "POST",
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("uploadStatus").innerText = "Upload erfolgreich! Dein Code: " + data.code;
-            })
-            .catch(error => {
-                document.getElementById("uploadStatus").innerText = "Fehler beim Hochladen: " + error;
-            });
-        }
-
-        function getFile() {
-            let code = document.getElementById("codeInput").value;
-            fetch("upload.php?code=" + code)
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) { 
-                    document.getElementById("fileStatus").innerText = data.error; 
-                } else { 
-                    document.getElementById("fileStatus").innerHTML = `<a href="${data.download_url}" download>${data.file}</a>`; 
-                }
-            });
-        }
-    </script>
+    <form action="upload.php" method="GET">
+        <input type="text" name="code" placeholder="Code eingeben" required>
+        <button type="submit">🔎 Download</button>
+    </form>
+    <p id="fileStatus">
+        <?php if(isset($_GET['file'])) { echo "🔗 <a href='uploads/" . htmlspecialchars($_GET['file']) . "' download>Hier herunterladen</a>"; } ?>
+        <?php if(isset($_GET['error'])) { echo "❌ Fehler: " . htmlspecialchars($_GET['error']); } ?>
+    </p>
 
 </body>
 </html>
