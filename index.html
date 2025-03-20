@@ -3,126 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TXT-Dateien hochladen & abrufen</title>
+    <title>Login & ZIP-Datei-Upload</title>
     <style>
         body { 
             font-family: Arial, sans-serif; 
             text-align: center; 
-            margin: 50px;
-            background: linear-gradient(to bottom, #87CEFA, #ffffff);
-            overflow: hidden;
-            position: relative;
+            margin: 0;
+            background: #2e2e2e;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
         }
 
-        @keyframes moveClouds {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
+        .container {
+            background-color: #1e1b2e;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            width: 600px;
+            text-align: center;
+            overflow: hidden;
         }
         
-        .clouds {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 200%;
-            height: 100%;
-            background: url('https://cdn.discordapp.com/attachments/1346553813993263205/1352354510525435904/hand-drawn-cloud-set-doodle-sketch-style-cloud-simple-outline-scribble-draw-vector-illustration-2G7PKKB-removebg-preview.png') repeat-x;
-            background-size: contain;
-            opacity: 0.5;
-            animation: moveClouds 50s linear infinite;
+        .input-field, .btn {
+            width: 100%;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        .btn {
+            background-color: #007bff;
+            cursor: pointer;
+            color: white;
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .btn:hover {
+            box-shadow: 0 0 10px white;
+        }
+        
+        .hidden {
+            display: none;
         }
 
-        input, button { 
-            margin-top: 10px; 
-            padding: 15px; 
-            font-size: 18px; 
-            border: none; 
-            border-radius: 20px; 
-            outline: none;
-            position: relative;
+        .file-content {
+            background-color: #007bff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            color: white;
+            font-size: 16px;
+            text-align: left;
+            word-wrap: break-word;
+            width: 100%;
+            max-height: 200px;
+            overflow-y: auto;
         }
-        button {
-            background-color: #007bff; 
-            color: white; 
+
+        .category {
+            background-color: #3a3a3a;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+            font-weight: bold;
             cursor: pointer;
         }
-        button:hover {
-            background-color: #0056b3;
+
+        .category-content {
+            display: none;
+            background-color: #252040;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 5px;
         }
-        #uploadStatus, #fileStatus { 
-            margin-top: 20px; 
-            font-size: 18px;
+
+        .loader {
+            border: 8px solid #333;
+            border-top: 8px solid #007bff;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
         }
-        .file-content { 
-            text-align: left; 
-            margin-top: 20px; 
-            padding: 30px; 
-            border-radius: 20px; 
-            border: 2px solid #ccc; 
-            max-width: 900px; 
-            margin: auto; 
-            white-space: pre-wrap; 
-            background-color: white;
-            box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2);
-            position: relative;
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <div class="clouds"></div>
-    <h2>📤 Mehrere TXT-Dateien hochladen</h2>
-    <input type="file" id="fileInput" accept=".txt" multiple>
-    <button onclick="uploadFiles()">📤 Hochladen</button>
-    <p id="uploadStatus"></p>
+    <div class="container" id="login-container">
+        <h2>Willkommen!</h2>
+        <input type="email" id="email" class="input-field" placeholder="Email">
+        <input type="password" id="password" class="input-field" placeholder="Passwort">
+        <button class="btn" id="login-btn">Login</button>
+        <p>Noch kein Account? <span id="signup-link" style="color:#7289da; cursor:pointer;">Registrieren</span></p>
+    </div>
 
-    <h2>📥 Dateien abrufen</h2>
-    <input type="text" id="codeInput" placeholder="Code eingeben">
-    <button onclick="getFiles()">🔎 Anzeigen</button>
-    <p id="fileStatus"></p>
-    <div id="fileContents"></div>
+    <div class="container hidden" id="loading-screen">
+        <div class="loader"></div>
+        <h2>Login läuft...</h2>
+    </div>
+
+    <div class="container hidden" id="upload-container">
+        <h2>📤 ZIP-Dateien hochladen</h2>
+        <input type="file" id="fileInput" accept=".zip">
+        <button onclick="uploadFiles()">📤 Hochladen</button>
+        <p id="uploadStatus"></p>
+        
+        <h2>📥 Datei-Code erhalten</h2>
+        <p id="generatedCode"></p>
+        
+        <h2>📥 Datei abrufen</h2>
+        <input type="text" id="codeInput" placeholder="Code eingeben">
+        <button onclick="getFile()">🔎 Anzeigen</button>
+        <p id="fileStatus"></p>
+        <div id="fileContents"></div>
+    </div>
 
     <script>
         let uploadedFiles = {};
-        
-        function uploadFiles() {
-            let fileInput = document.getElementById("fileInput").files;
-            if (fileInput.length === 0) { 
-                document.getElementById("uploadStatus").innerText = "❌ Bitte mindestens eine TXT-Datei auswählen!";
-                return; 
-            }
 
-            let accessCode = Math.random().toString(36).substring(2, 10);
-            uploadedFiles[accessCode] = fileInput;
-            document.getElementById("uploadStatus").innerText = "✅ Hochgeladen! Dein Code: " + accessCode;
-            
-            let webhookURL = "DEIN_DISCORD_WEBHOOK_URL"; 
-            fetch(webhookURL, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ content: "📤 Neue Datei hochgeladen! Code: " + accessCode })
+        document.getElementById("signup-link").addEventListener("click", function() {
+            document.getElementById('login-container').innerHTML = `
+                <h2>Account erstellen</h2>
+                <input type="email" id="signup-email" class="input-field" placeholder="Email">
+                <input type="password" id="signup-password" class="input-field" placeholder="Passwort">
+                <button id="signup-btn" class="btn">Registrieren</button>
+                <p>Schon registriert? <span style="color:#7289da; cursor:pointer;" onclick="location.reload();">Login</span></p>
+            `;
+
+            document.getElementById("signup-btn").addEventListener("click", function() {
+                const email = document.getElementById("signup-email").value;
+                const password = document.getElementById("signup-password").value;
+                if (email && password) {
+                    localStorage.setItem(email, btoa(password));
+                    alert("✅ Registrierung erfolgreich! Jetzt einloggen.");
+                    location.reload();
+                } else {
+                    alert("❌ Bitte alle Felder ausfüllen!");
+                }
             });
-        }
+        });
 
-        function getFiles() {
+        document.getElementById("login-btn").addEventListener("click", function() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            if (localStorage.getItem(email) === btoa(password)) {
+                document.getElementById("login-container").classList.add("hidden");
+                document.getElementById("loading-screen").classList.remove("hidden");
+                setTimeout(() => {
+                    document.getElementById("loading-screen").classList.add("hidden");
+                    document.getElementById("upload-container").classList.remove("hidden");
+                }, 2000);
+            } else {
+                alert("❌ Falsche Anmeldedaten oder Account nicht vorhanden!");
+            }
+        });
+
+        function getFile() {
             let code = document.getElementById("codeInput").value;
-            if (!code || !uploadedFiles[code]) {
+            let fileContentsDiv = document.getElementById("fileContents");
+            fileContentsDiv.innerHTML = "";
+            if (!uploadedFiles[code]) {
                 document.getElementById("fileStatus").innerText = "❌ Ungültiger Code!";
                 return;
             }
-            
-            let fileList = uploadedFiles[code];
-            document.getElementById("fileStatus").innerText = "✅ Dateien gefunden:";
-            document.getElementById("fileContents").innerHTML = "";
-
-            for (let file of fileList) {
-                let reader = new FileReader();
-                reader.onload = function(event) {
-                    let contentDiv = document.createElement("div");
-                    contentDiv.classList.add("file-content");
-                    contentDiv.innerHTML = `<h3>${file.name}</h3><pre>${event.target.result}</pre>`;
-                    document.getElementById("fileContents").appendChild(contentDiv);
-                };
-                reader.readAsText(file);
-            }
+            let content = uploadedFiles[code].split('\n');
+            content.forEach(line => {
+                let category = document.createElement("div");
+                category.classList.add("category");
+                category.innerText = line.split(':')[0];
+                let categoryContent = document.createElement("div");
+                categoryContent.classList.add("category-content");
+                categoryContent.innerText = line;
+                category.addEventListener("click", () => {
+                    categoryContent.classList.toggle("hidden");
+                });
+                fileContentsDiv.appendChild(category);
+                fileContentsDiv.appendChild(categoryContent);
+            });
         }
     </script>
 </body>
