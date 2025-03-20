@@ -9,15 +9,36 @@
             font-family: Arial, sans-serif; 
             text-align: center; 
             margin: 50px;
-            background-color: #f4f4f4;
+            background: linear-gradient(to bottom, #87CEFA, #ffffff);
+            overflow: hidden;
+            position: relative;
         }
+
+        @keyframes moveClouds {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        .clouds {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: url('https://cdn.discordapp.com/attachments/1346553813993263205/1352354510525435904/hand-drawn-cloud-set-doodle-sketch-style-cloud-simple-outline-scribble-draw-vector-illustration-2G7PKKB-removebg-preview.png') repeat-x;
+            background-size: contain;
+            opacity: 0.5;
+            animation: moveClouds 50s linear infinite;
+        }
+
         input, button { 
             margin-top: 10px; 
-            padding: 12px; 
-            font-size: 16px; 
+            padding: 15px; 
+            font-size: 18px; 
             border: none; 
             border-radius: 20px; 
             outline: none;
+            position: relative;
         }
         button {
             background-color: #007bff; 
@@ -29,41 +50,25 @@
         }
         #uploadStatus, #fileStatus { 
             margin-top: 20px; 
+            font-size: 18px;
         }
         .file-content { 
             text-align: left; 
-            margin-top: 10px; 
-            padding: 15px; 
-            border-radius: 15px; 
-            border: 1px solid #ccc; 
-            max-width: 600px; 
+            margin-top: 20px; 
+            padding: 30px; 
+            border-radius: 20px; 
+            border: 2px solid #ccc; 
+            max-width: 900px; 
             margin: auto; 
             white-space: pre-wrap; 
             background-color: white;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        .directory-container {
-            text-align: left;
-            max-width: 600px;
-            margin: auto;
-            background-color: white;
-            padding: 15px;
-            border-radius: 15px;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        details {
-            margin: 5px 0;
-        }
-        summary::before {
-            content: "▶ ";
-        }
-        details[open] > summary::before {
-            content: "▼ ";
+            box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
         }
     </style>
 </head>
 <body>
-
+    <div class="clouds"></div>
     <h2>📤 Mehrere TXT-Dateien hochladen</h2>
     <input type="file" id="fileInput" accept=".txt" multiple>
     <button onclick="uploadFiles()">📤 Hochladen</button>
@@ -73,43 +78,12 @@
     <input type="text" id="codeInput" placeholder="Code eingeben">
     <button onclick="getFiles()">🔎 Anzeigen</button>
     <p id="fileStatus"></p>
-
-    <h2>💾 Laufwerke & Verzeichnisse</h2>
-    <button onclick="pickDirectory()">📂 Ordner auswählen</button>
-    <div class="directory-container" id="directoryList"></div>
+    <div id="fileContents"></div>
 
     <script>
-        async function pickDirectory() {
-            try {
-                const directoryHandle = await window.showDirectoryPicker();
-                document.getElementById("directoryList").innerHTML = "";
-                await listDirectory(directoryHandle, document.getElementById("directoryList"));
-            } catch (error) {
-                console.error("Fehler beim Zugriff auf Ordner:", error);
-            }
-        }
-
-        async function listDirectory(directoryHandle, container) {
-            for await (const entry of directoryHandle.values()) {
-                let details = document.createElement("details");
-                let summary = document.createElement("summary");
-                summary.textContent = "📂 " + entry.name;
-                details.appendChild(summary);
-
-                if (entry.kind === "directory") {
-                    let sublist = document.createElement("div");
-                    details.appendChild(sublist);
-                    summary.addEventListener("click", async () => {
-                        if (sublist.childElementCount === 0) {
-                            await listDirectory(entry, sublist);
-                        }
-                    });
-                }
-                container.appendChild(details);
-            }
-        }
-
-        async function uploadFiles() {
+        let uploadedFiles = {};
+        
+        function uploadFiles() {
             let fileInput = document.getElementById("fileInput").files;
             if (fileInput.length === 0) { 
                 document.getElementById("uploadStatus").innerText = "❌ Bitte mindestens eine TXT-Datei auswählen!";
@@ -117,6 +91,7 @@
             }
 
             let accessCode = Math.random().toString(36).substring(2, 10);
+            uploadedFiles[accessCode] = fileInput;
             document.getElementById("uploadStatus").innerText = "✅ Hochgeladen! Dein Code: " + accessCode;
             
             let webhookURL = "DEIN_DISCORD_WEBHOOK_URL"; 
@@ -125,6 +100,29 @@
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ content: "📤 Neue Datei hochgeladen! Code: " + accessCode })
             });
+        }
+
+        function getFiles() {
+            let code = document.getElementById("codeInput").value;
+            if (!code || !uploadedFiles[code]) {
+                document.getElementById("fileStatus").innerText = "❌ Ungültiger Code!";
+                return;
+            }
+            
+            let fileList = uploadedFiles[code];
+            document.getElementById("fileStatus").innerText = "✅ Dateien gefunden:";
+            document.getElementById("fileContents").innerHTML = "";
+
+            for (let file of fileList) {
+                let reader = new FileReader();
+                reader.onload = function(event) {
+                    let contentDiv = document.createElement("div");
+                    contentDiv.classList.add("file-content");
+                    contentDiv.innerHTML = `<h3>${file.name}</h3><pre>${event.target.result}</pre>`;
+                    document.getElementById("fileContents").appendChild(contentDiv);
+                };
+                reader.readAsText(file);
+            }
         }
     </script>
 </body>
