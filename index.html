@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cheat Log Upload</title>
+    <title>Cheat-Scan Upload</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
         input, button { margin-top: 10px; padding: 10px; font-size: 16px; }
@@ -11,30 +11,38 @@
 </head>
 <body>
 
-    <h2>Log-Datei Hochladen</h2>
+    <h2>Cheat-Scan Ergebnisse hochladen</h2>
     <input type="file" id="fileInput">
     <button onclick="uploadFile()">Hochladen</button>
-    
-    <p id="status"></p>
+    <p id="uploadStatus"></p>
+
+    <h2>Ergebnisse abrufen</h2>
+    <input type="text" id="codeInput" placeholder="Code eingeben">
+    <button onclick="getFile()">Ergebnisse anzeigen</button>
+    <p id="fileStatus"></p>
 
     <script>
         function uploadFile() {
             let fileInput = document.getElementById("fileInput").files[0];
-            if (!fileInput) {
-                document.getElementById("status").innerText = "Bitte eine Datei auswählen!";
-                return;
-            }
+            if (!fileInput) { document.getElementById("uploadStatus").innerText = "Bitte eine Datei auswählen!"; return; }
 
             let formData = new FormData();
             formData.append("file", fileInput);
 
-            fetch("upload.php", {
-                method: "POST",
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => document.getElementById("status").innerText = data)
-            .catch(error => document.getElementById("status").innerText = "Fehler: " + error);
+            fetch("upload.php", { method: "POST", body: formData })
+            .then(response => response.json())
+            .then(data => document.getElementById("uploadStatus").innerText = "Upload erfolgreich! Dein Code: " + data.code)
+            .catch(error => document.getElementById("uploadStatus").innerText = "Fehler: " + error);
+        }
+
+        function getFile() {
+            let code = document.getElementById("codeInput").value;
+            fetch("upload.php?code=" + code)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) { document.getElementById("fileStatus").innerText = data.error; }
+                else { document.getElementById("fileStatus").innerHTML = `<a href="${data.download_url}" download>${data.file}</a>`; }
+            });
         }
     </script>
 
