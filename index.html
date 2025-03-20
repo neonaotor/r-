@@ -1,197 +1,64 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login & ZIP-Datei-Upload</title>
+    <title>DONANL Shop</title>
     <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            text-align: center; 
+        body {
             margin: 0;
-            background: #2e2e2e;
+            font-family: Arial, sans-serif;
+            background: black;
             color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
-        }
-
-        .container {
-            background-color: #1e1b2e;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            width: 600px;
-            text-align: center;
             overflow: hidden;
+            text-align: center;
         }
         
-        .input-field, .btn {
+        .stars {
+            position: fixed;
             width: 100%;
-            padding: 15px;
-            margin-top: 15px;
-            border-radius: 8px;
+            height: 100%;
+            background: url('https://i.imgur.com/YKYMj2R.png') repeat;
+            animation: moveStars 50s linear infinite;
+        }
+        
+        @keyframes moveStars {
+            from { background-position: 0 0; }
+            to { background-position: 10000px 10000px; }
+        }
+        
+        .container {
+            position: relative;
+            z-index: 1;
+            padding: 50px;
+        }
+        
+        h1 {
+            font-size: 48px;
+            color: #8a2be2;
+        }
+        
+        .button {
+            background: #8a2be2;
+            color: white;
+            padding: 15px 30px;
             border: none;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-        
-        .btn {
-            background-color: #007bff;
-            cursor: pointer;
-            color: white;
-            transition: box-shadow 0.3s ease;
-        }
-        
-        .btn:hover {
-            box-shadow: 0 0 10px white;
-        }
-        
-        .hidden {
-            display: none;
-        }
-
-        .file-content {
-            background-color: #007bff;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 15px;
-            color: white;
-            font-size: 16px;
-            text-align: left;
-            word-wrap: break-word;
-            width: 100%;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-        .category {
-            background-color: #3a3a3a;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 10px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .category-content {
-            display: none;
-            background-color: #252040;
-            padding: 10px;
             border-radius: 5px;
-            margin-top: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
         }
-
-        .loader {
-            border: 8px solid #333;
-            border-top: 8px solid #007bff;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
+        
+        .button:hover {
+            background: #6a1bbd;
         }
     </style>
 </head>
 <body>
-    <div class="container" id="login-container">
-        <h2>Willkommen!</h2>
-        <input type="email" id="email" class="input-field" placeholder="Email">
-        <input type="password" id="password" class="input-field" placeholder="Passwort">
-        <button class="btn" id="login-btn">Login</button>
-        <p>Noch kein Account? <span id="signup-link" style="color:#7289da; cursor:pointer;">Registrieren</span></p>
+    <div class="stars"></div>
+    <div class="container">
+        <h1>Welcome to DONANL Shop!</h1>
+        <button class="button">View Products</button>
     </div>
-
-    <div class="container hidden" id="loading-screen">
-        <div class="loader"></div>
-        <h2>Login läuft...</h2>
-    </div>
-
-    <div class="container hidden" id="upload-container">
-        <h2>📤 ZIP-Dateien hochladen</h2>
-        <input type="file" id="fileInput" accept=".zip">
-        <button onclick="uploadFiles()">📤 Hochladen</button>
-        <p id="uploadStatus"></p>
-        
-        <h2>📥 Datei-Code erhalten</h2>
-        <p id="generatedCode"></p>
-        
-        <h2>📥 Datei abrufen</h2>
-        <input type="text" id="codeInput" placeholder="Code eingeben">
-        <button onclick="getFile()">🔎 Anzeigen</button>
-        <p id="fileStatus"></p>
-        <div id="fileContents"></div>
-    </div>
-
-    <script>
-        let uploadedFiles = {};
-
-        document.getElementById("signup-link").addEventListener("click", function() {
-            document.getElementById('login-container').innerHTML = `
-                <h2>Account erstellen</h2>
-                <input type="email" id="signup-email" class="input-field" placeholder="Email">
-                <input type="password" id="signup-password" class="input-field" placeholder="Passwort">
-                <button id="signup-btn" class="btn">Registrieren</button>
-                <p>Schon registriert? <span style="color:#7289da; cursor:pointer;" onclick="location.reload();">Login</span></p>
-            `;
-
-            document.getElementById("signup-btn").addEventListener("click", function() {
-                const email = document.getElementById("signup-email").value;
-                const password = document.getElementById("signup-password").value;
-                if (email && password) {
-                    localStorage.setItem(email, btoa(password));
-                    alert("✅ Registrierung erfolgreich! Jetzt einloggen.");
-                    location.reload();
-                } else {
-                    alert("❌ Bitte alle Felder ausfüllen!");
-                }
-            });
-        });
-
-        document.getElementById("login-btn").addEventListener("click", function() {
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-            if (localStorage.getItem(email) === btoa(password)) {
-                document.getElementById("login-container").classList.add("hidden");
-                document.getElementById("loading-screen").classList.remove("hidden");
-                setTimeout(() => {
-                    document.getElementById("loading-screen").classList.add("hidden");
-                    document.getElementById("upload-container").classList.remove("hidden");
-                }, 2000);
-            } else {
-                alert("❌ Falsche Anmeldedaten oder Account nicht vorhanden!");
-            }
-        });
-
-        function getFile() {
-            let code = document.getElementById("codeInput").value;
-            let fileContentsDiv = document.getElementById("fileContents");
-            fileContentsDiv.innerHTML = "";
-            if (!uploadedFiles[code]) {
-                document.getElementById("fileStatus").innerText = "❌ Ungültiger Code!";
-                return;
-            }
-            let content = uploadedFiles[code].split('\n');
-            content.forEach(line => {
-                let category = document.createElement("div");
-                category.classList.add("category");
-                category.innerText = line.split(':')[0];
-                let categoryContent = document.createElement("div");
-                categoryContent.classList.add("category-content");
-                categoryContent.innerText = line;
-                category.addEventListener("click", () => {
-                    categoryContent.classList.toggle("hidden");
-                });
-                fileContentsDiv.appendChild(category);
-                fileContentsDiv.appendChild(categoryContent);
-            });
-        }
-    </script>
 </body>
 </html>
