@@ -42,6 +42,18 @@
             background-color: white;
             box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
         }
+        .directory-container {
+            text-align: left;
+            max-width: 600px;
+            margin: auto;
+            background-color: white;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        details {
+            margin: 5px 0;
+        }
     </style>
 </head>
 <body>
@@ -55,6 +67,9 @@
     <input type="text" id="codeInput" placeholder="Code eingeben">
     <button onclick="getFiles()">🔎 Anzeigen</button>
     <p id="fileStatus"></p>
+
+    <h2>💾 Laufwerke & Verzeichnisse</h2>
+    <div class="directory-container" id="directoryList"></div>
 
     <div id="fileContents"></div>
 
@@ -77,10 +92,8 @@
                 validFiles.push(file);
             }
 
-            // Erzeuge einen zufälligen Code
             let accessCode = Math.random().toString(36).substring(2, 10);
             uploadedFiles[accessCode] = validFiles;
-
             document.getElementById("uploadStatus").innerText = "✅ Hochgeladen! Dein Code: " + accessCode;
         }
 
@@ -106,6 +119,17 @@
                 reader.readAsText(file);
             });
         }
+
+        function listDrives() {
+            navigator.storage.estimate().then(() => {
+                let container = document.getElementById("directoryList");
+                container.innerHTML = "<details><summary>📂 C:\</summary><p>Systemlaufwerk</p></details>";
+                container.innerHTML += "<details><summary>📂 D:\</summary><p>Externe oder zweite Partition</p></details>";
+                container.innerHTML += "<details><summary>📂 E:\</summary><p>USB-Laufwerk oder andere externe Medien</p></details>";
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", listDrives);
     </script>
 
 </body>
