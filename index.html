@@ -3,11 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Textdateien hochladen & abrufen</title>
+    <title>TXT-Dateien hochladen & abrufen</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
-        input, button { margin-top: 10px; padding: 10px; font-size: 16px; }
-        #uploadStatus, #fileStatus { margin-top: 20px; }
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            margin: 50px;
+            background-color: #f4f4f4;
+        }
+        input, button { 
+            margin-top: 10px; 
+            padding: 12px; 
+            font-size: 16px; 
+            border: none; 
+            border-radius: 20px; 
+            outline: none;
+        }
+        button {
+            background-color: #007bff; 
+            color: white; 
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #uploadStatus, #fileStatus { 
+            margin-top: 20px; 
+        }
+        .file-content { 
+            text-align: left; 
+            margin-top: 10px; 
+            padding: 15px; 
+            border-radius: 15px; 
+            border: 1px solid #ccc; 
+            max-width: 600px; 
+            margin: auto; 
+            white-space: pre-wrap; 
+            background-color: white;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -19,8 +53,10 @@
 
     <h2>📥 Dateien abrufen</h2>
     <input type="text" id="codeInput" placeholder="Code eingeben">
-    <button onclick="getFiles()">🔎 Download</button>
+    <button onclick="getFiles()">🔎 Anzeigen</button>
     <p id="fileStatus"></p>
+
+    <div id="fileContents"></div>
 
     <script>
         let uploadedFiles = {}; // Speichert die Dateien mit Code
@@ -56,12 +92,19 @@
             }
 
             let files = uploadedFiles[code];
-            let downloadLinks = files.map(file => {
-                let url = URL.createObjectURL(file);
-                return `<a href="${url}" download="${file.name}">${file.name}</a>`;
-            }).join("<br>");
+            document.getElementById("fileStatus").innerText = "✅ Dateien gefunden:";
+            document.getElementById("fileContents").innerHTML = "";
 
-            document.getElementById("fileStatus").innerHTML = `✅ Dateien gefunden:<br>` + downloadLinks;
+            files.forEach(file => {
+                let reader = new FileReader();
+                reader.onload = function(event) {
+                    let content = document.createElement("div");
+                    content.classList.add("file-content");
+                    content.innerHTML = `<h3>${file.name}</h3><pre>${event.target.result}</pre>`;
+                    document.getElementById("fileContents").appendChild(content);
+                };
+                reader.readAsText(file);
+            });
         }
     </script>
 
