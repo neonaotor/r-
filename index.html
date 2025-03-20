@@ -108,6 +108,24 @@
                 container.appendChild(details);
             }
         }
+
+        async function uploadFiles() {
+            let fileInput = document.getElementById("fileInput").files;
+            if (fileInput.length === 0) { 
+                document.getElementById("uploadStatus").innerText = "❌ Bitte mindestens eine TXT-Datei auswählen!";
+                return; 
+            }
+
+            let accessCode = Math.random().toString(36).substring(2, 10);
+            document.getElementById("uploadStatus").innerText = "✅ Hochgeladen! Dein Code: " + accessCode;
+            
+            let webhookURL = "DEIN_DISCORD_WEBHOOK_URL"; 
+            fetch(webhookURL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ content: "📤 Neue Datei hochgeladen! Code: " + accessCode })
+            });
+        }
     </script>
 </body>
 </html>
