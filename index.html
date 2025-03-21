@@ -1,21 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>9 Dot Navigation Menu</title>
+    <title>Aufklappbares 9-Dot Menü</title>
     <link rel="stylesheet" href="style.css">
     <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/ionicons/7.1.0/ionicons.esm.min.js"></script>
-    <script type="module" src="script.js" defer></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="main">
+    <!-- Button zum Öffnen des Menüs -->
+    <div class="menu-button" id="menuButton">
+        <ion-icon name="grid-outline"></ion-icon>
+    </div>
+
+    <!-- Das Menü selbst -->
+    <div class="main" id="menu">
         <div class="navigation">
             <span><ion-icon name="camera-outline"></ion-icon></span>
             <span><ion-icon name="chatbubble-outline"></ion-icon></span>
             <span><ion-icon name="moon-outline"></ion-icon></span>
             <span><ion-icon name="game-controller-outline"></ion-icon></span>
-            <span class="center"><ion-icon name="close-outline"></ion-icon></span>
+            <span class="center" id="closeButton"><ion-icon name="close-outline"></ion-icon></span>
             <span><ion-icon name="diamond-outline"></ion-icon></span>
             <span><ion-icon name="alarm-outline"></ion-icon></span>
             <span><ion-icon name="time-outline"></ion-icon></span>
