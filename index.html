@@ -3,62 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DONANL Shop</title>
+    <title>Login</title>
     <style>
         body {
             margin: 0;
             font-family: Arial, sans-serif;
             background: black;
-            color: white;
             overflow: hidden;
             text-align: center;
-        }
-        
-        .stars {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background: url('https://i.imgur.com/YKYMj2R.png') repeat;
-            animation: moveStars 50s linear infinite;
-        }
-        
-        @keyframes moveStars {
-            from { background-position: 0 0; }
-            to { background-position: 10000px 10000px; }
-        }
-        
-        .container {
             position: relative;
-            z-index: 1;
-            padding: 50px;
         }
         
-        h1 {
-            font-size: 48px;
-            color: #8a2be2;
+        .raindrop {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: rgba(138, 43, 226, 0.8);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 1);
+            animation: fall linear infinite;
         }
         
-        .button {
-            background: #8a2be2;
-            color: white;
-            padding: 15px 30px;
+        @keyframes fall {
+            from {
+                transform: translateY(-100vh);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(100vh);
+                opacity: 1;
+            }
+        }
+        
+        .login-container {
+            background-color: #1e1b2e;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            width: 400px;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .input-field, .btn {
+            width: 100%;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 8px;
             border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            cursor: pointer;
-            transition: 0.3s;
+            font-size: 16px;
+            box-sizing: border-box;
         }
         
-        .button:hover {
+        .btn {
+            background-color: #8a2be2;
+            cursor: pointer;
+            color: white;
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .btn:hover {
             background: #6a1bbd;
+            box-shadow: 0 0 10px white;
+        }
+
+        .search-container {
+            margin-top: 20px;
+        }
+        
+        .results {
+            margin-top: 20px;
+            color: white;
         }
     </style>
 </head>
 <body>
-    <div class="stars"></div>
-    <div class="container">
-        <h1>Welcome to DONANL Shop!</h1>
-        <button class="button">View Products</button>
+    <script>
+        function createRaindrop() {
+            const drop = document.createElement("div");
+            drop.classList.add("raindrop");
+            drop.style.left = Math.random() * window.innerWidth + "px";
+            drop.style.animationDuration = (Math.random() * 3 + 2) + "s";
+            document.body.appendChild(drop);
+            setTimeout(() => drop.remove(), 4000);
+        }
+        setInterval(createRaindrop, 50);
+
+        function search() {
+            let query = document.getElementById("searchInput").value.toLowerCase();
+            let resultsDiv = document.getElementById("results");
+            let data = ["System Scan", "Security Check", "GamboHub", "Loader", "Processes", "Network Connections"];
+            
+            let filteredResults = data.filter(item => item.toLowerCase().includes(query));
+            resultsDiv.innerHTML = filteredResults.length ? filteredResults.join('<br>') : "Keine Ergebnisse gefunden";
+        }
+    </script>
+
+    <div class="login-container">
+        <h2>Code Eingeben</h2>
+        <input type="text" id="codeInput" class="input-field" placeholder="Code hier eingeben">
+        <button class="btn" onclick="fetchData()">Abrufen</button>
+        <p id="output" style="margin-top: 20px; color: #8a2be2;"></p>
+
+        <div class="search-container">
+            <h3>Suche</h3>
+            <input type="text" id="searchInput" class="input-field" placeholder="Suchbegriff eingeben">
+            <button class="btn" onclick="search()">Suchen</button>
+            <p id="results" class="results"></p>
+        </div>
     </div>
 </body>
 </html>
