@@ -32,40 +32,14 @@
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
         }
 
-        .sidebar button {
-            width: 50px;
-            height: 50px;
-            background: #007BFF;
-            border: none;
-            color: white;
-            font-size: 20px;
-            margin: 10px 0;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .sidebar button:hover {
-            background: #0056b3;
-        }
-
-        /* Hauptinhalt */
-        .content {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Der mittige Button zum Öffnen */
         .menu-trigger {
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             background-color: #007BFF;
             display: flex;
             justify-content: center;
             align-items: center;
-            border-radius: 15px;
+            border-radius: 10px;
             cursor: pointer;
             transition: 0.3s;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
@@ -76,7 +50,7 @@
         }
 
         .menu-trigger ion-icon {
-            font-size: 40px;
+            font-size: 30px;
             color: white;
         }
 
@@ -140,23 +114,14 @@
 </head>
 <body>
 
-    <!-- Seitenleiste links -->
+    <!-- Seitenleiste mit Button zum Öffnen -->
     <div class="sidebar">
-        <button onclick="selectNumber(1)">1</button>
-        <button onclick="selectNumber(2)">2</button>
-        <button onclick="selectNumber(3)">3</button>
-        <button onclick="selectNumber(4)">4</button>
-        <button onclick="selectNumber(5)">5</button>
-    </div>
-
-    <!-- Hauptbereich mit Menü-Button -->
-    <div class="content">
         <div class="menu-trigger" id="menuButton">
             <ion-icon name="grid-outline"></ion-icon>
         </div>
     </div>
 
-    <!-- Das Menü selbst -->
+    <!-- Das 9-Dot Menü -->
     <div class="main" id="menu">
         <div class="navigation">
             <span onclick="selectNumber(1)">1</span>
@@ -177,4 +142,20 @@
         const closeButton = document.getElementById("closeButton");
 
         // Öffne das Menü
-        menuButton
+        menuButton.addEventListener("click", () => {
+            menu.classList.add("active");
+        });
+
+        // Schließe das Menü
+        closeButton.addEventListener("click", () => {
+            menu.classList.remove("active");
+        });
+
+        // Funktion für Auswahl von Zahlen
+        function selectNumber(num) {
+            alert("Du hast die Zahl " + num + " ausgewählt!");
+        }
+    </script>
+
+</body>
+</html>
