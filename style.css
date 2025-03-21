@@ -20,14 +20,13 @@ body {
     right: 20px;
     width: 50px;
     height: 50px;
-    background-color: #007bff; /* Blau für einen modernen Look */
+    background-color: #007BFF; /* Blau für bessere Sichtbarkeit */
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
     cursor: pointer;
     transition: 0.3s;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 .menu-button:hover {
@@ -55,7 +54,7 @@ body {
     height: 220px;
     background-color: white;
     border-radius: 10px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Menü aktiv */
@@ -72,36 +71,31 @@ body {
 }
 
 .navigation span {
-    width: 60px;
-    height: 60px;
-    background-color: #e0e0e0; /* Hellgraue Buttons */
+    width: 50px;
+    height: 50px;
+    background-color: #ddd;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 5px;
     cursor: pointer;
     transition: 0.3s;
 }
 
 .navigation span:hover {
-    background-color: #007bff;
+    background-color: #007BFF;
 }
 
-.navigation span:hover ion-icon {
-    color: white;
-}
-
-/* Das X-Zentrum */
-.navigation .center {
-    background-color: #ff4444;
+.navigation span.center {
+    background-color: red;
 }
 
 .navigation span ion-icon {
-    font-size: 28px;
-    color: #333;
+    font-size: 24px;
+    color: black;
     transition: 0.3s;
 }
 
-.navigation .center ion-icon {
+.navigation span:hover ion-icon {
     color: white;
 }
