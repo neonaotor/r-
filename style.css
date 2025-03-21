@@ -13,15 +13,57 @@ body {
     background-color: #111;
 }
 
-.main {
-    position: relative;
+/* Der Button zum Öffnen des Menüs */
+.menu-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #222;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 170px;
-    height: 170px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
+.menu-button:hover {
+    background-color: #0f0;
+}
+
+.menu-button ion-icon {
+    font-size: 24px;
+    color: white;
+    transition: 0.3s;
+}
+
+/* Das Menü, standardmäßig versteckt */
+.main {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: 0.3s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    background-color: #222;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+/* Menü aktiv */
+.main.active {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+/* Das Grid-Menü */
 .navigation {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -31,7 +73,7 @@ body {
 .navigation span {
     width: 50px;
     height: 50px;
-    background-color: #222;
+    background-color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,7 +86,8 @@ body {
     background-color: #0f0;
 }
 
-.navigation span.center {
+/* Das X-Zentrum */
+.navigation .center {
     background-color: #0f0;
 }
 
