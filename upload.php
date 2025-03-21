@@ -1,5 +1,6 @@
 <?php
-session_start();
+
+_start();
 $uploadDir = "uploads/";
 $codeDir = "codes/";
 
