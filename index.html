@@ -4,11 +4,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aufklappbares 9-Dot Menü</title>
-    <link rel="stylesheet" href="style.css">
     <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/ionicons/7.1.0/ionicons.esm.min.js"></script>
-    <script src="script.js" defer></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5; /* Heller Hintergrund */
+        }
+
+        /* Der Button zum Öffnen des Menüs */
+        .menu-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #007BFF; /* Blau für bessere Sichtbarkeit */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .menu-button:hover {
+            background-color: #0056b3;
+        }
+
+        .menu-button ion-icon {
+            font-size: 24px;
+            color: white;
+            transition: 0.3s;
+        }
+
+        /* Das Menü, standardmäßig versteckt */
+        .main {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            transition: 0.3s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 220px;
+            height: 220px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Menü aktiv */
+        .main.active {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        /* Das Grid-Menü */
+        .navigation {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .navigation span {
+            width: 50px;
+            height: 50px;
+            background-color: #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .navigation span:hover {
+            background-color: #007BFF;
+        }
+
+        .navigation span.center {
+            background-color: red;
+        }
+
+        .navigation span ion-icon {
+            font-size: 24px;
+            color: black;
+            transition: 0.3s;
+        }
+
+        .navigation span:hover ion-icon {
+            color: white;
+        }
+    </style>
 </head>
 <body>
+
     <!-- Button zum Öffnen des Menüs -->
     <div class="menu-button" id="menuButton">
         <ion-icon name="grid-outline"></ion-icon>
@@ -28,5 +130,22 @@
             <span><ion-icon name="water-outline"></ion-icon></span>
         </div>
     </div>
+
+    <script>
+        const menuButton = document.getElementById("menuButton");
+        const menu = document.getElementById("menu");
+        const closeButton = document.getElementById("closeButton");
+
+        // Öffne das Menü
+        menuButton.addEventListener("click", () => {
+            menu.classList.add("active");
+        });
+
+        // Schließe das Menü
+        closeButton.addEventListener("click", () => {
+            menu.classList.remove("active");
+        });
+    </script>
+
 </body>
 </html>
