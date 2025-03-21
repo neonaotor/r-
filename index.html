@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aufklappbares 9-Dot Menü</title>
+    <title>Aufklappbares 9-Dot Menü mit Liste</title>
     <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/ionicons/7.1.0/ionicons.esm.min.js"></script>
     <style>
         * {
@@ -15,10 +15,37 @@
 
         body {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
             height: 100vh;
             background-color: #f5f5f5;
+        }
+
+        /* Obere Liste mit Nummerierung */
+        .list-container {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            width: 250px;
+        }
+
+        .list-container ul {
+            list-style: none;
+        }
+
+        .list-container li {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .list-container li span {
+            font-weight: bold;
+            color: #007BFF;
         }
 
         /* Der mittige Button zum Öffnen */
@@ -109,10 +136,19 @@
         .navigation .center ion-icon {
             color: white;
         }
-
     </style>
 </head>
 <body>
+
+    <!-- Obere nummerierte Liste -->
+    <div class="list-container">
+        <ul>
+            <li>Login <span>1</span></li>
+            <li>Profil <span>2</span></li>
+            <li>Einstellungen <span>3</span></li>
+            <li>Support <span>4</span></li>
+        </ul>
+    </div>
 
     <!-- Mittiges Logo-Icon zum Öffnen -->
     <div class="menu-trigger" id="menuButton">
@@ -152,3 +188,4 @@
 
 </body>
 </html>
+
