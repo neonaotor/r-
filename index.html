@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aufklappbares 9-Dot Menü mit Liste</title>
+    <title>Seitenleiste & 9-Dot Menü</title>
     <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/ionicons/7.1.0/ionicons.esm.min.js"></script>
     <style>
         * {
@@ -15,37 +15,46 @@
 
         body {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             height: 100vh;
             background-color: #f5f5f5;
         }
 
-        /* Obere Liste mit Nummerierung */
-        .list-container {
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            margin-bottom: 20px;
-            width: 250px;
-        }
-
-        .list-container ul {
-            list-style: none;
-        }
-
-        .list-container li {
+        /* Seitenleiste links */
+        .sidebar {
+            width: 80px;
+            background: #222;
+            color: white;
             display: flex;
-            justify-content: space-between;
-            padding: 8px;
-            border-bottom: 1px solid #ddd;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
         }
 
-        .list-container li span {
-            font-weight: bold;
-            color: #007BFF;
+        .sidebar button {
+            width: 50px;
+            height: 50px;
+            background: #007BFF;
+            border: none;
+            color: white;
+            font-size: 20px;
+            margin: 10px 0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .sidebar button:hover {
+            background: #0056b3;
+        }
+
+        /* Hauptinhalt */
+        .content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         /* Der mittige Button zum Öffnen */
@@ -112,61 +121,53 @@
             border-radius: 10px;
             cursor: pointer;
             transition: 0.3s;
+            font-size: 20px;
+            font-weight: bold;
         }
 
         .navigation span:hover {
             background-color: #007BFF;
-        }
-
-        .navigation span:hover ion-icon {
             color: white;
         }
 
         /* Das X-Zentrum */
         .navigation .center {
             background-color: red;
-        }
-
-        .navigation span ion-icon {
-            font-size: 24px;
-            color: black;
-            transition: 0.3s;
-        }
-
-        .navigation .center ion-icon {
             color: white;
         }
+
     </style>
 </head>
 <body>
 
-    <!-- Obere nummerierte Liste -->
-    <div class="list-container">
-        <ul>
-            <li>Login <span>1</span></li>
-            <li>Profil <span>2</span></li>
-            <li>Einstellungen <span>3</span></li>
-            <li>Support <span>4</span></li>
-        </ul>
+    <!-- Seitenleiste links -->
+    <div class="sidebar">
+        <button onclick="selectNumber(1)">1</button>
+        <button onclick="selectNumber(2)">2</button>
+        <button onclick="selectNumber(3)">3</button>
+        <button onclick="selectNumber(4)">4</button>
+        <button onclick="selectNumber(5)">5</button>
     </div>
 
-    <!-- Mittiges Logo-Icon zum Öffnen -->
-    <div class="menu-trigger" id="menuButton">
-        <ion-icon name="grid-outline"></ion-icon>
+    <!-- Hauptbereich mit Menü-Button -->
+    <div class="content">
+        <div class="menu-trigger" id="menuButton">
+            <ion-icon name="grid-outline"></ion-icon>
+        </div>
     </div>
 
     <!-- Das Menü selbst -->
     <div class="main" id="menu">
         <div class="navigation">
-            <span><ion-icon name="camera-outline"></ion-icon></span>
-            <span><ion-icon name="chatbubble-outline"></ion-icon></span>
-            <span><ion-icon name="moon-outline"></ion-icon></span>
-            <span><ion-icon name="game-controller-outline"></ion-icon></span>
-            <span class="center" id="closeButton"><ion-icon name="close-outline"></ion-icon></span>
-            <span><ion-icon name="diamond-outline"></ion-icon></span>
-            <span><ion-icon name="alarm-outline"></ion-icon></span>
-            <span><ion-icon name="time-outline"></ion-icon></span>
-            <span><ion-icon name="water-outline"></ion-icon></span>
+            <span onclick="selectNumber(1)">1</span>
+            <span onclick="selectNumber(2)">2</span>
+            <span onclick="selectNumber(3)">3</span>
+            <span onclick="selectNumber(4)">4</span>
+            <span class="center" id="closeButton">X</span>
+            <span onclick="selectNumber(5)">5</span>
+            <span onclick="selectNumber(6)">6</span>
+            <span onclick="selectNumber(7)">7</span>
+            <span onclick="selectNumber(8)">8</span>
         </div>
     </div>
 
@@ -176,16 +177,4 @@
         const closeButton = document.getElementById("closeButton");
 
         // Öffne das Menü
-        menuButton.addEventListener("click", () => {
-            menu.classList.add("active");
-        });
-
-        // Schließe das Menü
-        closeButton.addEventListener("click", () => {
-            menu.classList.remove("active");
-        });
-    </script>
-
-</body>
-</html>
-
+        menuButton
