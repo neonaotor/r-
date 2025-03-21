@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Code Viewer</title>
     <style>
         html, body {
             margin: 0;
@@ -72,21 +72,15 @@
             box-shadow: 0 0 10px white;
         }
 
-        .search-container {
-            margin-top: 30px;
-            display: none;
-        }
-
-        .results {
-            margin-top: 20px;
+        .output-box {
+            background-color: #1e1b2e;
             color: white;
-        }
-
-        @media (max-width: 480px) {
-            .input-field, .btn {
-                font-size: 14px;
-                padding: 12px;
-            }
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
         }
     </style>
 </head>
@@ -102,39 +96,42 @@
     }
     setInterval(createRaindrop, 50);
 
-    function fetchData() {
-        const code = document.getElementById("codeInput").value.toLowerCase();
-        if (code) {
-            document.querySelector(".search-container").style.display = "block";
-            document.getElementById("output").innerText = `Code erkannt: ${code}`;
-        } else {
-            document.getElementById("output").innerText = "Bitte gültigen Code eingeben.";
+    async function fetchFromDiscord() {
+        const code = document.getElementById("codeInput").value.trim().toLowerCase();
+        const output = document.getElementById("output");
+
+        if (!code) return output.innerText = "❌ Bitte Code eingeben.";
+
+        output.innerText = "🔄 Lade Daten für Code: " + code + " ...";
+
+        try {
+            const res = await fetch("https://discord.com/api/v9/channels/DEIN_CHANNEL_ID/messages", {
+                headers: {
+                    Authorization: "Bot DEIN_BOT_TOKEN"
+                }
+            });
+            const data = await res.json();
+
+            const match = data.find(msg => msg.content.includes(code));
+            if (match && match.attachments.length > 0) {
+                const file = await fetch(match.attachments[0].url);
+                const text = await file.text();
+                output.innerText = text;
+            } else {
+                output.innerText = "❌ Kein Log mit diesem Code gefunden.";
+            }
+        } catch (e) {
+            output.innerText = "⚠️ Fehler beim Abrufen.";
+            console.error(e);
         }
-    }
-
-    function search() {
-        let query = document.getElementById("searchInput").value.toLowerCase();
-        let resultsDiv = document.getElementById("results");
-        let data = ["System Scan", "Security Check", "GamboHub", "Loader", "Processes", "Network Connections"];
-
-        let filteredResults = data.filter(item => item.toLowerCase().includes(query));
-        resultsDiv.innerHTML = filteredResults.length ? filteredResults.join('<br>') : "Keine Ergebnisse gefunden";
     }
 </script>
 
 <div class="login-container">
-    <h2>Code Eingeben</h2>
-    <input type="text" id="codeInput" class="input-field" placeholder="Code hier eingeben">
-    <button class="btn" onclick="fetchData()">Abrufen</button>
-    <p id="output" style="margin-top: 20px; color: #8a2be2;"></p>
-
-    <div class="search-container">
-        <h3>Suche</h3>
-        <input type="text" id="searchInput" class="input-field" placeholder="Suchbegriff eingeben">
-        <button class="btn" onclick="search()">Suchen</button>
-        <p id="results" class="results"></p>
-    </div>
+    <h2>Systembericht abrufen</h2>
+    <input type="text" id="codeInput" class="input-field" placeholder="Code eingeben">
+    <button class="btn" onclick="fetchFromDiscord()">📥 Abrufen</button>
+    <div id="output" class="output-box"></div>
 </div>
 </body>
 </html>
-
