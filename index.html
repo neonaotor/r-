@@ -1,89 +1,40 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hamsterwelt</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #fffbe6;
-      color: #333;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #ffcc70;
-      padding: 20px;
-      text-align: center;
-    }
-    header h1 {
-      margin: 0;
-    }
-    nav {
-      background-color: #ffd580;
-      padding: 10px;
-      text-align: center;
-    }
-    nav a {
-      margin: 0 15px;
-      text-decoration: none;
-      color: #333;
-      font-weight: bold;
-    }
-    main {
-      padding: 20px;
-    }
-    footer {
-      background-color: #ffcc70;
-      text-align: center;
-      padding: 10px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breite gestreckte Rechtecke</title>
+    <style>
+        body {
+            background-color: #00ff00;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 150px 150px;
+            grid-template-rows: 250px 250px;
+            gap: 20px;
+        }
+
+        .kasten {
+            border: 5px solid black;
+            border-radius: 10px;
+            background-color: transparent;
+        }
+    </style>
 </head>
 <body>
-
-  <header>
-    <h1>Willkommen in der Hamsterwelt!</h1>
-    <p>Alles über die kleinen Fellfreunde</p>
-  </header>
-
-  <nav>
-    <a href="#pflege">Pflege</a>
-    <a href="#futter">Futter</a>
-    <a href="#arten">Hamsterarten</a>
-    <a href="#kontakt">Kontakt</a>
-  </nav>
-
-  <main>
-    <section id="pflege">
-      <h2>Hamsterpflege</h2>
-      <p>Hamster brauchen ein sauberes, artgerechtes Zuhause, Bewegung und regelmäßige Reinigung ihres Käfigs.</p>
-    </section>
-
-    <section id="futter">
-      <h2>Was fressen Hamster?</h2>
-      <p>Hamster lieben Körner, Gemüse, Obst (in Maßen) und spezielles Hamsterfutter aus dem Zoofachhandel.</p>
-    </section>
-
-    <section id="arten">
-      <h2>Beliebte Hamsterarten</h2>
-      <ul>
-        <li>Goldhamster</li>
-        <li>Zwerghamster</li>
-        <li>Roborowski-Hamster</li>
-      </ul>
-    </section>
-
-    <section id="kontakt">
-      <h2>Kontakt</h2>
-      <p>Fragen? Schreib uns an <a href="mailto:info@hamsterwelt.de">info@hamsterwelt.de</a>.</p>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; 2025 Hamsterwelt. Alle Rechte vorbehalten.</p>
-  </footer>
-
+    <div class="container">
+        <div class="kasten"></div>
+        <div class="kasten"></div>
+        <div class="kasten"></div>
+        <div class="kasten"></div>
+    </div>
 </body>
 </html>
