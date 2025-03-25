@@ -1,137 +1,89 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code Viewer</title>
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background: black;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            position: relative;
-        }
-
-        .raindrop {
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background: rgba(138, 43, 226, 0.8);
-            border-radius: 50%;
-            box-shadow: 0 0 20px rgba(138, 43, 226, 1);
-            animation: fall linear infinite;
-        }
-
-        @keyframes fall {
-            from {
-                transform: translateY(-100vh);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(100vh);
-                opacity: 1;
-            }
-        }
-
-        .login-container {
-            background-color: #1e1b2e;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            z-index: 1;
-        }
-
-        .input-field, .btn {
-            width: 100%;
-            padding: 15px;
-            margin-top: 15px;
-            border-radius: 8px;
-            border: none;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-
-        .btn {
-            background-color: #8a2be2;
-            cursor: pointer;
-            color: white;
-            transition: box-shadow 0.3s ease;
-        }
-
-        .btn:hover {
-            background: #6a1bbd;
-            box-shadow: 0 0 10px white;
-        }
-
-        .output-box {
-            background-color: #1e1b2e;
-            color: white;
-            padding: 20px;
-            margin-top: 20px;
-            border-radius: 10px;
-            max-height: 400px;
-            overflow-y: auto;
-            white-space: pre-wrap;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hamsterwelt</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fffbe6;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #ffcc70;
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+    }
+    nav {
+      background-color: #ffd580;
+      padding: 10px;
+      text-align: center;
+    }
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+    main {
+      padding: 20px;
+    }
+    footer {
+      background-color: #ffcc70;
+      text-align: center;
+      padding: 10px;
+    }
+  </style>
 </head>
 <body>
-<script>
-    function createRaindrop() {
-        const drop = document.createElement("div");
-        drop.classList.add("raindrop");
-        drop.style.left = Math.random() * window.innerWidth + "px";
-        drop.style.animationDuration = (Math.random() * 3 + 2) + "s";
-        document.body.appendChild(drop);
-        setTimeout(() => drop.remove(), 4000);
-    }
-    setInterval(createRaindrop, 50);
 
-    async function fetchFromDiscord() {
-        const code = document.getElementById("codeInput").value.trim().toLowerCase();
-        const output = document.getElementById("output");
+  <header>
+    <h1>Willkommen in der Hamsterwelt!</h1>
+    <p>Alles über die kleinen Fellfreunde</p>
+  </header>
 
-        if (!code) return output.innerText = "❌ Bitte Code eingeben.";
+  <nav>
+    <a href="#pflege">Pflege</a>
+    <a href="#futter">Futter</a>
+    <a href="#arten">Hamsterarten</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
 
-        output.innerText = "🔄 Lade Daten für Code: " + code + " ...";
+  <main>
+    <section id="pflege">
+      <h2>Hamsterpflege</h2>
+      <p>Hamster brauchen ein sauberes, artgerechtes Zuhause, Bewegung und regelmäßige Reinigung ihres Käfigs.</p>
+    </section>
 
-        try {
-            const res = await fetch("https://discord.com/api/v9/channels/DEIN_CHANNEL_ID/messages", {
-                headers: {
-                    Authorization: "Bot DEIN_BOT_TOKEN"
-                }
-            });
-            const data = await res.json();
+    <section id="futter">
+      <h2>Was fressen Hamster?</h2>
+      <p>Hamster lieben Körner, Gemüse, Obst (in Maßen) und spezielles Hamsterfutter aus dem Zoofachhandel.</p>
+    </section>
 
-            const match = data.find(msg => msg.content.includes(code));
-            if (match && match.attachments.length > 0) {
-                const file = await fetch(match.attachments[0].url);
-                const text = await file.text();
-                output.innerText = text;
-            } else {
-                output.innerText = "❌ Kein Log mit diesem Code gefunden.";
-            }
-        } catch (e) {
-            output.innerText = "⚠️ Fehler beim Abrufen.";
-            console.error(e);
-        }
-    }
-</script>
+    <section id="arten">
+      <h2>Beliebte Hamsterarten</h2>
+      <ul>
+        <li>Goldhamster</li>
+        <li>Zwerghamster</li>
+        <li>Roborowski-Hamster</li>
+      </ul>
+    </section>
 
-<div class="login-container">
-    <h2>Systembericht abrufen</h2>
-    <input type="text" id="codeInput" class="input-field" placeholder="Code eingeben">
-    <button class="btn" onclick="fetchFromDiscord()">📥 Abrufen</button>
-    <div id="output" class="output-box"></div>
-</div>
+    <section id="kontakt">
+      <h2>Kontakt</h2>
+      <p>Fragen? Schreib uns an <a href="mailto:info@hamsterwelt.de">info@hamsterwelt.de</a>.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Hamsterwelt. Alle Rechte vorbehalten.</p>
+  </footer>
+
 </body>
 </html>
