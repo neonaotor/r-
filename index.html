@@ -1,40 +1,93 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Breite gestreckte Rechtecke</title>
-    <style>
-        body {
-            background-color: #00ff00;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
 
-        .container {
-            display: grid;
-            grid-template-columns: 150px 150px;
-            grid-template-rows: 250px 250px;
-            gap: 20px;
-        }
+:root {
+  --background-image: url("https://cdn.discordapp.com/icons/1350970436309225512/1169f25e45a7fb6ffb8aa105049c52f3.webp?size=1024&format=webp");
+  --background-position: center center;
+  --background-size: cover;
+  --background-repeat: no-repeat;
+  --background-attachment: fixed;
+  --background-blur: 4px;
+  --background-brightness: 0.6;
+  --background-contrast: 1.2;
+  --background-saturation: 1.3;
+  --background-opacity: 1;
 
-        .kasten {
-            border: 5px solid black;
-            border-radius: 10px;
-            background-color: transparent;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="kasten"></div>
-        <div class="kasten"></div>
-        <div class="kasten"></div>
-        <div class="kasten"></div>
-    </div>
-</body>
-</html>
+  --brand-experiment: #00ffff; /* Cyan Hauptfarbe */
+  --brand-experiment-560: #00e0ff;
+  --brand-experiment-600: #00c4ff;
+  --brand-experiment-630: #00aaff;
+
+  --header-primary: #ffffff;
+  --header-secondary: #b2f9ff;
+  --text-normal: #e3faff;
+  --text-muted: #a0cfd9;
+  --text-link: #00f7ff;
+
+  --interactive-normal: #80f4ff;
+  --interactive-hover: #00e6ff;
+  --interactive-active: #00d4ff;
+  --interactive-muted: #4c7c85;
+
+  --font-display: 'Orbitron', sans-serif;
+}
+
+/* Hintergrund */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--background-image);
+  background-position: var(--background-position);
+  background-size: var(--background-size);
+  background-repeat: var(--background-repeat);
+  background-attachment: var(--background-attachment);
+  filter: blur(var(--background-blur)) brightness(var(--background-brightness)) contrast(var(--background-contrast)) saturate(var(--background-saturation));
+  opacity: var(--background-opacity);
+  z-index: -1;
+}
+
+/* Transparente Panels */
+.theme-dark .appMount-3VJmYg,
+.theme-dark .container-2cd8Mz,
+.theme-dark .chat-2ZfjoI,
+.theme-dark .membersWrap-3NUR2t,
+.theme-dark .sidebar-1tnWFu {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+/* Leuchteffekte auf Hover */
+.button-38aScr:hover,
+.button-38aScr:focus,
+.interactive-1vLZ_I:hover {
+  box-shadow: 0 0 10px cyan, 0 0 20px #00ffff88;
+}
+
+/* Schrift-Glanz */
+* {
+  text-shadow: 0 0 5px #00ffff66;
+}
+
+/* Scrollbar stylen */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #00eaff;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00ffff;
+}
+
+/* Fancy Glow Effekt */
+@keyframes glow {
+  0% { box-shadow: 0 0 5px #00ffff; }
+  50% { box-shadow: 0 0 20px #00ffff; }
+  100% { box-shadow: 0 0 5px #00ffff; }
+}
+.glow {
+  animation: glow 2s infinite ease-in-out;
+}
+
