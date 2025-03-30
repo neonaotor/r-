@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>₿ El Muerte – Supremo City</title>
+  <title>El Muerte – Supremo City</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
 
@@ -31,7 +31,7 @@
       margin-bottom: 2rem;
     }
 
-    .card {
+    .card, .poll {
       background: #111;
       border: 2px solid #f1c40f33;
       border-radius: 15px;
@@ -43,9 +43,14 @@
       text-align: center;
     }
 
-    .card h3 {
-      color: #fff;
-      margin-bottom: 1rem;
+    .poll label {
+      display: block;
+      margin: 0.5rem 0;
+      font-size: 1.1rem;
+    }
+
+    .poll input[type="radio"] {
+      margin-right: 1rem;
     }
 
     .button {
@@ -60,6 +65,7 @@
       text-decoration: none;
       box-shadow: 0 0 15px #f1c40f55;
       transition: background 0.3s, transform 0.2s;
+      margin-top: 1rem;
     }
 
     .button:hover {
@@ -115,6 +121,17 @@
     <p><strong>MORGEN NEUE KLEIDUNG!</strong></p>
   </div>
 
+  <div class="poll">
+    <h3>Abstimmung: Sollen wir den Namen ändern?</h3>
+    <form id="voteForm">
+      <label><input type="radio" name="vote" value="El Muerte" checked> El Muerte (behalten)</label>
+      <label><input type="radio" name="vote" value="La Familia"> La Familia</label>
+      <label><input type="radio" name="vote" value="Los Reyes"> Los Reyes</label>
+      <label><input type="radio" name="vote" value="Cartel 47"> Cartel 47</label>
+      <button type="submit" class="button">Abstimmen</button>
+    </form>
+  </div>
+
   <div class="log">
     <h3>Letzte Einträge</h3>
     <ul>
@@ -126,10 +143,26 @@
     </ul>
   </div>
 
-  <a href="https://discord.com" target="_blank" class="button">Jetzt beitreten</a>
-
   <footer>
     &copy; 2025 El Muerte • Supremo City RP
   </footer>
+
+  <script>
+    document.getElementById('voteForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const choice = document.querySelector('input[name="vote"]:checked').value;
+
+      fetch("https://discord.com/api/webhooks/1355154679167979703/jcdCvSVmuCRioLlQTAPVN4DzWBkm9wm-Ye-fGrwJAewJ6H_IE9YKSZsscs1y-zpBVrPS", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          username: "Abstimmung",
+          content: `🗳️ Neue Stimme zur Namensfrage: **${choice}**`
+        })
+      }).then(() => alert("Deine Stimme wurde gezählt!"));
+    });
+  </script>
 </body>
 </html>
