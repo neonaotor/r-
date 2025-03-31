@@ -3,26 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fraktionsabstimmung – Supremo City</title>
+  <title>El Muerte – Supremo City</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
 
     body {
       margin: 0;
       font-family: 'Orbitron', sans-serif;
-      background: linear-gradient(to right, #000000, #1a1a1a);
-      color: #f1c40f;
+      background: linear-gradient(135deg, #0c0c0c, #1c1c1c);
+      color: white;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 2rem;
+      padding: 3rem 1rem;
       min-height: 100vh;
     }
 
     h1 {
       font-size: 4rem;
-      text-shadow: 0 0 20px #f1c40f, 0 0 40px #f1c40f;
-      margin-bottom: 0.5rem;
+      text-shadow: 0 0 20px #ffffff, 0 0 40px #ffffff;
+      margin-bottom: 1rem;
+      letter-spacing: 3px;
+      color: #ffffff;
     }
 
     h2 {
@@ -31,81 +33,60 @@
       margin-bottom: 2rem;
     }
 
-    .card, .poll {
-      background: #111;
-      border: 2px solid #f1c40f33;
-      border-radius: 15px;
-      padding: 2rem;
-      max-width: 700px;
-      width: 100%;
-      box-shadow: 0 0 25px #f1c40f22;
-      margin-bottom: 2rem;
-      text-align: center;
+    .logo {
+      width: 180px;
+      margin-bottom: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #ffffff99;
     }
 
-    .poll label {
-      display: block;
-      margin: 0.5rem 0;
+    .content-box {
+      background: #111;
+      border: 2px solid #ffffff22;
+      border-radius: 15px;
+      padding: 2rem;
+      max-width: 800px;
+      width: 100%;
+      box-shadow: 0 0 30px #ffffff11;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .content-box h3 {
+      color: #ff0000;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .content-box p {
+      color: #ffffff;
+      line-height: 1.6;
       font-size: 1.1rem;
     }
 
-    .poll input[type="radio"] {
-      margin-right: 1rem;
-    }
-
     .button {
-      background: #f1c40f;
+      background: #00cc00;
       color: #000;
-      padding: 1rem 2rem;
+      padding: 1rem 2.5rem;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       font-weight: bold;
       font-size: 1.2rem;
       cursor: pointer;
       text-decoration: none;
-      box-shadow: 0 0 15px #f1c40f55;
-      transition: background 0.3s, transform 0.2s;
-      margin-top: 1rem;
+      box-shadow: 0 0 18px #00cc0077;
+      transition: all 0.3s;
+      margin-top: 2rem;
     }
 
     .button:hover {
-      background: #d4ac0d;
+      background: #009900;
       transform: scale(1.05);
-    }
-
-    .log {
-      max-width: 700px;
-      width: 100%;
-      background: #1a1a1a;
-      padding: 1.5rem;
-      border-radius: 12px;
-      border: 1px solid #f1c40f33;
-      box-shadow: 0 0 15px #f1c40f22;
-      margin-top: 1rem;
-    }
-
-    .log h3 {
-      margin-bottom: 1rem;
-      color: #f1c40f;
-    }
-
-    .log ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .log li {
-      margin-bottom: 0.8rem;
-      padding: 0.6rem 1rem;
-      background: #000;
-      border-radius: 8px;
-      color: #eee;
-      border-left: 4px solid #f1c40f99;
     }
 
     footer {
       margin-top: auto;
-      color: #666;
+      color: #888;
       font-size: 0.9rem;
       text-align: center;
       padding-top: 2rem;
@@ -113,56 +94,39 @@
   </style>
 </head>
 <body>
-  <h1>Fraktionsabstimmung</h1>
-  <h2>Supremo City – Wie sollen wir heißen?</h2>
+  <img class="logo" src="https://cdn.discordapp.com/attachments/1356309346354597969/1356310231642149004/Design_ohne_Titel_6.png?ex=67ec19d6&is=67eac856&hm=e016980c2c7f7fec9ec1203b3dc655685b76f51805bd11a30b62f9bb9fd86c23&" alt="El Muerte Logo" />
+  <h1>El Muerte</h1>
+  <h2>Supremo City – Brotherhood. Power. Legacy.</h2>
 
-  <div class="poll">
-    <h3>Stimme für den neuen Fraktionsnamen ab</h3>
-    <form id="voteForm">
-      <label><input type="radio" name="vote" value="El Muerte"> El Muerte</label>
-      <label><input type="radio" name="vote" value="La Familia"> La Familia</label>
-      <label><input type="radio" name="vote" value="Los Reyes"> Los Reyes</label>
-      <label><input type="radio" name="vote" value="Cartel 47"> Cartel 47</label>
-      <label><input type="radio" name="vote" value="Los Santos Cartel"> Los Santos Cartel</label>
-      <label><input type="radio" name="vote" value="Norteños"> Norteños</label>
-      <label><input type="radio" name="vote" value="Los Muertos"> Los Muertos</label>
-      <label><input type="radio" name="vote" value="El Cartel"> El Cartel</label>
-      <label><input type="radio" name="vote" value="Bleibt wie es ist" checked> Bleibt wie es ist</label>
-      <button type="submit" class="button">Abstimmen</button>
-    </form>
+  <div class="content-box">
+    <h3>🔥 Willkommen bei El Muerte</h3>
+    <p>
+      Wir sind mehr als nur eine Fraktion – wir sind eine Familie mit Prinzipien, Präsenz und Power. 
+      El Muerte steht für Loyalität, klare Ansagen und kompromisslosen Zusammenhalt auf Supremo City.
+    </p>
   </div>
 
-  <div class="log">
-    <h3>Letzte Einträge</h3>
-    <ul>
-      <li>19:00 Uhr alle anwesend – kein Zuspätkommen.</li>
-      <li>Jeder soll aktiv neue Member suchen.</li>
-      <li>IC-Name bis 15:00 Uhr als Discordname – sonst Sanktion/Bloodout.</li>
-      <li>Verhalten im Funk war unangebracht – Respekt intern!</li>
-      <li>Treffen um 16:30 Uhr für Fraktionsbild – Pflicht!</li>
-    </ul>
+  <div class="content-box">
+    <h3>🎯 Unsere Mission</h3>
+    <p>
+      Präsenz auf der Straße. Ordnung im Funk. Respekt intern. 
+      Wer Teil von El Muerte ist, repräsentiert unsere Werte 24/7 – mit Stolz.
+    </p>
   </div>
+
+  <div class="content-box">
+    <h3>📣 Ansagen</h3>
+    <p>
+      – Neue Kleidung ab morgen<br>
+      – IC-Namen als Discordname bis 15:00 Uhr setzen<br>
+      – Wer nicht liefert, fliegt
+    </p>
+  </div>
+
+  <a href="https://discord.com" target="_blank" class="button">Discord beitreten</a>
 
   <footer>
-    &copy; 2025 Supremo City RP
+    &copy; 2025 El Muerte • Supremo City RP
   </footer>
-
-  <script>
-    document.getElementById('voteForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const choice = document.querySelector('input[name="vote"]:checked').value;
-
-      fetch("https://discord.com/api/webhooks/1355154679167979703/jcdCvSVmuCRioLlQTAPVN4DzWBkm9wm-Ye-fGrwJAewJ6H_IE9YKSZsscs1y-zpBVrPS", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          username: "Abstimmung",
-          content: `🗳️ Neue Stimme zur Namensfrage: **${choice}**`
-        })
-      }).then(() => alert("Deine Stimme wurde gezählt!"));
-    });
-  </script>
 </body>
 </html>
