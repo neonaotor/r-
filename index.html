@@ -7,37 +7,61 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
 
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       font-family: 'Orbitron', sans-serif;
       background: linear-gradient(135deg, #0c0c0c, #1c1c1c);
       color: white;
+      overflow-x: hidden;
+    }
+
+    header {
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 3rem 1rem;
-      min-height: 100vh;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      position: relative;
+    }
+
+    .logo {
+      width: 200px;
+      border-radius: 12px;
+      box-shadow: 0 0 25px #ffffff99;
+      opacity: 0;
+      transform: translateY(-50px);
+      animation: fadeInUp 1.5s ease-out 0.5s forwards;
     }
 
     h1 {
       font-size: 4rem;
+      margin-top: 2rem;
       text-shadow: 0 0 20px #ffffff, 0 0 40px #ffffff;
-      margin-bottom: 1rem;
-      letter-spacing: 3px;
-      color: #ffffff;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s ease-out 1.2s forwards;
     }
 
     h2 {
       font-weight: normal;
       color: #ccc;
-      margin-bottom: 2rem;
+      margin-top: 1rem;
+      font-size: 1.2rem;
+      opacity: 0;
+      animation: fadeIn 1s ease-out 2s forwards;
     }
 
-    .logo {
-      width: 180px;
-      margin-bottom: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 0 20px #ffffff99;
+    section {
+      padding: 3rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .content-box {
@@ -50,6 +74,14 @@
       box-shadow: 0 0 30px #ffffff11;
       text-align: center;
       margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease-out;
+    }
+
+    .content-box.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .content-box h3 {
@@ -65,11 +97,18 @@
       text-align: left;
     }
 
-    .outfit-img {
+    .image-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .image-row img {
       max-width: 300px;
       border-radius: 10px;
       box-shadow: 0 0 15px #00ff0099;
-      margin-top: 1rem;
     }
 
     .button {
@@ -97,46 +136,79 @@
       color: #888;
       font-size: 0.9rem;
       text-align: center;
-      padding-top: 2rem;
+      padding: 2rem 0;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
     }
   </style>
 </head>
 <body>
-  <img class="logo" src="https://cdn.discordapp.com/attachments/1356309346354597969/1356310231642149004/Design_ohne_Titel_6.png?ex=67ec19d6&is=67eac856&hm=e016980c2c7f7fec9ec1203b3dc655685b76f51805bd11a30b62f9bb9fd86c23&" alt="El Muerte Logo" />
-  <h1>El Muerte</h1>
-  <h2>Supremo City  – El Muerte made by billions </h2>
+  <header>
+    <img class="logo" src="https://cdn.discordapp.com/attachments/1356309346354597969/1356310231642149004/Design_ohne_Titel_6.png" alt="El Muerte Logo" />
+    <h1>El Muerte</h1>
+    <h2>Supremo City – Brotherhood. Power. Legacy.</h2>
+  </header>
 
-  <div class="content-box">
-    <h3>Was bedeutet der Name „El Muerte“?</h3>
-    <ul>
-      <li>„El Muerte“ kommt aus dem Spanischen</li>
-      <li>Wörtlich übersetzt: „Der Tod“</li>
-      <li>Steht für Furchtlosigkeit, Respekt & Konsequenz</li>
-      <li>Kein leeres Gerede – wer den Namen hört, weiß was los ist</li>
-      <li>Der Tod begleitet das Gang-Leben – wir kennen die Straße</li>
-    </ul>
-  </div>
+  <section>
+    <div class="content-box">
+      <h3>Was bedeutet der Name „El Muerte“?</h3>
+      <ul>
+        <li>„El Muerte“ kommt aus dem Spanischen</li>
+        <li>Wörtlich übersetzt: „Der Tod“</li>
+        <li>Steht für Furchtlosigkeit, Respekt & Konsequenz</li>
+        <li>Kein leeres Gerede – wer den Namen hört, weiß was los ist</li>
+        <li>Der Tod begleitet das Gang-Leben – wir kennen die Straße</li>
+      </ul>
+    </div>
 
-  <div class="content-box">
-    <h3>📖 Geschichte</h3>
-    <p>
-      Die Gang „El Muerte“, was übersetzt „der Tod“ bedeutet, entstand in den 1970er Jahren in Sevilla, Spanien. 
-      Gegründet wurde sie von dem mexikanischen Drogenboss Eduardo Almanza Morales. 
-      Nach der Flucht vor dem spanischen Geheimdienst nach Los Angeles, führte er die Gang dort weiter. 
-      Heute – eine Generation später – hat sich El Muerte zum Ziel gesetzt, den alten Ruf wiederaufzubauen und das Drogen- und Waffengeschäft von Los Angeles zurückzuerobern.
-    </p>
-  </div>
+    <div class="content-box">
+      <h3>📖 Geschichte</h3>
+      <p>
+        Die Gang „El Muerte“, was übersetzt „der Tod“ bedeutet, entstand in den 1970er Jahren in Sevilla, Spanien. 
+        Gegründet wurde sie von dem mexikanischen Drogenboss Eduardo Almanza Morales. 
+        Nach der Flucht vor dem spanischen Geheimdienst nach Los Angeles, führte er die Gang dort weiter. 
+        Heute – eine Generation später – hat sich El Muerte zum Ziel gesetzt, den alten Ruf wiederaufzubauen und das Drogen- und Waffengeschäft von Los Angeles zurückzuerobern.
+      </p>
+    </div>
 
-  <div class="content-box">
-    <h3>📸 Beispiel-Outfit</h3>
-    <p>Unser Standardlook: Braun, Weiß, Maske. Präsenz und Wiedererkennung garantiert.</p>
-    <img class="outfit-img" src="https://cdn.discordapp.com/attachments/1355608591133839511/1356370973343092756/IMG_0705.png?ex=67ec5268&is=67eb00e8&hm=55bfc923a3e6c3e907306520757dedd3fb82c2ac26f49eee03703a669a74119f&" alt="El Muerte Outfit" />
-  </div>
+    <div class="content-box">
+      <h3>📸 Outfit</h3>
+      <p>Unser typischer Look: Braun, Weiß, Maske. Präsenz und Wiedererkennung garantiert.</p>
+      <div class="image-row">
+        <img src="https://cdn.discordapp.com/attachments/1355608591133839511/1356370973343092756/IMG_0705.png" alt="El Muerte Outfit" />
+      </div>
+    </div>
 
-  <a href="https://discord.gg/gambohub" target="_blank" class="button">Discord beitreten</a>
+    <a href="https://discord.gg/gambohub" target="_blank" class="button">Discord beitreten</a>
+  </section>
 
   <footer>
     &copy; 2025 El Muerte • Supremo City RP
   </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.content-box').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
 </body>
 </html>
