@@ -2,71 +2,151 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Funktionstasten-Slider</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login mit Überprüfung</title>
   <style>
     body {
       margin: 0;
-      background: black;
-      font-family: sans-serif;
-    }
-
-    .slider-container {
-      display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
       height: 100vh;
-    }
-
-    .slide {
-      scroll-snap-align: center;
-      flex: 0 0 100%;
       display: flex;
       justify-content: center;
       align-items: center;
-      position: relative;
+      overflow: hidden;
     }
 
-    .slide img {
-      max-width: 100%;
-      height: 100vh;
-      object-fit: cover;
+    .login-container {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      animation: fadeIn 1.5s ease-in;
     }
 
-    .caption {
-      position: absolute;
-      bottom: 60px;
-      left: 20px;
+    h2 {
       color: white;
-      font-size: 1.5rem;
-      text-shadow: 0 0 5px #000;
+      text-align: center;
+      margin-bottom: 20px;
+      animation: slideIn 1s ease-out;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #00f2ff;
+      color: #000;
+      font-weight: bold;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #00c0d4;
+    }
+
+    .captcha-box {
+      background: #222;
+      color: white;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 15px;
+      text-align: center;
+      animation: glow 2s infinite alternate;
+    }
+
+    .spinner {
+      border: 6px solid rgba(255, 255, 255, 0.1);
+      border-top: 6px solid #00f2ff;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+      display: none;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes glow {
+      from { box-shadow: 0 0 10px #00f2ff; }
+      to { box-shadow: 0 0 30px #00f2ff; }
+    }
+
+    .success {
+      color: #00ff99;
+      text-align: center;
+      margin-top: 20px;
+      display: none;
     }
   </style>
 </head>
 <body>
 
-<div class="slider-container">
-  <div class="slide">
-    <img src="/images/5836F8D4-7436-46DB-84E4-EED5B8C48CBF.jpeg" alt="Übersetzen 1">
-    <div class="caption">Übersetzen</div>
+<div class="login-container">
+  <h2>Login</h2>
+  <input type="text" id="username" placeholder="Benutzername">
+  <input type="password" id="password" placeholder="Passwort">
+
+  <div class="captcha-box" id="captcha">
+    Bist du ein Mensch? Tippe: <strong>Ich bin kein Bot</strong>
   </div>
-  <div class="slide">
-    <img src="/images/8A8154E8-4DF8-423C-9316-8F9FF15845F6.jpeg" alt="Übersetzen 2">
-    <div class="caption">Übersetzen</div>
-  </div>
-  <div class="slide">
-    <img src="/images/57A5D0FA-9162-4CB1-A4AC-349DFA42EA7F.jpeg" alt="Musik erkennen">
-    <div class="caption">Musik erkennen</div>
-  </div>
-  <div class="slide">
-    <img src="/images/6DF1C0C2-70E3-46AB-988D-211CF87E1BD6.jpeg" alt="Sprachmemo">
-    <div class="caption">Sprachmemo</div>
-  </div>
-  <div class="slide">
-    <img src="/images/1099EBA8-DFDC-4EC2-B63B-118DDBAF3B04.jpeg" alt="Taschenlampe">
-    <div class="caption">Taschenlampe</div>
-  </div>
+  <input type="text" id="captchaInput" placeholder="Ich bin kein Bot">
+
+  <button onclick="login()">Einloggen</button>
+
+  <div class="spinner" id="spinner"></div>
+  <div class="success" id="successMessage">Erfolgreich eingeloggt!</div>
 </div>
+
+<script>
+  function login() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+    const captcha = document.getElementById("captchaInput").value;
+    const spinner = document.getElementById("spinner");
+    const success = document.getElementById("successMessage");
+
+    if (!user || !pass || captcha !== "Ich bin kein Bot") {
+      alert("Bitte alle Felder korrekt ausfüllen!");
+      return;
+    }
+
+    spinner.style.display = "block";
+
+    setTimeout(() => {
+      spinner.style.display = "none";
+      success.style.display = "block";
+    }, 2000);
+  }
+</script>
 
 </body>
 </html>
