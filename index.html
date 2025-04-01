@@ -1,182 +1,72 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>El Muerte – Supremo City</title>
+  <meta charset="UTF-8">
+  <title>Button-Slider</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
-
-    * {
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-    }
-
     body {
       margin: 0;
-      font-family: 'Orbitron', sans-serif;
-      background: linear-gradient(135deg, #0c0c0c, #1c1c1c);
-      color: white;
-      overflow-x: hidden;
+      background: black;
+      font-family: sans-serif;
     }
 
-    header {
+    .slider-container {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
       height: 100vh;
-      text-align: center;
+    }
+
+    .slide {
+      scroll-snap-align: center;
+      flex: 0 0 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       position: relative;
     }
 
-    h1 {
-      font-size: 4rem;
-      margin-top: 2rem;
-      text-shadow: 0 0 20px #ffffff, 0 0 40px #ffffff;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 1s ease-out 1.2s forwards;
+    .slide img {
+      max-width: 100%;
+      height: auto;
+      display: block;
     }
 
-    h2 {
-      font-weight: normal;
-      color: #ccc;
-      margin-top: 1rem;
-      font-size: 1.2rem;
-      opacity: 0;
-      animation: fadeIn 1s ease-out 2s forwards;
-    }
-
-    section {
-      padding: 3rem 1rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .content-box {
-      background: #111;
-      border: 2px solid #ffffff22;
-      border-radius: 15px;
-      padding: 2rem;
-      max-width: 800px;
-      width: 100%;
-      box-shadow: 0 0 30px #ffffff11;
-      text-align: center;
-      margin-bottom: 2rem;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.8s ease-out;
-    }
-
-    .content-box.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .content-box h3 {
-      color: #ff0000;
-      margin-bottom: 1rem;
-      font-size: 1.5rem;
-    }
-
-    .content-box p, .content-box ul {
-      color: #ffffff;
-      line-height: 1.6;
-      font-size: 1.1rem;
-      text-align: left;
-    }
-
-    .button {
-      background: #00cc00;
-      color: #000;
-      padding: 1rem 2.5rem;
-      border: none;
-      border-radius: 12px;
-      font-weight: bold;
-      font-size: 1.2rem;
-      cursor: pointer;
-      text-decoration: none;
-      box-shadow: 0 0 18px #00cc0077;
-      transition: all 0.3s;
-      margin-top: 2rem;
-    }
-
-    .button:hover {
-      background: #009900;
-      transform: scale(1.05);
-    }
-
-    footer {
-      margin-top: auto;
-      color: #888;
-      font-size: 0.9rem;
-      text-align: center;
-      padding: 2rem 0;
-    }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
+    .caption {
+      position: absolute;
+      bottom: 60px;
+      left: 20px;
+      color: white;
+      font-size: 1.4rem;
+      text-shadow: 0 0 5px #000;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>El Muerte</h1>
-    <h2>Supremo City – Brotherhood. Power. Legacy.</h2>
-  </header>
 
-  <section>
-    <div class="content-box">
-      <h3>Was bedeutet der Name „El Muerte“?</h3>
-      <ul>
-        <li>„El Muerte“ kommt aus dem Spanischen</li>
-        <li>Wörtlich übersetzt: „Der Tod“</li>
-        <li>Steht für Furchtlosigkeit, Respekt & Konsequenz</li>
-        <li>Kein leeres Gerede – wer den Namen hört, weiß was los ist</li>
-        <li>Der Tod begleitet das Gang-Leben – wir kennen die Straße</li>
-      </ul>
-    </div>
+<div class="slider-container">
+  <div class="slide">
+    <img src="5836F8D4-7436-46DB-84E4-EED5B8C48CBF.jpeg" alt="Übersetzen 1">
+    <div class="caption">Übersetzen</div>
+  </div>
+  <div class="slide">
+    <img src="8A8154E8-4DF8-423C-9316-8F9FF15845F6.jpeg" alt="Übersetzen 2">
+    <div class="caption">Übersetzen</div>
+  </div>
+  <div class="slide">
+    <img src="57A5D0FA-9162-4CB1-A4AC-349DFA42EA7F.jpeg" alt="Musik erkennen">
+    <div class="caption">Musik erkennen</div>
+  </div>
+  <div class="slide">
+    <img src="6DF1C0C2-70E3-46AB-988D-211CF87E1BD6.jpeg" alt="Sprachmemo">
+    <div class="caption">Sprachmemo</div>
+  </div>
+  <div class="slide">
+    <img src="1099EBA8-DFDC-4EC2-B63B-118DDBAF3B04.jpeg" alt="Taschenlampe">
+    <div class="caption">Taschenlampe</div>
+  </div>
+</div>
 
-    <div class="content-box">
-      <h3>📖 Geschichte</h3>
-      <p>
-        Die Gang „El Muerte“, was übersetzt „der Tod“ bedeutet, entstand in den 1970er Jahren in Sevilla, Spanien. 
-        Gegründet wurde sie von dem mexikanischen Drogenboss Eduardo Almanza Morales. 
-        Nach der Flucht vor dem spanischen Geheimdienst nach Los Angeles, führte er die Gang dort weiter. 
-        Heute – eine Generation später – hat sich El Muerte zum Ziel gesetzt, den alten Ruf wiederaufzubauen und das Drogen- und Waffengeschäft von Los Angeles zurückzuerobern.
-      </p>
-    </div>
-
-    <a href="https://discord.gg/gambohub" target="_blank" class="button">Discord beitreten</a>
-  </section>
-
-  <footer>
-    &copy; 2025 El Muerte • Supremo City RP
-  </footer>
-
-  <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.content-box').forEach(el => {
-      observer.observe(el);
-    });
-  </script>
 </body>
 </html>
