@@ -8,14 +8,18 @@
       margin: 0;
       padding: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #fce4ec, #e1f5fe);
+      background-image: url('https://media.istockphoto.com/id/1250626429/de/vektor/nahtlose-sakura-bl%C3%BCtenbl%C3%A4tter-fallenrealistische-kirschbl%C3%BCten.jpg?s=612x612&w=0&k=20&c=znOuF-mlSfhZY5JbTZeHIzfA7MHnscp7sy_dd-IqdYE=');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
       overflow-x: hidden;
     }
 
     h1 {
       text-align: center;
       color: #fff;
-      background: linear-gradient(45deg, #f8bbd0, #b2ebf2);
+      background: rgba(255, 182, 193, 0.8);
       padding: 20px;
       border-radius: 30px;
       margin: 30px auto;
@@ -63,7 +67,7 @@
     }
 
     th, td {
-      background: white;
+      background: rgba(255, 255, 255, 0.85);
       padding: 18px;
       border-radius: 20px;
       font-size: 16px;
@@ -71,16 +75,14 @@
     }
 
     th {
-      background: linear-gradient(45deg, #f8bbd0, #b2ebf2);
+      background: rgba(248, 187, 208, 0.8);
       color: #333;
     }
 
-    /* Kirschblüten */
+    /* Kirschblüten-Animation */
     .blossom {
       position: fixed;
       top: -50px;
-      width: 40px;
-      height: 40px;
       background-image: url('https://cdn-icons-png.flaticon.com/512/765/765490.png');
       background-size: contain;
       background-repeat: no-repeat;
@@ -166,8 +168,10 @@
       const blume = document.createElement("div");
       blume.classList.add("blossom");
       blume.style.left = Math.random() * 100 + "vw";
+      const size = 20 + Math.random() * 40;
+      blume.style.width = size + "px";
+      blume.style.height = size + "px";
       blume.style.animationDuration = 5 + Math.random() * 5 + "s";
-      blume.style.width = blume.style.height = 20 + Math.random() * 40 + "px";
       document.body.appendChild(blume);
     }
   </script>
