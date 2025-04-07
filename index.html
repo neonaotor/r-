@@ -71,84 +71,97 @@
         image: "https://www.apple.com/iphone-16-pro/images/overview/hero/hero_static__c7t6x8j7b0eq_large.jpg"
       },
       {
+        name: "Apple iPhone 16 Pro",
+        image: "https://www.apple.com/iphone-16-pro/images/overview/hero/hero_static__c7t6x8j7b0eq_large.jpg"
+      },
+      {
+        name: "Apple iPhone 16",
+        image: "https://www.apple.com/iphone-16/images/overview/hero/hero_static__c7t6x8j7b0eq_large.jpg"
+      },
+      {
+        name: "Apple iPhone 16e",
+        image: "https://www.apple.com/iphone-16/images/overview/hero/hero_static__c7t6x8j7b0eq_large.jpg"
+      },
+      {
         name: "Samsung Galaxy S25 Ultra",
         image: "https://www.samsung.com/us/smartphones/galaxy-s25-ultra/images/galaxy-s25-ultra-highlights-kv.jpg"
+      },
+      {
+        name: "Samsung Galaxy S25+",
+        image: "https://www.samsung.com/us/smartphones/galaxy-s25-plus/images/galaxy-s25-plus-highlights-kv.jpg"
+      },
+      {
+        name: "Samsung Galaxy S25",
+        image: "https://www.samsung.com/us/smartphones/galaxy-s25/images/galaxy-s25-highlights-kv.jpg"
+      },
+      {
+        name: "Samsung Galaxy A56 5G",
+        image: "https://www.samsung.com/us/smartphones/galaxy-a56-5g/images/galaxy-a56-5g-highlights-kv.jpg"
+      },
+      {
+        name: "Samsung Galaxy A36 5G",
+        image: "https://www.samsung.com/us/smartphones/galaxy-a36-5g/images/galaxy-a36-5g-highlights-kv.jpg"
+      },
+      {
+        name: "Samsung Galaxy A26 5G",
+        image: "https://www.samsung.com/us/smartphones/galaxy-a26-5g/images/galaxy-a26-5g-highlights-kv.jpg"
       },
       {
         name: "Google Pixel 9 Pro",
         image: "https://store.google.com/product/pixel_9_pro/images/overview/hero.jpg"
       },
       {
+        name: "Google Pixel 9",
+        image: "https://store.google.com/product/pixel_9/images/overview/hero.jpg"
+      },
+      {
+        name: "Google Pixel 8a",
+        image: "https://store.google.com/product/pixel_8a/images/overview/hero.jpg"
+      },
+      {
         name: "Xiaomi 15 Ultra",
         image: "https://www.mi.com/global/product/xiaomi-15-ultra/images/overview/hero.jpg"
+      },
+      {
+        name: "Xiaomi 15",
+        image: "https://www.mi.com/global/product/xiaomi-15/images/overview/hero.jpg"
+      },
+      {
+        name: "Xiaomi 15T",
+        image: "https://www.mi.com/global/product/xiaomi-15t/images/overview/hero.jpg"
+      },
+      {
+        name: "Xiaomi Poco F7 Ultra",
+        image: "https://www.mi.com/global/product/poco-f7-ultra/images/overview/hero.jpg"
+      },
+      {
+        name: "Xiaomi Poco F7 Pro",
+        image: "https://www.mi.com/global/product/poco-f7-pro/images/overview/hero.jpg"
       },
       {
         name: "OnePlus 13",
         image: "https://www.oneplus.com/oneplus-13/images/overview/hero.jpg"
       },
       {
+        name: "OnePlus 13R",
+        image: "https://www.oneplus.com/oneplus-13r/images/overview/hero.jpg"
+      },
+      {
         name: "Sony Xperia 1 VI",
         image: "https://www.sony.com/electronics/smartphones/xperia-1m6/images/overview/hero.jpg"
+      },
+      {
+        name: "Sony Xperia 5 VI",
+        image: "https://www.sony.com/electronics/smartphones/xperia-5m6/images/overview/hero.jpg"
       },
       {
         name: "Honor Magic 7 Pro",
         image: "https://www.honor.com/global/phones/honor-magic7-pro/images/overview/hero.jpg"
       },
       {
+        name: "Nothing Phone (3a)",
+        image: "https://us.nothing.tech/products/phone-3a/images/overview/hero.jpg"
+      },
+      {
         name: "Nothing Phone (3a) Pro",
-        image: "https://us.nothing.tech/products/phone-3a-pro/images/overview/hero.jpg"
-      },
-      {
-        name: "Motorola Razr 2025",
-        image: "https://www.motorola.com/us/smartphones/razr-2025/images/overview/hero.jpg"
-      },
-      {
-        name: "Huawei Mate XT",
-        image: "https://consumer.huawei.com/en/phones/mate-xt/images/overview/hero.jpg"
-      },
-      {
-        name: "HMD Fusion X1",
-        image: "https://www.hmd.com/en_int/hmd-fusion-x1/images/overview/hero.jpg"
-      },
-      {
-        name: "Tecno Spark Slim",
-        image: "https://www.tecno-mobile.com/phones/spark-slim/images/overview/hero.jpg"
-      }
-    ];
-
-    let counter = 1;
-
-    function addEntry() {
-      const nameInput = document.getElementById("name");
-      const name = nameInput.value.trim();
-      if (!name) {
-        alert("Bitte gib deinen Namen ein.");
-        return;
-      }
-
-      const randomIndex = Math.floor(Math.random() * smartphones.length);
-      const smartphone = smartphones[randomIndex];
-
-      const table = document.getElementById("tabelle");
-      const newRow = table.insertRow();
-
-      const cell1 = newRow.insertCell(0);
-      const cell2 = newRow.insertCell(1);
-      const cell3 = newRow.insertCell(2);
-      const cell4 = newRow.insertCell(3);
-
-      cell1.textContent = counter++;
-      cell2.textContent = name;
-      cell3.textContent = smartphone.name;
-
-      const img = document.createElement("img");
-      img.src = smartphone.image;
-      img.alt = smartphone.name;
-      cell4.appendChild(img);
-
-      nameInput.value = ""; // Eingabefeld leeren
-    }
-  </script>
-
-</body>
-</html>
+        image: "https://us.nothing 
