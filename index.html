@@ -6,49 +6,45 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
+      background-color: #f0f8ff;
       text-align: center;
       padding: 20px;
     }
     h1 {
       color: #333;
     }
-    input {
+    input, button {
       padding: 10px;
       font-size: 16px;
-      margin-right: 10px;
+      margin: 10px;
+      border-radius: 10px;
     }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
+    .hint {
+      font-size: 14px;
+      color: #666;
+      margin-top: -10px;
     }
     table {
-      width: 80%;
-      margin: 20px auto;
+      width: 90%;
+      margin: 30px auto;
       border-collapse: collapse;
     }
     th, td {
-      border: 1px solid #ddd;
-      padding: 10px;
-    }
-    th {
-      background-color: #f4f4f4;
+      border: 1px solid #ccc;
+      padding: 12px;
+      background-color: #fff;
     }
     img {
-      width: 100px;
-      height: auto;
+      width: 120px;
     }
   </style>
 </head>
 <body>
 
-  <h1>Welches Smartphone passt zu dir?</h1>
-
-  <div>
-    <input type="text" id="name" placeholder="Dein Name">
-    <button onclick="addEntry()">Speichern</button>
-  </div>
+  <h1>Welches Smartphone bekommst du?</h1>
+  <input type="text" id="name" placeholder="Dein Name" onkeydown="if(event.key === 'Enter'){addEntry();}">
+  <div class="hint">Drücke Enter oder klicke auf „Speichern“</div>
+  <button onclick="addEntry()">Speichern</button>
 
   <table>
     <thead>
@@ -59,109 +55,70 @@
         <th>Bild</th>
       </tr>
     </thead>
-    <tbody id="tabelle">
-      <!-- Einträge werden hier eingefügt -->
-    </tbody>
+    <tbody id="tabelle"></tbody>
   </table>
 
   <script>
     const smartphones = [
-      {
-        name: "Apple iPhone 16 Pro Max",
-        image: "https://www.apple.com/iphone-16-pro/images/overview/hero/hero_static__c7t6x8j7b0eq_large.jpg"
-      },
-      {
-        name: "Apple iPhone 16 Pro",
-        image: "https://www.apple.com/iphone-16-pro/images/overview/hero/hero_static__c7t6x8j7b0eq_large.jpg"
-      },
-      {
-        name: "Apple iPhone 16",
-        image: "https://www.apple.com/iphone-16/images/overview/hero/hero_static__c7t6x8j7b0eq_large.jpg"
-      },
-      {
-        name: "Apple iPhone 16e",
-        image: "https://www.apple.com/iphone-16/images/overview/hero/hero_static__c7t6x8j7b0eq_large.jpg"
-      },
-      {
-        name: "Samsung Galaxy S25 Ultra",
-        image: "https://www.samsung.com/us/smartphones/galaxy-s25-ultra/images/galaxy-s25-ultra-highlights-kv.jpg"
-      },
-      {
-        name: "Samsung Galaxy S25+",
-        image: "https://www.samsung.com/us/smartphones/galaxy-s25-plus/images/galaxy-s25-plus-highlights-kv.jpg"
-      },
-      {
-        name: "Samsung Galaxy S25",
-        image: "https://www.samsung.com/us/smartphones/galaxy-s25/images/galaxy-s25-highlights-kv.jpg"
-      },
-      {
-        name: "Samsung Galaxy A56 5G",
-        image: "https://www.samsung.com/us/smartphones/galaxy-a56-5g/images/galaxy-a56-5g-highlights-kv.jpg"
-      },
-      {
-        name: "Samsung Galaxy A36 5G",
-        image: "https://www.samsung.com/us/smartphones/galaxy-a36-5g/images/galaxy-a36-5g-highlights-kv.jpg"
-      },
-      {
-        name: "Samsung Galaxy A26 5G",
-        image: "https://www.samsung.com/us/smartphones/galaxy-a26-5g/images/galaxy-a26-5g-highlights-kv.jpg"
-      },
-      {
-        name: "Google Pixel 9 Pro",
-        image: "https://store.google.com/product/pixel_9_pro/images/overview/hero.jpg"
-      },
-      {
-        name: "Google Pixel 9",
-        image: "https://store.google.com/product/pixel_9/images/overview/hero.jpg"
-      },
-      {
-        name: "Google Pixel 8a",
-        image: "https://store.google.com/product/pixel_8a/images/overview/hero.jpg"
-      },
-      {
-        name: "Xiaomi 15 Ultra",
-        image: "https://www.mi.com/global/product/xiaomi-15-ultra/images/overview/hero.jpg"
-      },
-      {
-        name: "Xiaomi 15",
-        image: "https://www.mi.com/global/product/xiaomi-15/images/overview/hero.jpg"
-      },
-      {
-        name: "Xiaomi 15T",
-        image: "https://www.mi.com/global/product/xiaomi-15t/images/overview/hero.jpg"
-      },
-      {
-        name: "Xiaomi Poco F7 Ultra",
-        image: "https://www.mi.com/global/product/poco-f7-ultra/images/overview/hero.jpg"
-      },
-      {
-        name: "Xiaomi Poco F7 Pro",
-        image: "https://www.mi.com/global/product/poco-f7-pro/images/overview/hero.jpg"
-      },
-      {
-        name: "OnePlus 13",
-        image: "https://www.oneplus.com/oneplus-13/images/overview/hero.jpg"
-      },
-      {
-        name: "OnePlus 13R",
-        image: "https://www.oneplus.com/oneplus-13r/images/overview/hero.jpg"
-      },
-      {
-        name: "Sony Xperia 1 VI",
-        image: "https://www.sony.com/electronics/smartphones/xperia-1m6/images/overview/hero.jpg"
-      },
-      {
-        name: "Sony Xperia 5 VI",
-        image: "https://www.sony.com/electronics/smartphones/xperia-5m6/images/overview/hero.jpg"
-      },
-      {
-        name: "Honor Magic 7 Pro",
-        image: "https://www.honor.com/global/phones/honor-magic7-pro/images/overview/hero.jpg"
-      },
-      {
-        name: "Nothing Phone (3a)",
-        image: "https://us.nothing.tech/products/phone-3a/images/overview/hero.jpg"
-      },
-      {
-        name: "Nothing Phone (3a) Pro",
-        image: "https://us.nothing 
+      { name: "iPhone 13", image: "https://tse2.mm.bing.net/th?id=OIP.6v1FaCqpgQTqAQFRgBLMWQHaHa&pid=Api" },
+      { name: "Samsung Galaxy S24 Ultra", image: "https://tse4.mm.bing.net/th?id=OIP.seDkZ7w_josZda-_44JlyQHaE8&pid=Api" },
+      { name: "Google Pixel 8 Pro", image: "https://tse4.mm.bing.net/th?id=OIP.THrwpDJ1ELCpoApVZRkZpQHaEK&pid=Api" },
+      { name: "Xiaomi 14 Pro", image: "https://tse1.mm.bing.net/th?id=OIP.fdS8r29xOaBrLX6ChXrVaQHaJ4&pid=Api" },
+      { name: "iPhone 15 Pro", image: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-blue-titanium-1up-gallery-1-202309?wid=2000&hei=2000&fmt=jpeg&qlt=90&.v=1692923775437" },
+      { name: "iPhone 15", image: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-blue-1up-gallery-1-202309?wid=2000&hei=2000&fmt=jpeg&qlt=90&.v=1692923779099" },
+      { name: "iPhone 15 Plus", image: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-plus-pink-1up-gallery-1-202309?wid=2000&hei=2000&fmt=jpeg&qlt=90&.v=1692923782282" },
+      { name: "iPhone SE (3. Generation)", image: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-se-midnight-select-202207_GEO_EMEA_LANG_DE?wid=940&hei=1112&fmt=png-alpha&.v=1655151067793" },
+      { name: "iPhone 15 Pro Max", image: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-model-unselect-gallery-1-202309" },
+      { name: "Samsung Galaxy S24 Ultra", image: "https://images.samsung.com/is/image/samsung/assets/global/galaxy-s24-ultra/highlights/galaxy-s24-ultra_highlights_kv_mo_img.jpg" },
+      { name: "Google Pixel 8 Pro", image: "https://fdn2.gsmarena.com/vv/pics/google/google-pixel-8-pro-1.jpg" },
+      { name: "Xiaomi 14 Pro", image: "https://fdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-14-pro-1.jpg" },
+      { name: "OnePlus 12", image: "https://fdn2.gsmarena.com/vv/pics/oneplus/oneplus-12-1.jpg" },
+      { name: "Sony Xperia 1 V", image: "https://fdn2.gsmarena.com/vv/pics/sony/sony-xperia-1-v-1.jpg" },
+      { name: "Huawei P60 Pro", image: "https://fdn2.gsmarena.com/vv/pics/huawei/huawei-p60-pro-1.jpg" },
+      { name: "Motorola Edge 40 Pro", image: "https://fdn2.gsmarena.com/vv/pics/motorola/motorola-edge-40-pro-1.jpg" },
+      { name: "iPhone 14", image: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-model-unselect-gallery-1-202209" },
+      { name: "Samsung Galaxy Z Fold5", image: "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-z-fold5-1.jpg" },
+      { name: "Samsung Galaxy Z Flip5", image: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSVl9b8_gD8KEtlXouLtU9Xlr2enL1jE4Lg_9KRxiptJ2F0ZCxtiIo6jWRffekCpUa2c31lCmSjL8O-m6RYLOUI2SOHktztSOdqllwaJFMTXpqMyDsvkoln&usqp=CAc" },
+      { name: "Nothing Phone (2)", image: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQ1M3dbnfsCfwQFeUTrs9-fiUpKZ504U4sCVqEyFjqs1EKMneZMRaKHHuKrwTOd3BHLM8r1uKzUh0KnS6GEdoHO9Nz-zswxBiHAP977RJOaEQnkBliKmn90kQ&usqp=CAc" },
+      { name: "ASUS ROG Phone 7", image: "https://fdn2.gsmarena.com/vv/pics/asus/asus-rog-phone-7-ultimate-1.jpg" },
+      { name: "Fairphone 5", image: "https://fdn2.gsmarena.com/vv/pics/fairphone/fairphone-5-1.jpg" },
+      { name: "Samsung Galaxy A54", image: "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a54-5g-1.jpg" },
+      { name: "Google Pixel 7a", image: "https://fdn2.gsmarena.com/vv/pics/google/google-pixel-7a-1.jpg" },
+      { name: "Xiaomi Redmi Note 13 Pro+", image: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQEzuvjZ3GUUuaXA6PSIz7X7eLS5xT4adpwZPYPGDNsLtdmlCHdcsZJmeyQppfAEvIWdf0YwaxaDRRJk_IlKHjcROxUuZDS-snVn8xYD9c143jGuvQcWE7N&usqp=CAc" },
+      { name: "OnePlus Nord CE 3 Lite", image: "https://fdn2.gsmarena.com/vv/pics/oneplus/oneplus-nord-ce-3-lite-5g-1.jpg" },
+      { name: "Honor Magic 6 Pro", image: "https://fdn2.gsmarena.com/vv/pics/honor/honor-magic6-pro-1.jpg" },
+      { name: "vivo X100 Pro", image: "https://fdn2.gsmarena.com/vv/pics/vivo/vivo-x100-pro-1.jpg" }
+    ];
+
+    let counter = 1;
+
+    function addEntry() {
+      const name = document.getElementById("name").value.trim();
+      if (!name) {
+        alert("Bitte gib einen Namen ein.");
+        return;
+      }
+
+      const zufall = Math.floor(Math.random() * smartphones.length);
+      const handy = smartphones[zufall];
+
+      const table = document.getElementById("tabelle");
+      const row = table.insertRow();
+
+      row.insertCell(0).textContent = counter++;
+      row.insertCell(1).textContent = name;
+      row.insertCell(2).textContent = handy.name;
+
+      const img = document.createElement("img");
+      img.src = handy.image;
+      img.alt = handy.name;
+
+      const cell = row.insertCell(3);
+      cell.appendChild(img);
+
+      document.getElementById("name").value = "";
+    }
+  </script>
+
+</body>
+</html>
