@@ -2,101 +2,50 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>APA SMARTPHONE IMPIANMU?</title>
+  <title>Smartphone Zufall</title>
   <style>
     body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #fce4ec, #e1f5fe);
-      overflow-x: hidden;
+      font-family: sans-serif;
+      background: #e0f7fa;
+      text-align: center;
+      padding: 40px;
     }
-
     h1 {
-      text-align: center;
-      color: #fff;
-      background: linear-gradient(45deg, #f8bbd0, #b2ebf2);
-      padding: 20px;
-      border-radius: 30px;
-      margin: 30px auto;
-      width: 80%;
-      font-size: 28px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    }
-
-    .input-container {
-      text-align: center;
-      margin: 30px;
-    }
-
-    input {
-      padding: 15px;
-      font-size: 18px;
-      border: none;
-      border-radius: 30px;
-      width: 250px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
-    }
-
-    button {
-      padding: 15px 25px;
-      font-size: 18px;
-      border: none;
-      border-radius: 30px;
-      background: linear-gradient(45deg, #f48fb1, #81d4fa);
+      background: #f48fb1;
       color: white;
-      cursor: pointer;
-      margin-left: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-      transition: transform 0.2s;
-    }
-
-    button:hover {
-      transform: scale(1.05);
-    }
-
-    table {
-      margin: 0 auto;
-      width: 85%;
-      border-collapse: separate;
-      border-spacing: 0 15px;
-    }
-
-    th, td {
-      background: rgba(255, 255, 255, 0.85);
-      padding: 18px;
+      padding: 20px;
       border-radius: 20px;
-      font-size: 16px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
     }
-
-    th {
-      background: rgba(248, 187, 208, 0.8);
-      color: #333;
+    input {
+      padding: 10px;
+      font-size: 18px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
     }
-
-    /* Schnee-Flocken */
-    .snowflake {
-      position: fixed;
-      top: -10px;
-      width: 10px;
-      height: 10px;
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      border-radius: 10px;
+      background-color: #81d4fa;
+      color: white;
+      border: none;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+    table {
+      margin: 30px auto;
+      border-collapse: collapse;
+      width: 80%;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      border-radius: 10px;
       background: white;
-      border-radius: 50%;
-      opacity: 0.8;
-      animation: snowfall linear infinite;
-      z-index: -1;
     }
-
-    @keyframes snowfall {
-      0% {
-        transform: translateY(0) translateX(0);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(110vh) translateX(30px);
-        opacity: 0;
-      }
+    th {
+      background-color: #fce4ec;
     }
   </style>
 </head>
@@ -104,10 +53,8 @@
 
   <h1>APA SMARTPHONE IMPIANMU?</h1>
 
-  <div class="input-container">
-    <input type="text" id="name" placeholder="Gib deinen Namen ein">
-    <button onclick="addEntry()">SAVE</button>
-  </div>
+  <input type="text" id="name" placeholder="Dein Name">
+  <button onclick="addEntry()">SAVE</button>
 
   <table>
     <thead>
@@ -118,21 +65,20 @@
       </tr>
     </thead>
     <tbody id="tabelle">
-      <!-- Dynamische Einträge -->
+      <!-- Einträge erscheinen hier -->
     </tbody>
   </table>
 
   <script>
     const handys = [
-      "Apple iPhone 16 Pro Max", "Apple iPhone 16 Pro", "Apple iPhone 16", "Apple iPhone 16e",
+      "iPhone 16 Pro Max", "iPhone 16 Pro", "iPhone 16", "iPhone 16e",
       "Samsung Galaxy S25 Ultra", "Samsung Galaxy S25+", "Samsung Galaxy S25",
       "Samsung Galaxy A56 5G", "Samsung Galaxy A36 5G", "Samsung Galaxy A26 5G",
       "Google Pixel 9 Pro", "Google Pixel 9", "Google Pixel 8a",
       "Xiaomi 15 Ultra", "Xiaomi 15", "Xiaomi 15T",
-      "Xiaomi Poco F7 Ultra", "Xiaomi Poco F7 Pro",
-      "OnePlus 13", "OnePlus 13R",
-      "Sony Xperia 1 VI", "Sony Xperia 5 VI",
-      "Honor Magic 7 Pro", "Nothing Phone (3a)", "Nothing Phone (3a) Pro",
+      "Poco F7 Ultra", "Poco F7 Pro", "OnePlus 13", "OnePlus 13R",
+      "Sony Xperia 1 VI", "Sony Xperia 5 VI", "Honor Magic 7 Pro",
+      "Nothing Phone (3a)", "Nothing Phone (3a) Pro",
       "Motorola Razr 2025", "Motorola Razr Plus 2025",
       "Huawei Mate XT", "HMD Fusion X1", "Tecno Spark Slim"
     ];
@@ -142,227 +88,26 @@
     function addEntry() {
       const nameInput = document.getElementById("name");
       const name = nameInput.value.trim();
-      if (!name) return;
-
-      const zufall = Math.floor(Math.random() * handys.length);
-      const handy = handys[zufall];
-
-      const tabelle = document.getElementById("tabelle");
-      const row = tabelle.insertRow();
-      const zelle1 = row.insertCell(0);
-      const zelle2 = row.insertCell(1);
-      const zelle3 = row.insertCell(2);
-
-      zelle1.textContent = counter++;
-      zelle2.textContent = name;
-      zelle3.textContent = handy;
-
-      nameInput.value = "";
-    }
-
-    // Schneeflocken erzeugen
-    for (let i = 0; i < 40; i++) {
-      const flake = document.createElement("div");
-      flake.classList.add("snowflake");
-      flake.style.left = Math.random() * 100 +
-
-Ohhh yes – du willst **Pastell-Hintergrund**, **fallenden Schnee** *und* dass sich der Schnee **unten hübsch ansammelt** wie bei einem Wintermärchen!  
-Ich baue dir jetzt genau das:
-
-- Sanften **Pastell-Gradient**
-- **Animierte Schneeflocken**, die langsam nach unten fallen
-- Und am unteren Rand: ein **"Snowpile"**, der wie aufgetürmter Schnee aussieht (mit weichen Rundungen)
-
-Hier ist der fertige HTML-Code:
-
-```html
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <title>Wintertraum Smartphone-Generator</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(180deg, #fce4ec 0%, #e0f7fa 100%);
-      overflow-x: hidden;
-      position: relative;
-      min-height: 100vh;
-    }
-
-    h1 {
-      text-align: center;
-      color: #fff;
-      background: linear-gradient(45deg, #f8bbd0, #b2ebf2);
-      padding: 20px;
-      border-radius: 30px;
-      margin: 30px auto;
-      width: 80%;
-      font-size: 28px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    }
-
-    .input-container {
-      text-align: center;
-      margin: 30px;
-    }
-
-    input {
-      padding: 15px;
-      font-size: 18px;
-      border: none;
-      border-radius: 30px;
-      width: 250px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
-    }
-
-    button {
-      padding: 15px 25px;
-      font-size: 18px;
-      border: none;
-      border-radius: 30px;
-      background: linear-gradient(45deg, #f48fb1, #81d4fa);
-      color: white;
-      cursor: pointer;
-      margin-left: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-      transition: transform 0.2s;
-    }
-
-    button:hover {
-      transform: scale(1.05);
-    }
-
-    table {
-      margin: 0 auto;
-      width: 85%;
-      border-collapse: separate;
-      border-spacing: 0 15px;
-    }
-
-    th, td {
-      background: rgba(255, 255, 255, 0.9);
-      padding: 18px;
-      border-radius: 20px;
-      font-size: 16px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-
-    th {
-      background: rgba(248, 187, 208, 0.8);
-      color: #333;
-    }
-
-    /* Schneeflocken */
-    .snowflake {
-      position: fixed;
-      top: -10px;
-      background: white;
-      border-radius: 50%;
-      opacity: 0.8;
-      animation: fall linear infinite;
-      z-index: 1;
-    }
-
-    @keyframes fall {
-      to {
-        transform: translateY(110vh);
-        opacity: 0.2;
+      if (!name) {
+        alert("Bitte gib einen Namen ein.");
+        return;
       }
-    }
 
-    /* Schneehügel unten */
-    .snowpile {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 120px;
-      background: white;
-      border-top-left-radius: 80px;
-      border-top-right-radius: 80px;
-      z-index: 0;
-      box-shadow: 0 -5px 20px rgba(0,0,0,0.05) inset;
-    }
-  </style>
-</head>
-<body>
+      const randomIndex = Math.floor(Math.random() * handys.length);
+      const smartphone = handys[randomIndex];
 
-  <h1>APA SMARTPHONE IMPIANMU?</h1>
+      const table = document.getElementById("tabelle");
+      const newRow = table.insertRow();
 
-  <div class="input-container">
-    <input type="text" id="name" placeholder="Gib deinen Namen ein">
-    <button onclick="addEntry()">SAVE</button>
-  </div>
+      const cell1 = newRow.insertCell(0);
+      const cell2 = newRow.insertCell(1);
+      const cell3 = newRow.insertCell(2);
 
-  <table>
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Name</th>
-        <th>Smartphone</th>
-      </tr>
-    </thead>
-    <tbody id="tabelle">
-      <!-- Dynamische Einträge -->
-    </tbody>
-  </table>
+      cell1.textContent = counter++;
+      cell2.textContent = name;
+      cell3.textContent = smartphone;
 
-  <div class="snowpile"></div>
-
-  <script>
-    const handys = [
-      "Apple iPhone 16 Pro Max", "Apple iPhone 16 Pro", "Apple iPhone 16", "Apple iPhone 16e",
-      "Samsung Galaxy S25 Ultra", "Samsung Galaxy S25+", "Samsung Galaxy S25",
-      "Samsung Galaxy A56 5G", "Samsung Galaxy A36 5G", "Samsung Galaxy A26 5G",
-      "Google Pixel 9 Pro", "Google Pixel 9", "Google Pixel 8a",
-      "Xiaomi 15 Ultra", "Xiaomi 15", "Xiaomi 15T",
-      "Xiaomi Poco F7 Ultra", "Xiaomi Poco F7 Pro",
-      "OnePlus 13", "OnePlus 13R",
-      "Sony Xperia 1 VI", "Sony Xperia 5 VI",
-      "Honor Magic 7 Pro", "Nothing Phone (3a)", "Nothing Phone (3a) Pro",
-      "Motorola Razr 2025", "Motorola Razr Plus 2025",
-      "Huawei Mate XT", "HMD Fusion X1", "Tecno Spark Slim"
-    ];
-
-    let counter = 1;
-
-    function addEntry() {
-      const nameInput = document.getElementById("name");
-      const name = nameInput.value.trim();
-      if (!name) return;
-
-      const zufall = Math.floor(Math.random() * handys.length);
-      const handy = handys[zufall];
-
-      const tabelle = document.getElementById("tabelle");
-      const row = tabelle.insertRow();
-      const zelle1 = row.insertCell(0);
-      const zelle2 = row.insertCell(1);
-      const zelle3 = row.insertCell(2);
-
-      zelle1.textContent = counter++;
-      zelle2.textContent = name;
-      zelle3.textContent = handy;
-
-      nameInput.value = "";
-    }
-
-    // Schneeflocken generieren
-    for (let i = 0; i < 50; i++) {
-      const flake = document.createElement("div");
-      flake.classList.add("snowflake");
-
-      const size = Math.random() * 6 + 4;
-      flake.style.width = `${size}px`;
-      flake.style.height = `${size}px`;
-      flake.style.left = Math.random() * 100 + "vw";
-      flake.style.animationDuration = 5 + Math.random() * 5 + "s";
-      flake.style.animationDelay = Math.random() * 5 + "s";
-
-      document.body.appendChild(flake);
+      nameInput.value = ""; // Eingabe leeren
     }
   </script>
 
