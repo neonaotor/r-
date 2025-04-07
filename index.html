@@ -79,18 +79,24 @@
     .blossom {
       position: fixed;
       top: -50px;
-      width: 30px;
-      height: 30px;
-      background-image: url('https://cdn-icons-png.flaticon.com/512/809/809957.png');
-      background-size: cover;
-      animation: fall linear infinite;
+      width: 40px;
+      height: 40px;
+      background-image: url('https://cdn-icons-png.flaticon.com/512/765/765490.png');
+      background-size: contain;
+      background-repeat: no-repeat;
       opacity: 0.8;
+      animation: fall linear infinite;
       z-index: -1;
     }
 
     @keyframes fall {
-      to {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.9;
+      }
+      100% {
         transform: translateY(110vh) rotate(360deg);
+        opacity: 0.1;
       }
     }
   </style>
@@ -117,7 +123,6 @@
     </tbody>
   </table>
 
-  <!-- Sakura-Blüten erzeugen -->
   <script>
     const handys = [
       "Apple iPhone 16 Pro Max", "Apple iPhone 16 Pro", "Apple iPhone 16", "Apple iPhone 16e",
@@ -156,12 +161,13 @@
       nameInput.value = "";
     }
 
-    // Sakura-Blüten hinzufügen
-    for (let i = 0; i < 20; i++) {
-      let blume = document.createElement("div");
+    // Kirschblüten erzeugen
+    for (let i = 0; i < 25; i++) {
+      const blume = document.createElement("div");
       blume.classList.add("blossom");
       blume.style.left = Math.random() * 100 + "vw";
       blume.style.animationDuration = 5 + Math.random() * 5 + "s";
+      blume.style.width = blume.style.height = 20 + Math.random() * 40 + "px";
       document.body.appendChild(blume);
     }
   </script>
