@@ -2,60 +2,137 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Traum-Smartphone Generator</title>
+  <title>APA SMARTPHONE IMPIANMU?</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f8ff;
+      font-family: sans-serif;
+      background-color: #f4f4f4;
       text-align: center;
-      padding: 50px;
+      padding: 20px;
     }
+
+    h1 {
+      background-color: #1c2a48;
+      color: white;
+      padding: 15px;
+      border-radius: 5px;
+      width: 80%;
+      margin: 20px auto;
+    }
+
+    table {
+      margin: 0 auto;
+      border-collapse: collapse;
+      width: 80%;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #e6ffe6;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
     input, button {
       padding: 10px;
       font-size: 16px;
-      margin: 10px;
+      margin: 15px 5px;
     }
-    #ergebnis {
-      margin-top: 30px;
-      font-size: 22px;
+
+    .save-button {
+      background-color: #2c8cd3;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
       font-weight: bold;
-      color: #333;
     }
   </style>
 </head>
 <body>
 
   <h1>APA SMARTPHONE IMPIANMU?</h1>
-  <p>Gib deinen Namen ein und erfahre dein Zufalls-Handy!</p>
 
-  <input type="text" id="name" placeholder="Dein Name">
-  <button onclick="zufall()">Los geht's!</button>
+  <input type="text" id="name" placeholder="Name">
+  <button onclick="addEntry()">SAVE</button>
 
-  <div id="ergebnis"></div>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Smartphone</th>
+      </tr>
+    </thead>
+    <tbody id="tabelle">
+      <!-- Einträge erscheinen hier -->
+    </tbody>
+  </table>
 
   <script>
-    function zufall() {
-      const name = document.getElementById("name").value.trim();
-      if (!name) {
-        document.getElementById("ergebnis").innerText = "Bitte gib deinen Namen ein!";
-        return;
-      }
+    const handys = [
+      "Apple iPhone 16 Pro Max",
+      "Apple iPhone 16 Pro",
+      "Apple iPhone 16",
+      "Apple iPhone 16e",
+      "Samsung Galaxy S25 Ultra",
+      "Samsung Galaxy S25+",
+      "Samsung Galaxy S25",
+      "Samsung Galaxy A56 5G",
+      "Samsung Galaxy A36 5G",
+      "Samsung Galaxy A26 5G",
+      "Google Pixel 9 Pro",
+      "Google Pixel 9",
+      "Google Pixel 8a",
+      "Xiaomi 15 Ultra",
+      "Xiaomi 15",
+      "Xiaomi 15T",
+      "Xiaomi Poco F7 Ultra",
+      "Xiaomi Poco F7 Pro",
+      "OnePlus 13",
+      "OnePlus 13R",
+      "Sony Xperia 1 VI",
+      "Sony Xperia 5 VI",
+      "Honor Magic 7 Pro",
+      "Nothing Phone (3a)",
+      "Nothing Phone (3a) Pro",
+      "Motorola Razr 2025",
+      "Motorola Razr Plus 2025",
+      "Huawei Mate XT",
+      "HMD Fusion X1",
+      "Tecno Spark Slim"
+    ];
 
-      const handys = [
-        "iPhone 16 Ultramarine",
-        "iPhone 12 Purple",
-        "iPhone 15 Pro Max Natural Titanium",
-        "Samsung Galaxy S23",
-        "Xiaomi 14",
-        "iPhone XS Max Gold",
-        "Xiaomi 15"
-      ];
+    let counter = 1;
 
-      const zufallsIndex = Math.floor(Math.random() * handys.length);
-      const gezogenesHandy = handys[zufallsIndex];
+    function addEntry() {
+      const nameInput = document.getElementById("name");
+      const name = nameInput.value.trim();
+      if (!name) return;
 
-      document.getElementById("ergebnis").innerText =
-        name + ", dein Traum-Smartphone ist: " + gezogenesHandy + "!";
+      const zufall = Math.floor(Math.random() * handys.length);
+      const handy = handys[zufall];
+
+      const tabelle = document.getElementById("tabelle");
+      const row = tabelle.insertRow();
+      const zelle1 = row.insertCell(0);
+      const zelle2 = row.insertCell(1);
+      const zelle3 = row.insertCell(2);
+
+      zelle1.textContent = counter++;
+      zelle2.textContent = name;
+      zelle3.textContent = handy;
+
+      nameInput.value = "";
     }
   </script>
 
