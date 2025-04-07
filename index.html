@@ -2,59 +2,53 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Smartphone Zufall</title>
+  <title>Smartphone Zufallsauswahl</title>
   <style>
     body {
-      font-family: sans-serif;
-      background: #e0f7fa;
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
       text-align: center;
-      padding: 40px;
+      padding: 20px;
     }
     h1 {
-      background: #f48fb1;
-      color: white;
-      padding: 20px;
-      border-radius: 20px;
-      margin-bottom: 30px;
+      color: #333;
     }
     input {
       padding: 10px;
-      font-size: 18px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
+      font-size: 16px;
+      margin-right: 10px;
     }
     button {
       padding: 10px 20px;
-      font-size: 18px;
-      border-radius: 10px;
-      background-color: #81d4fa;
-      color: white;
-      border: none;
-      margin-left: 10px;
+      font-size: 16px;
       cursor: pointer;
     }
     table {
-      margin: 30px auto;
-      border-collapse: collapse;
       width: 80%;
+      margin: 20px auto;
+      border-collapse: collapse;
     }
     th, td {
-      border: 1px solid #ccc;
-      padding: 12px;
-      border-radius: 10px;
-      background: white;
+      border: 1px solid #ddd;
+      padding: 10px;
     }
     th {
-      background-color: #fce4ec;
+      background-color: #f4f4f4;
+    }
+    img {
+      width: 100px;
+      height: auto;
     }
   </style>
 </head>
 <body>
 
-  <h1>APA SMARTPHONE IMPIANMU?</h1>
+  <h1>Welches Smartphone passt zu dir?</h1>
 
-  <input type="text" id="name" placeholder="Dein Name">
-  <button onclick="addEntry()">SAVE</button>
+  <div>
+    <input type="text" id="name" placeholder="Dein Name">
+    <button onclick="addEntry()">Speichern</button>
+  </div>
 
   <table>
     <thead>
@@ -62,25 +56,64 @@
         <th>#</th>
         <th>Name</th>
         <th>Smartphone</th>
+        <th>Bild</th>
       </tr>
     </thead>
     <tbody id="tabelle">
-      <!-- Einträge erscheinen hier -->
+      <!-- Einträge werden hier eingefügt -->
     </tbody>
   </table>
 
   <script>
-    const handys = [
-      "iPhone 16 Pro Max", "iPhone 16 Pro", "iPhone 16", "iPhone 16e",
-      "Samsung Galaxy S25 Ultra", "Samsung Galaxy S25+", "Samsung Galaxy S25",
-      "Samsung Galaxy A56 5G", "Samsung Galaxy A36 5G", "Samsung Galaxy A26 5G",
-      "Google Pixel 9 Pro", "Google Pixel 9", "Google Pixel 8a",
-      "Xiaomi 15 Ultra", "Xiaomi 15", "Xiaomi 15T",
-      "Poco F7 Ultra", "Poco F7 Pro", "OnePlus 13", "OnePlus 13R",
-      "Sony Xperia 1 VI", "Sony Xperia 5 VI", "Honor Magic 7 Pro",
-      "Nothing Phone (3a)", "Nothing Phone (3a) Pro",
-      "Motorola Razr 2025", "Motorola Razr Plus 2025",
-      "Huawei Mate XT", "HMD Fusion X1", "Tecno Spark Slim"
+    const smartphones = [
+      {
+        name: "Apple iPhone 16 Pro Max",
+        image: "https://www.apple.com/iphone-16-pro/images/overview/hero/hero_static__c7t6x8j7b0eq_large.jpg"
+      },
+      {
+        name: "Samsung Galaxy S25 Ultra",
+        image: "https://www.samsung.com/us/smartphones/galaxy-s25-ultra/images/galaxy-s25-ultra-highlights-kv.jpg"
+      },
+      {
+        name: "Google Pixel 9 Pro",
+        image: "https://store.google.com/product/pixel_9_pro/images/overview/hero.jpg"
+      },
+      {
+        name: "Xiaomi 15 Ultra",
+        image: "https://www.mi.com/global/product/xiaomi-15-ultra/images/overview/hero.jpg"
+      },
+      {
+        name: "OnePlus 13",
+        image: "https://www.oneplus.com/oneplus-13/images/overview/hero.jpg"
+      },
+      {
+        name: "Sony Xperia 1 VI",
+        image: "https://www.sony.com/electronics/smartphones/xperia-1m6/images/overview/hero.jpg"
+      },
+      {
+        name: "Honor Magic 7 Pro",
+        image: "https://www.honor.com/global/phones/honor-magic7-pro/images/overview/hero.jpg"
+      },
+      {
+        name: "Nothing Phone (3a) Pro",
+        image: "https://us.nothing.tech/products/phone-3a-pro/images/overview/hero.jpg"
+      },
+      {
+        name: "Motorola Razr 2025",
+        image: "https://www.motorola.com/us/smartphones/razr-2025/images/overview/hero.jpg"
+      },
+      {
+        name: "Huawei Mate XT",
+        image: "https://consumer.huawei.com/en/phones/mate-xt/images/overview/hero.jpg"
+      },
+      {
+        name: "HMD Fusion X1",
+        image: "https://www.hmd.com/en_int/hmd-fusion-x1/images/overview/hero.jpg"
+      },
+      {
+        name: "Tecno Spark Slim",
+        image: "https://www.tecno-mobile.com/phones/spark-slim/images/overview/hero.jpg"
+      }
     ];
 
     let counter = 1;
@@ -89,12 +122,12 @@
       const nameInput = document.getElementById("name");
       const name = nameInput.value.trim();
       if (!name) {
-        alert("Bitte gib einen Namen ein.");
+        alert("Bitte gib deinen Namen ein.");
         return;
       }
 
-      const randomIndex = Math.floor(Math.random() * handys.length);
-      const smartphone = handys[randomIndex];
+      const randomIndex = Math.floor(Math.random() * smartphones.length);
+      const smartphone = smartphones[randomIndex];
 
       const table = document.getElementById("tabelle");
       const newRow = table.insertRow();
@@ -102,12 +135,18 @@
       const cell1 = newRow.insertCell(0);
       const cell2 = newRow.insertCell(1);
       const cell3 = newRow.insertCell(2);
+      const cell4 = newRow.insertCell(3);
 
       cell1.textContent = counter++;
       cell2.textContent = name;
-      cell3.textContent = smartphone;
+      cell3.textContent = smartphone.name;
 
-      nameInput.value = ""; // Eingabe leeren
+      const img = document.createElement("img");
+      img.src = smartphone.image;
+      img.alt = smartphone.name;
+      cell4.appendChild(img);
+
+      nameInput.value = ""; // Eingabefeld leeren
     }
   </script>
 
