@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>PayPal UI Fullscreen</title>
+  <title>PayPal Send Confirmation</title>
   <style>
     html, body {
       margin: 0;
@@ -30,18 +30,24 @@
       box-sizing: border-box;
     }
 
-    input.search {
+    .hidden {
+      display: none;
+    }
+
+    input.search,
+    input.message {
       width: 100%;
       padding: 18px 22px;
       border-radius: 28px;
       border: 1px solid #d1d5db;
       font-size: 18px;
       background-color: #f9f9f9;
-      margin-bottom: 36px;
       box-sizing: border-box;
+      margin-bottom: 24px;
     }
 
-    .send-screen {
+    .send-screen,
+    .confirmation {
       border-top: 1px solid #e0e0e0;
       padding-top: 32px;
     }
@@ -106,11 +112,10 @@
       padding: 10px 14px;
       border-radius: 20px;
       background-color: #f2f2f2;
-      cursor: default;
     }
 
     .button {
-      margin-top: 48px;
+      margin-top: 28px;
       background-color: #000;
       color: white;
       padding: 18px;
@@ -121,26 +126,57 @@
       font-weight: 500;
       cursor: pointer;
     }
+
+    .confirmation {
+      text-align: center;
+    }
+
+    .confirmation .avatar {
+      margin: 0 auto 20px;
+    }
+
+    .confirmation h2 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .confirmation .message-output {
+      font-size: 16px;
+      color: #444;
+      margin-top: 18px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <input type="text" id="searchInput" class="search" placeholder="Name, Benutzername, E-Mail-Adresse …" oninput="updateRecipient()">
+    <!-- Eingabeansicht -->
+    <div id="inputSection">
+      <input type="text" id="searchInput" class="search" placeholder="Name, Benutzername, E-Mail-Adresse …" oninput="updateRecipient()">
 
-    <div class="send-screen">
-      <div class="user-info">
-        <div class="avatar" id="avatarInitials">--</div>
-        <div>
-          <div class="username" id="recipientName">Empfänger</div>
-          <div class="handle" id="recipientHandle">@nutzername</div>
+      <div class="send-screen">
+        <div class="user-info">
+          <div class="avatar" id="avatarInitials">--</div>
+          <div>
+            <div class="username" id="recipientName">Empfänger</div>
+            <div class="handle" id="recipientHandle">@nutzername</div>
+          </div>
         </div>
+        <div class="amount-line">
+          <span>€</span>
+          <input type="number" inputmode="decimal" step="0.01" class="amount-input" id="amountInput" placeholder="0.00">
+          <div class="currency">EUR</div>
+        </div>
+        <input type="text" id="messageInput" class="message" placeholder="Nachricht hinzufügen (optional)">
+        <button class="button" onclick="sendMoney()">Weiter</button>
       </div>
-      <div class="amount-line">
-        <span>€</span>
-        <input type="number" inputmode="decimal" step="0.01" class="amount-input" placeholder="0.00">
-        <div class="currency">EUR</div>
-      </div>
-      <button class="button">Weiter</button>
+    </div>
+
+    <!-- Bestätigungsansicht -->
+    <div id="confirmationSection" class="confirmation hidden">
+      <div class="avatar" id="confAvatar">--</div>
+      <h2 id="confirmationText">Du hast €0 an Empfänger gesendet</h2>
+      <div class="handle" id="confHandle">@nutzername</div>
+      <div class="message-output" id="confMessage"></div>
     </div>
   </div>
 
@@ -160,6 +196,27 @@
         recipientHandle.textContent = "@nutzername";
         avatarInitials.textContent = "--";
       }
+    }
+
+    function sendMoney() {
+      const name = document.getElementById("recipientName").textContent;
+      const handle = document.getElementById("recipientHandle").textContent;
+      const avatar = document.getElementById("avatarInitials").textContent;
+      const amount = document.getElementById("amountInput").value.trim();
+      const message = document.getElementById("messageInput").value.trim();
+
+      if (!amount || isNaN(amount)) {
+        alert("Bitte gültigen Betrag eingeben.");
+        return;
+      }
+
+      document.getElementById("inputSection").classList.add("hidden");
+      document.getElementById("confirmationSection").classList.remove("hidden");
+
+      document.getElementById("confAvatar").textContent = avatar;
+      document.getElementById("confHandle").textContent = handle;
+      document.getElementById("confirmationText").textContent = `Du hast €${amount} an ${name} gesendet`;
+      document.getElementById("confMessage").textContent = message ? `„${message}“` : '';
     }
   </script>
 </body>
