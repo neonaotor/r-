@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Dior | Inspired by Beauty</title>
+  <title>Dior - Dreaming 60s</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     * {
@@ -10,106 +10,72 @@
       padding: 0;
       box-sizing: border-box;
     }
-    body {
+
+    body, html {
+      height: 100%;
       font-family: 'Didot', serif;
-      color: white;
-      background-color: #000;
-      scroll-behavior: smooth;
+      overflow-x: hidden;
+      background-color: #fff;
     }
-    section {
+
+    .hero {
       position: relative;
       height: 100vh;
       width: 100%;
+      background-image: url('https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Library-Sites-DiorSharedLibrary/default/dweeab6c9f/images/beauty/0-HOME/BEAUTY/2025/03-MARCH/Dior_Dreaming_60s_Inter_240731_WEB.00_00_18_08_16-9.jpg?sw=1920');
+      background-size: cover;
+      background-position: center;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      overflow: hidden;
+      color: white;
     }
-    section img, section video {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      top: 0;
-      left: 0;
-      z-index: 0;
-    }
+
     .overlay {
-      z-index: 2;
-      position: relative;
-      padding: 20px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 40px;
+      border-radius: 12px;
     }
+
     .overlay h1 {
-      font-size: 2.8em;
-      font-weight: 400;
+      font-size: 3em;
+      font-weight: 300;
+      letter-spacing: 0.5px;
       margin-bottom: 15px;
     }
+
     .overlay a {
+      display: inline-block;
+      margin-top: 10px;
       text-decoration: none;
       color: white;
-      font-size: 1em;
+      font-size: 1.1em;
       border-bottom: 1px solid white;
       transition: 0.3s;
     }
+
     .overlay a:hover {
       opacity: 0.7;
     }
 
-    .white-section {
-      color: black;
-      background: white;
-    }
-    .white-section .overlay a {
-      color: black;
-      border-color: black;
-    }
-
-    /* Responsive */
     @media (max-width: 768px) {
       .overlay h1 {
         font-size: 2em;
+      }
+
+      .overlay {
+        padding: 20px;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Video Section -->
-  <section>
-    <video autoplay muted loop playsinline>
-      <source src="https://cdn.pixabay.com/vimeo/838238547/dior-158581.mp4?width=1280" type="video/mp4">
-    </video>
+  <section class="hero">
     <div class="overlay">
-      <h1>Your dreams,<br>make them real</h1>
-      <a href="#">Discover</a>
-    </div>
-  </section>
-
-  <!-- Dior Addict -->
-  <section class="white-section">
-    <img src="https://i.imgur.com/EeJziQl.jpeg" alt="Dior Addict" />
-    <div class="overlay">
-      <h1>New Dior Addict</h1>
-      <a href="#">Discover</a>
-    </div>
-  </section>
-
-  <!-- Gris Dior -->
-  <section class="white-section">
-    <img src="https://i.imgur.com/fdLkpYv.jpeg" alt="Gris Dior" />
-    <div class="overlay">
-      <h1>Gris Dior</h1>
-      <a href="#">Discover</a>
-    </div>
-  </section>
-
-  <!-- J’adore Eau de Parfum -->
-  <section class="white-section">
-    <img src="https://i.imgur.com/LehykZw.jpeg" alt="J’adore Eau de Parfum" />
-    <div class="overlay">
-      <h1>J’adore Eau de Parfum</h1>
-      <a href="https://www.dior.com/en_int/beauty/products/j%E2%80%99adore-eau-de-parfum-Y0998031.html" target="_blank">Discover</a>
+      <h1>Dreaming 60s</h1>
+      <a href="#">Discover Now</a>
     </div>
   </section>
 
