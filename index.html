@@ -1,83 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Dior - Dreaming 60s</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>Location Access</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" rel="stylesheet" />
   <style>
-    * {
+    body {
       margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f2f2f7;
     }
 
-    body, html {
-      height: 100%;
-      font-family: 'Didot', serif;
-      overflow-x: hidden;
-      background-color: #fff;
-    }
-
-    .hero {
-      position: relative;
-      height: 100vh;
-      width: 100%;
-      background-image: url('https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Library-Sites-DiorSharedLibrary/default/dweeab6c9f/images/beauty/0-HOME/BEAUTY/2025/03-MARCH/Dior_Dreaming_60s_Inter_240731_WEB.00_00_18_08_16-9.jpg?sw=1920');
-      background-size: cover;
-      background-position: center;
+    .popup {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
       display: flex;
       align-items: center;
       justify-content: center;
+      z-index: 10;
+    }
+
+    .popup-content {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 300px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
       text-align: center;
-      color: white;
     }
 
-    .overlay {
-      background: rgba(0, 0, 0, 0.4);
-      padding: 40px;
-      border-radius: 12px;
+    .popup-content h2 {
+      font-weight: 600;
+      margin-bottom: 10px;
     }
 
-    .overlay h1 {
-      font-size: 3em;
-      font-weight: 300;
-      letter-spacing: 0.5px;
-      margin-bottom: 15px;
-    }
-
-    .overlay a {
-      display: inline-block;
+    .popup-content input {
+      padding: 10px;
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid #ccc;
       margin-top: 10px;
-      text-decoration: none;
+      font-size: 16px;
+    }
+
+    .popup-content button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      background: #007aff;
       color: white;
-      font-size: 1.1em;
-      border-bottom: 1px solid white;
-      transition: 0.3s;
+      font-size: 16px;
+      border-radius: 12px;
+      cursor: pointer;
     }
 
-    .overlay a:hover {
-      opacity: 0.7;
-    }
-
-    @media (max-width: 768px) {
-      .overlay h1 {
-        font-size: 2em;
-      }
-
-      .overlay {
-        padding: 20px;
-      }
+    #map {
+      height: 100vh;
+      display: none;
     }
   </style>
 </head>
 <body>
 
-  <section class="hero">
-    <div class="overlay">
-      <h1>Dreaming 60s</h1>
-      <a href="#">Discover Now</a>
-    </div>
-  </section>
+<div class="popup" id="popup">
+  <div class="popup-content">
+    <h2>Hey!</h2>
+    <p>Please contact the creator and enter the code to access location settings.</p>
+    <input type="text" id="codeInput" placeholder="Enter code">
+    <button onclick="checkCode()">Continue</button>
+  </div>
+</div>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+<script>
+  function checkCode() {
+    const code = document.getElementById("codeInput").value;
+    if (code === "1234") {
+      document.getElementById("popup").style.display = "none";
+      document.getElementById("map").style.display = "block";
+
+      const map = L.map('map').setView([48.8584, 2.2945], 13); // Eiffel Tower
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
+
+      L.marker([48.8584, 2.2945]).addTo(map)
+        .bindPopup('Eiffel Tower')
+        .openPopup();
+    } else {
+      alert("Wrong code.");
+    }
+  }
+</script>
 
 </body>
 </html>
