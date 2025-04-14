@@ -1,109 +1,123 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dior - Bestellbestätigung</title>
+  <title>Dior Style Scroll</title>
   <style>
-    body {
+    * {
       margin: 0;
-      font-family: 'Didot', serif;
-      background-color: #f5f5f5;
-      color: #333;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    .loader {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: #f5f5f5;
+    body {
+      font-family: 'Didot', serif;
+      color: white;
+      background: black;
+    }
+
+    .section {
+      position: relative;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 9999;
-    }
-
-    .loader img {
-      width: 120px;
-      animation: fadeOut 2s ease-in-out forwards;
-      animation-delay: 2s;
-    }
-
-    @keyframes fadeOut {
-      to { opacity: 0; visibility: hidden; }
-    }
-
-    .content {
-      display: none;
-      padding: 40px;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .show {
-      display: block !important;
-    }
-
-    h1 {
       text-align: center;
-      margin-bottom: 20px;
-      font-weight: normal;
     }
 
-    .info {
-      background-color: white;
+    .section video,
+    .section img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .overlay {
+      position: relative;
+      z-index: 2;
       padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
 
-    .info p {
-      margin: 8px 0;
-      line-height: 1.6;
+    .overlay h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
     }
 
-    .highlight {
-      font-weight: bold;
+    .overlay a {
+      text-decoration: none;
+      color: white;
+      font-size: 1em;
+      border-bottom: 1px solid white;
     }
 
-    .footer {
-      text-align: center;
-      margin-top: 40px;
-      font-size: 12px;
-      color: gray;
+    .white-section {
+      background: white;
+      color: black;
+    }
+
+    .white-section .overlay a {
+      color: black;
+      border-color: black;
+    }
+
+    .section img {
+      object-position: center top;
     }
   </style>
 </head>
 <body>
 
-<div class="loader">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Christian_Dior_Logo.svg/512px-Christian_Dior_Logo.svg.png" alt="Dior Logo" />
-</div>
-
-<div class="content">
-  <h1>Vielen Dank für Ihre Bestellung!</h1>
-  <div class="info">
-    <p><span class="highlight">Name:</span> Neo Elsishans</p>
-    <p><span class="highlight">Adresse:</span> Bettenbach 58, 68509 Mörlenbach, Deutschland</p>
-    <p><span class="highlight">Bestellnummer:</span> DIOR-458273491</p>
-    <p><span class="highlight">Produkt:</span> Dior B30 Sneaker - Beige</p>
-    <p><span class="highlight">Preis:</span> EUR 990,00</p>
-    <p><span class="highlight">Bestelldatum:</span> 14.04.2025</p>
-    <p><span class="highlight">Voraussichtliche Lieferung:</span> 19.04.2025</p>
+  <!-- VIDEO Sektion -->
+  <div class="section">
+    <video autoplay muted loop playsinline>
+      <source src="https://cdn.pixabay.com/vimeo/838238547/dior-158581.mp4?width=1280" type="video/mp4" />
+    </video>
+    <div class="overlay">
+      <h1>Your dreams,<br>make them real</h1>
+      <a href="#">Discover</a>
+    </div>
   </div>
 
-  <div class="footer">
-    Diese Nachricht wurde automatisch generiert. Bitte antworten Sie nicht darauf.<br>
-    &copy; 2025 Christian Dior Couture
+  <!-- Rihanna -->
+  <div class="section white-section">
+    <img src="https://i.imgur.com/gEyoEd3.jpeg" alt="Rihanna Dior" />
+    <div class="overlay">
+      <h1>J'adore x Rihanna</h1>
+      <a href="#">Discover</a>
+    </div>
   </div>
-</div>
 
-<script>
-  setTimeout(() => {
-    document.querySelector('.loader').style.display = 'none';
-    document.querySelector('.content').classList.add('show');
-  }, 2500);
-</script>
+  <!-- J'adore -->
+  <div class="section white-section">
+    <img src="https://i.imgur.com/k3IsxTt.jpeg" alt="J'adore Bottle" />
+    <div class="overlay">
+      <h1>J'adore Eau de Parfum</h1>
+      <a href="#">Discover</a>
+    </div>
+  </div>
+
+  <!-- Gris Dior -->
+  <div class="section white-section">
+    <img src="https://i.imgur.com/0eCE0wV.jpeg" alt="Gris Dior" />
+    <div class="overlay">
+      <h1>The Chypre-Rosy Silhouette</h1>
+      <a href="#">Discover</a>
+    </div>
+  </div>
+
+  <!-- Dior Addict -->
+  <div class="section white-section">
+    <img src="https://i.imgur.com/SjAXeqD.jpeg" alt="Dior Addict" />
+    <div class="overlay">
+      <h1>The ultra shine couture<br>signed Dior</h1>
+      <a href="#">Discover</a>
+    </div>
+  </div>
 
 </body>
 </html>
