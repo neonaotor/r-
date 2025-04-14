@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Standort ändern</title>
+  <title>Mein Standort</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" rel="stylesheet"/>
   <style>
@@ -75,10 +75,10 @@
   </div>
 </div>
 
-<!-- Interaktive Karte -->
+<!-- Karte -->
 <div id="map"></div>
 
-<!-- Leaflet Map Script -->
+<!-- Leaflet + Geolocation -->
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
 <script>
   function checkCode() {
@@ -86,21 +86,32 @@
     if (code === "1234") {
       document.getElementById("popup").style.display = "none";
       document.getElementById("map").style.display = "block";
-      initMap();
+      showLocation();
     } else {
       alert("Wrong code.");
     }
   }
 
-  function initMap() {
-    const map = L.map('map').setView([52.52, 13.405], 13); // Berlin z. B.
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap',
-    }).addTo(map);
+  function showLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
 
-    L.marker([52.52, 13.405]).addTo(map)
-      .bindPopup('You are here!')
-      .openPopup();
+        const map = L.map('map').setView([lat, lon], 15);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        L.marker([lat, lon]).addTo(map)
+          .bindPopup('Das bist du!')
+          .openPopup();
+      }, function(error) {
+        alert("Standortzugriff abgelehnt oder nicht verfügbar.");
+      });
+    } else {
+      alert("Geolocation wird von deinem Browser nicht unterstützt.");
+    }
   }
 </script>
 
