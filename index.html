@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Mein Standort</title>
+  <title>Standort anzeigen</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" rel="stylesheet"/>
   <style>
@@ -103,7 +103,14 @@
           attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
-        L.marker([lat, lon]).addTo(map)
+        const customIcon = L.icon({
+          iconUrl: 'https://em-content.zobj.net/source/apple/325/round-pushpin_1f4cd.png',
+          iconSize: [40, 40], // Größe anpassen
+          iconAnchor: [20, 40],
+          popupAnchor: [0, -40]
+        });
+
+        L.marker([lat, lon], { icon: customIcon }).addTo(map)
           .bindPopup('Das bist du!')
           .openPopup();
       }, function(error) {
