@@ -2,101 +2,94 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Location Access</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" rel="stylesheet" />
+  <title>Apple Maps Access</title>
   <style>
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #f2f2f7;
+      background: #f2f2f2;
     }
-
     .popup {
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.5);
+      inset: 0;
+      background: rgba(0,0,0,0.6);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 10;
     }
-
     .popup-content {
       background: white;
-      padding: 30px;
+      padding: 2rem;
       border-radius: 20px;
-      max-width: 300px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      max-width: 90%;
       text-align: center;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
     }
-
-    .popup-content h2 {
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-
-    .popup-content input {
-      padding: 10px;
-      width: 100%;
-      border-radius: 10px;
+    input {
+      margin-top: 1rem;
+      padding: 0.5rem;
       border: 1px solid #ccc;
-      margin-top: 10px;
-      font-size: 16px;
-    }
-
-    .popup-content button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      border: none;
-      background: #007aff;
-      color: white;
-      font-size: 16px;
       border-radius: 12px;
+      font-size: 1rem;
+      width: 80%;
+    }
+    button {
+      margin-top: 1rem;
+      background: black;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 12px;
+      font-size: 1rem;
       cursor: pointer;
     }
-
     #map {
+      width: 100%;
       height: 100vh;
       display: none;
     }
   </style>
+  <script src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js"></script>
 </head>
 <body>
-
-<div class="popup" id="popup">
-  <div class="popup-content">
-    <h2>Hey!</h2>
-    <p>Please contact the creator and enter the code to access location settings.</p>
-    <input type="text" id="codeInput" placeholder="Enter code">
-    <button onclick="checkCode()">Continue</button>
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <h2>Contact the creator first</h2>
+      <p>You need a code to unlock your location feature.</p>
+      <input type="text" id="codeInput" placeholder="Enter Code" />
+      <button onclick="checkCode()">Unlock</button>
+    </div>
   </div>
-</div>
 
-<div id="map"></div>
+  <div id="map"></div>
 
-<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
-<script>
-  function checkCode() {
-    const code = document.getElementById("codeInput").value;
-    if (code === "1234") {
-      document.getElementById("popup").style.display = "none";
-      document.getElementById("map").style.display = "block";
+  <script>
+    // Replace this with your own Apple Maps JWT Token!
+    const yourAppleMapsToken = "YOUR_MAPKIT_JS_TOKEN";
 
-      const map = L.map('map').setView([48.8584, 2.2945], 13); // Eiffel Tower
+    function checkCode() {
+      const code = document.getElementById('codeInput').value;
+      if (code === "1234") {
+        document.getElementById('popup').style.display = "none";
+        document.getElementById('map').style.display = "block";
 
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-      }).addTo(map);
+        mapkit.init({
+          authorizationCallback: function(done) {
+            done(yourAppleMapsToken);
+          }
+        });
 
-      L.marker([48.8584, 2.2945]).addTo(map)
-        .bindPopup('Eiffel Tower')
-        .openPopup();
-    } else {
-      alert("Wrong code.");
+        const map = new mapkit.Map("map");
+        map.region = new mapkit.CoordinateRegion(
+          new mapkit.Coordinate(37.7749, -122.4194), // San Francisco
+          new mapkit.CoordinateSpan(0.1, 0.1)
+        );
+      } else {
+        alert("Wrong code. Try again.");
+      }
     }
-  }
-</script>
-
+  </script>
 </body>
 </html>
