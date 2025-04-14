@@ -77,6 +77,13 @@
       border: none;
       outline: none;
       background: transparent;
+      -moz-appearance: textfield;
+    }
+
+    input.amount-input::-webkit-outer-spin-button,
+    input.amount-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
     }
 
     .currency {
@@ -117,7 +124,7 @@
       </div>
       <div class="amount-line">
         <span>€</span>
-        <input type="text" class="amount-input" placeholder="0.00">
+        <input type="number" inputmode="decimal" step="0.01" class="amount-input" placeholder="0.00">
         <div class="currency">EUR</div>
       </div>
       <button class="button">Weiter</button>
