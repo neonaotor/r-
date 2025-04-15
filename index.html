@@ -1,19 +1,45 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <title>Neo Suchseite</title>
+  <meta charset="UTF-8">
+  <title>Discord Bot Erfolg</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(to bottom, #0d0d1a, #1a0033);
+      color: white;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .text-container {
+      font-size: 2em;
+      font-weight: bold;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(-50px) rotate(-3deg);
+      animation: slideIn 2s ease-out forwards;
+    }
+
+    @keyframes slideIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-50px) rotate(-3deg);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0px) rotate(0deg);
+      }
+    }
+  </style>
 </head>
 <body>
-    <h1>Willkommen Neo!</h1>
-    <form action="https://www.google.com/search" method="get" target="_blank">
-        <input type="text" name="q" placeholder="Suchbegriff eingeben">
-        <button type="submit">Suchen</button>
-    </form>
-
-    <div>
-        <a href="https://youtube.com" target="_blank">YouTube</a>
-        <a href="https://tiktok.com" target="_blank">TikTok</a>
-    </div>
+  <div class="text-container">
+    POV: Your Discord bot with 190 commands has been added to over 100 servers
+  </div>
 </body>
 </html>
