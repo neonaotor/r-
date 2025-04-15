@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>QuantumBot Style Landing</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QuantumBot</title>
   <style>
     * {
       margin: 0;
@@ -11,44 +12,102 @@
     }
 
     body {
-      background: radial-gradient(ellipse at top, #0f0c29, #302b63, #24243e);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
+      background: #101935;
       color: white;
-      height: 100vh;
+    }
+
+    nav {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
+      padding: 20px 50px;
+      background: #0b1124;
+    }
+
+    nav .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #fcd34d;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    nav ul li {
+      cursor: pointer;
+      color: #ffffffcc;
+    }
+
+    nav .button {
+      background: #2d2fef;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 6px;
+      text-decoration: none;
     }
 
     .hero {
-      text-align: center;
-      max-width: 800px;
-      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 80px 10%;
+      background: linear-gradient(to right, #101935 60%, #7e22ce);
+    }
+
+    .hero .left {
+      max-width: 50%;
       animation: slideIn 2s ease-out forwards;
       opacity: 0;
       transform: translateY(-50px) rotate(-2deg);
     }
 
-    .hero h1 {
+    .hero .left h1 {
       font-size: 2.8em;
-      font-weight: 700;
-      background: linear-gradient(to right, #6a11cb, #2575fc);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-weight: 800;
     }
 
-    .hero p {
-      margin-top: 20px;
-      font-size: 1.2em;
-      color: #ccc;
+    .hero .left h1 span {
+      color: #a78bfa;
+    }
+
+    .hero .left p {
+      margin: 20px 0;
+      font-size: 1.1em;
+      color: #cccccc;
+    }
+
+    .hero .left a {
+      display: inline-block;
+      margin-top: 10px;
+      background: #3b82f6;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .hero .right {
+      width: 250px;
+      height: 250px;
+      background: #9333ea;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero .right::before {
+      content: "🤖";
+      font-size: 100px;
     }
 
     @keyframes slideIn {
-      0% {
-        opacity: 0;
-        transform: translateY(-50px) rotate(-2deg);
-      }
-      100% {
+      to {
         opacity: 1;
         transform: translateY(0) rotate(0deg);
       }
@@ -56,9 +115,25 @@
   </style>
 </head>
 <body>
-  <div class="hero">
-    <h1>Your Discord Server, <br> taken to the next level</h1>
-    <p>QuantumBot is a versatile Discord bot with moderation, fun, economy, and AI features that enhances your server and engages your community.</p>
-  </div>
+
+  <nav>
+    <div class="logo">QuantumBot</div>
+    <ul>
+      <li>Home</li>
+      <li>Commands ▼</li>
+      <li>About ▼</li>
+    </ul>
+    <a href="#" class="button">Support Server</a>
+  </nav>
+
+  <section class="hero">
+    <div class="left">
+      <h1>Your Discord Server,<br><span>taken to the next level</span></h1>
+      <p>QuantumBot is a versatile Discord bot with moderation, fun, economy, and AI features that enhances your server and engages your community.</p>
+      <a href="#">Add Bot</a>
+    </div>
+    <div class="right"></div>
+  </section>
+
 </body>
 </html>
