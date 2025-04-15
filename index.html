@@ -1,45 +1,64 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Discord Bot Erfolg</title>
+  <title>QuantumBot Style Landing</title>
   <style>
-    body {
+    * {
       margin: 0;
-      background: linear-gradient(to bottom, #0d0d1a, #1a0033);
-      color: white;
-      font-family: Arial, sans-serif;
-      overflow: hidden;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    .text-container {
-      font-size: 2em;
-      font-weight: bold;
+    body {
+      background: radial-gradient(ellipse at top, #0f0c29, #302b63, #24243e);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero {
       text-align: center;
-      opacity: 0;
-      transform: translateY(-50px) rotate(-3deg);
+      max-width: 800px;
+      padding: 20px;
       animation: slideIn 2s ease-out forwards;
+      opacity: 0;
+      transform: translateY(-50px) rotate(-2deg);
+    }
+
+    .hero h1 {
+      font-size: 2.8em;
+      font-weight: 700;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #ccc;
     }
 
     @keyframes slideIn {
       0% {
         opacity: 0;
-        transform: translateY(-50px) rotate(-3deg);
+        transform: translateY(-50px) rotate(-2deg);
       }
       100% {
         opacity: 1;
-        transform: translateY(0px) rotate(0deg);
+        transform: translateY(0) rotate(0deg);
       }
     }
   </style>
 </head>
 <body>
-  <div class="text-container">
-    POV: Your Discord bot with 190 commands has been added to over 100 servers
+  <div class="hero">
+    <h1>Your Discord Server, <br> taken to the next level</h1>
+    <p>QuantumBot is a versatile Discord bot with moderation, fun, economy, and AI features that enhances your server and engages your community.</p>
   </div>
 </body>
 </html>
