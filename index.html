@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Design Preise – Live BTC</title>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -40,10 +40,16 @@
         <p class="text-xs mt-4">Wallet-Adresse & Kontakt auf Anfrage</p>
       </div>
 
-      <!-- ADMIN COUPON BEREICH -->
-      <hr class="my-10 border-gray-700">
+      <!-- Admin Login Button -->
+      <div class="mt-12 text-center">
+        <button onclick="promptAdmin()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded font-semibold">
+          Admin Login
+        </button>
+      </div>
 
-      <div class="mt-10">
+      <!-- Adminbereich (wird erst nach Login sichtbar) -->
+      <div id="adminArea" class="hidden mt-10">
+        <hr class="my-10 border-gray-700">
         <h2 class="text-xl font-semibold mb-4 text-white">Admin – Coupon hinzufügen</h2>
         <div class="space-y-4">
           <input id="couponCode" type="text" placeholder="Coupon-Code (z. B. WINTER2025)" class="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400">
@@ -94,8 +100,19 @@
       }
     }
 
-    // Coupon-Funktion
+    // Coupon-System
     const coupons = [];
+    const adminPassword = "aX3Yz8QwLp29Ns7FjHr5"; // Dein sicheres Admin-Passwort
+
+    function promptAdmin() {
+      const entered = prompt("Bitte Admin-Passwort eingeben:");
+      if (entered === adminPassword) {
+        document.getElementById("adminArea").classList.remove("hidden");
+        alert("Adminzugang freigeschaltet!");
+      } else {
+        alert("Falsches Passwort.");
+      }
+    }
 
     function addCoupon() {
       const code = document.getElementById("couponCode").value.trim().toUpperCase();
@@ -124,7 +141,6 @@
       });
     }
 
-    // Init
     loadBTCPrice();
   </script>
 </body>
