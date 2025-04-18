@@ -3,50 +3,64 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Design Preise</title>
+  <title>Design Preise – Live BTC</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-950 text-white font-sans">
-  <div class="max-w-3xl mx-auto px-6 py-12">
-    <h1 class="text-3xl font-bold mb-6 text-center">Design Preise</h1>
+  <div class="max-w-2xl mx-auto px-6 py-12">
+    <h1 class="text-3xl font-bold mb-6 text-center">Design Preise (Live BTC)</h1>
+
+    <div id="btcRate" class="text-center text-sm text-gray-400 mb-4">
+      Lade aktuellen BTC-Kurs...
+    </div>
 
     <div class="grid grid-cols-2 text-center bg-gray-800 rounded-md p-4 mb-2 font-semibold">
       <div>Leistung</div>
       <div>Preis (€ / BTC)</div>
     </div>
 
-    <div class="divide-y divide-gray-700">
-      <div class="flex justify-between py-3">
-        <span>Logo Basic</span>
-        <span>40 € / 0.00067 BTC</span>
-      </div>
-      <div class="flex justify-between py-3">
-        <span>Logo Standard</span>
-        <span>70 € / 0.00117 BTC</span>
-      </div>
-      <div class="flex justify-between py-3">
-        <span>Logo Premium</span>
-        <span>120 € / 0.002 BTC</span>
-      </div>
-      <div class="flex justify-between py-3">
-        <span>Banner Social Media</span>
-        <span>35 € / 0.00058 BTC</span>
-      </div>
-      <div class="flex justify-between py-3">
-        <span>Profilbild einfach</span>
-        <span>20 € / 0.00033 BTC</span>
-      </div>
-      <div class="flex justify-between py-3">
-        <span>Startpaket (PFP + Banner)</span>
-        <span>55 € / 0.00092 BTC</span>
-      </div>
+    <div id="priceList" class="divide-y divide-gray-700 text-sm">
+      <!-- Preise werden per JavaScript eingefügt -->
     </div>
 
-    <div class="mt-10 text-center">
-      <p class="text-sm text-gray-400">Kursbasis: 1 BTC = 60.000 €</p>
-      <p class="mt-2">Zahlung via PayPal, PSN oder Bitcoin möglich</p>
-      <p class="text-xs text-gray-500 mt-1">Wallet-Adresse auf Anfrage</p>
+    <div class="mt-10 text-center text-sm text-gray-400">
+      <p>Zahlung via: <strong>PayPal | PSN Card | Bitcoin</strong></p>
+      <p class="text-xs mt-2">Wallet-Adresse & Kontakt auf Anfrage</p>
     </div>
   </div>
+
+  <script>
+    const pricesEUR = [
+      { name: "Einfaches Profilbild", euro: 5 },
+      { name: "Textlogo", euro: 8 },
+      { name: "Social Media Banner", euro: 10 },
+      { name: "Avatar (stilisiert)", euro: 12 },
+      { name: "Mini Paket (PFP + Banner)", euro: 15 },
+    ];
+
+    async function loadBTCPrice() {
+      try {
+        const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=eur");
+        const data = await res.json();
+        const rate = data.bitcoin.eur;
+        document.getElementById("btcRate").innerText = `Aktueller BTC-Kurs: 1 BTC = ${rate.toLocaleString("de-DE")} €`;
+
+        const list = document.getElementById("priceList");
+        list.innerHTML = "";
+
+        pricesEUR.forEach(item => {
+          const btc = (item.euro / rate).toFixed(6);
+          const row = document.createElement("div");
+          row.className = "flex justify-between py-3";
+          row.innerHTML = `<span>${item.name}</span><span>${item.euro} € / ${btc} BTC</span>`;
+          list.appendChild(row);
+        });
+      } catch (error) {
+        document.getElementById("btcRate").innerText = "Fehler beim Laden des BTC-Kurses.";
+      }
+    }
+
+    loadBTCPrice();
+  </script>
 </body>
 </html>
