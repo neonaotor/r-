@@ -3,36 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Best Designs</title>
+  <title>Designs</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
-      background-color: #000;
       margin: 0;
       padding: 0;
+      background: radial-gradient(circle, #0f0f0f 0%, #000000 100%);
       font-family: 'Segoe UI', sans-serif;
     }
 
-    .fade-bg {
-      animation: fadeBackground 4s ease-in-out forwards;
+    .glow-bg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100vw;
+      height: 100vh;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(0,255,255,0.06), transparent 70%);
+      filter: blur(80px);
+      z-index: 0;
     }
 
-    @keyframes fadeBackground {
-      0% {
-        background-color: #000;
-      }
-      100% {
-        background: radial-gradient(circle at center, rgba(0,255,255,0.1), #000);
-      }
-    }
-
-    .typewriter h1 {
+    .typewriter {
+      font-size: 2rem;
+      font-weight: 800;
+      white-space: nowrap;
       overflow: hidden;
       border-right: .15em solid cyan;
-      white-space: nowrap;
-      margin: 0 auto;
-      letter-spacing: .08em;
-      animation: typing 3.5s steps(30, end), blink-caret .75s step-end infinite;
+      animation: typing 5s steps(40, end), blink-caret .75s step-end infinite;
+      color: white;
+      backdrop-filter: blur(4px);
+      z-index: 1;
+      text-align: center;
+      display: inline-block;
+      max-width: 100%;
     }
 
     @keyframes typing {
@@ -46,15 +51,20 @@
     }
   </style>
 </head>
-<body class="text-white flex items-center justify-center min-h-screen fade-bg">
+<body class="flex items-center justify-center min-h-screen relative text-center px-4">
 
-  <div class="text-center px-4">
-    <div class="typewriter text-2xl sm:text-4xl font-bold">
-      <h1>Get the best Designs for the cheapest price</h1>
+  <div class="glow-bg"></div>
+
+  <div class="z-10">
+    <div class="typewriter">
+      Get the best Designs for the cheapest price
     </div>
-    <a href="#prices" class="mt-10 inline-block bg-cyan-500 hover:bg-cyan-400 text-black font-semibold px-6 py-3 rounded-full transition">
-      See Prices
-    </a>
+
+    <div class="mt-10">
+      <a href="#prices" class="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-6 py-3 rounded-full transition-all">
+        See Prices
+      </a>
+    </div>
   </div>
 
 </body>
