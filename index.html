@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Design Preise – Live BTC</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-950 text-white font-sans overflow-x-hidden relative">
 
-  <!-- Hintergrund-Blur -->
+  <!-- Blur-Hintergrund -->
   <div class="fixed inset-0 z-0 backdrop-blur-md bg-black/40"></div>
 
   <!-- Inhalt -->
   <div class="relative z-10">
     <div class="max-w-2xl mx-auto px-6 py-12 mt-6 mb-12 bg-gray-900/60 backdrop-blur-md rounded-2xl shadow-2xl">
+
       <h1 class="text-4xl font-bold mb-6 text-center text-white drop-shadow-lg">Design Preise (Live BTC)</h1>
 
       <div id="btcRate" class="text-center text-sm text-gray-300 mb-4">
@@ -38,10 +39,30 @@
         </div>
         <p class="text-xs mt-4">Wallet-Adresse & Kontakt auf Anfrage</p>
       </div>
+
+      <!-- ADMIN COUPON BEREICH -->
+      <hr class="my-10 border-gray-700">
+
+      <div class="mt-10">
+        <h2 class="text-xl font-semibold mb-4 text-white">Admin – Coupon hinzufügen</h2>
+        <div class="space-y-4">
+          <input id="couponCode" type="text" placeholder="Coupon-Code (z. B. WINTER2025)" class="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400">
+          <input id="couponValue" type="number" placeholder="Wert in €" class="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400">
+          <button onclick="addCoupon()" class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded font-semibold">Coupon hinzufügen</button>
+        </div>
+
+        <div class="mt-6">
+          <h3 class="text-sm font-semibold text-gray-300 mb-2">Aktive Coupons:</h3>
+          <ul id="couponList" class="list-disc list-inside text-sm text-gray-400 space-y-1">
+            <!-- Dynamisch eingefügt -->
+          </ul>
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <!-- BTC-Preis + Preisrechner -->
+  <!-- SCRIPT -->
   <script>
     const pricesEUR = [
       { name: "Einfaches Profilbild", euro: 5 },
@@ -73,6 +94,37 @@
       }
     }
 
+    // Coupon-Funktion
+    const coupons = [];
+
+    function addCoupon() {
+      const code = document.getElementById("couponCode").value.trim().toUpperCase();
+      const value = parseFloat(document.getElementById("couponValue").value);
+
+      if (!code || isNaN(value) || value <= 0) {
+        alert("Bitte gültigen Coupon-Code und Betrag eingeben.");
+        return;
+      }
+
+      coupons.push({ code, value });
+      renderCoupons();
+
+      document.getElementById("couponCode").value = "";
+      document.getElementById("couponValue").value = "";
+    }
+
+    function renderCoupons() {
+      const list = document.getElementById("couponList");
+      list.innerHTML = "";
+
+      coupons.forEach(coupon => {
+        const li = document.createElement("li");
+        li.textContent = `${coupon.code} → ${coupon.value.toFixed(2)} € Rabatt`;
+        list.appendChild(li);
+      });
+    }
+
+    // Init
     loadBTCPrice();
   </script>
 </body>
