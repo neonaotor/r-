@@ -46,8 +46,8 @@
   <!-- Glow Background -->
   <div class="glow-bg"></div>
 
-  <!-- Hero Section -->
-  <section class="flex items-center justify-center min-h-screen relative px-4 z-10">
+  <!-- Hero Section (Startseite) -->
+  <section id="hero" class="flex items-center justify-center min-h-screen relative px-4 z-10">
     <div>
       <div class="text-white font-extrabold text-2xl sm:text-4xl space-y-3">
         <div>
@@ -65,15 +65,15 @@
       </div>
 
       <div class="mt-10">
-        <a href="#prices" class="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-6 py-3 rounded-full transition-all">
+        <button onclick="showPrices()" class="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-6 py-3 rounded-full transition-all">
           See Prices
-        </a>
+        </button>
       </div>
     </div>
   </section>
 
-  <!-- Preise Bereich -->
-  <section id="prices" class="relative z-10 px-6 py-16 max-w-2xl mx-auto bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]">
+  <!-- Preisübersicht (versteckt am Anfang) -->
+  <section id="prices" class="hidden px-6 py-16 max-w-2xl mx-auto bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] my-20">
     <h1 class="text-4xl font-bold mb-6 text-center text-white drop-shadow-lg">Design Preise (Live BTC)</h1>
 
     <div id="btcRate" class="text-center text-sm text-gray-300 mb-6">
@@ -81,7 +81,7 @@
     </div>
 
     <div id="priceList" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-      <!-- Dynamische Preis-Karten -->
+      <!-- Dynamische Karten -->
     </div>
 
     <div class="mt-12 text-center text-sm text-gray-300">
@@ -94,14 +94,12 @@
       <p class="text-xs mt-4">Wallet-Adresse & Kontakt auf Anfrage</p>
     </div>
 
-    <!-- Admin Login -->
     <div class="mt-12 text-center">
       <button onclick="promptAdmin()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded font-semibold">
         Admin Login
       </button>
     </div>
 
-    <!-- Admin Bereich -->
     <div id="adminArea" class="hidden mt-10">
       <hr class="my-10 border-gray-700">
       <h2 class="text-xl font-semibold mb-4 text-white">Admin – Coupon hinzufügen</h2>
@@ -114,14 +112,21 @@
       <div class="mt-6">
         <h3 class="text-sm font-semibold text-gray-300 mb-2">Aktive Coupons:</h3>
         <ul id="couponList" class="list-disc list-inside text-sm text-gray-400 space-y-1">
-          <!-- Dynamisch eingefügt -->
+          <!-- Dynamisch -->
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- SCRIPT -->
   <script>
+    // Umschalten Hero → Preise
+    function showPrices() {
+      document.getElementById("hero").classList.add("hidden");
+      document.getElementById("prices").classList.remove("hidden");
+      loadBTCPrice();
+    }
+
+    // Preise & BTC-Logik
     const pricesEUR = [
       { name: "Einfaches Profilbild", euro: 5 },
       { name: "Textlogo", euro: 8 },
@@ -142,7 +147,6 @@
 
         pricesEUR.forEach(item => {
           const btc = (item.euro / rate).toFixed(6);
-
           const card = document.createElement("div");
           card.className = "bg-white/10 backdrop-blur-md border border-white/20 shadow-lg rounded-xl p-4 hover:scale-[1.02] transition-all";
 
@@ -151,14 +155,14 @@
             <p class="text-sm text-gray-300">€ ${item.euro.toFixed(2)}</p>
             <p class="text-xs text-cyan-400 mt-1">${btc} BTC</p>
           `;
-
           list.appendChild(card);
         });
-      } catch (error) {
+      } catch {
         document.getElementById("btcRate").innerText = "Fehler beim Laden des BTC-Kurses.";
       }
     }
 
+    // Adminbereich
     const coupons = [];
     const adminPassword = "aX3Yz8QwLp29Ns7FjHr5";
 
@@ -183,7 +187,6 @@
 
       coupons.push({ code, value });
       renderCoupons();
-
       document.getElementById("couponCode").value = "";
       document.getElementById("couponValue").value = "";
     }
@@ -191,15 +194,12 @@
     function renderCoupons() {
       const list = document.getElementById("couponList");
       list.innerHTML = "";
-
       coupons.forEach(coupon => {
         const li = document.createElement("li");
         li.textContent = `${coupon.code} → ${coupon.value.toFixed(2)} € Rabatt`;
         list.appendChild(li);
       });
     }
-
-    loadBTCPrice();
   </script>
 </body>
 </html>
