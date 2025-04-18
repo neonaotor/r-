@@ -3,32 +3,59 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Designs by YOU</title>
+  <title>Best Designs</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    .fade-in {
-      animation: fadeIn 2s ease-in-out forwards;
-      opacity: 0;
-    }
-
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
     body {
-      background: linear-gradient(to bottom right, #000000, #0a0a0a);
+      background-color: #000;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .fade-bg {
+      animation: fadeBackground 4s ease-in-out forwards;
+    }
+
+    @keyframes fadeBackground {
+      0% {
+        background-color: #000;
+      }
+      100% {
+        background: radial-gradient(circle at center, rgba(0,255,255,0.1), #000);
+      }
+    }
+
+    .typewriter h1 {
+      overflow: hidden;
+      border-right: .15em solid cyan;
+      white-space: nowrap;
+      margin: 0 auto;
+      letter-spacing: .08em;
+      animation: typing 3.5s steps(30, end), blink-caret .75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: cyan; }
     }
   </style>
 </head>
-<body class="text-white font-sans flex items-center justify-center min-h-screen px-6">
-  <div class="text-center fade-in">
-    <img src="your-logo.png" alt="Logo" class="w-32 mx-auto mb-6" />
-    <h1 class="text-3xl sm:text-5xl font-bold mb-4">Get the best Designs</h1>
-    <p class="text-xl sm:text-2xl text-gray-300 mb-8">for the cheapest price</p>
-    <a href="#prices" class="bg-cyan-500 text-black font-bold px-6 py-3 rounded-full hover:bg-cyan-400 transition-all">
+<body class="text-white flex items-center justify-center min-h-screen fade-bg">
+
+  <div class="text-center px-4">
+    <div class="typewriter text-2xl sm:text-4xl font-bold">
+      <h1>Get the best Designs for the cheapest price</h1>
+    </div>
+    <a href="#prices" class="mt-10 inline-block bg-cyan-500 hover:bg-cyan-400 text-black font-semibold px-6 py-3 rounded-full transition">
       See Prices
     </a>
   </div>
+
 </body>
 </html>
