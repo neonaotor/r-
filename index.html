@@ -1,71 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Designs</title>
+  <title>Design Preise – Live BTC</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: radial-gradient(circle, #0f0f0f 0%, #000000 100%);
-      font-family: 'Segoe UI', sans-serif;
-    }
-
-    .glow-bg {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 100vw;
-      height: 100vh;
-      transform: translate(-50%, -50%);
-      background: radial-gradient(circle, rgba(0,255,255,0.06), transparent 70%);
-      filter: blur(80px);
-      z-index: 0;
-    }
-
-    .word {
-      opacity: 0;
-      display: inline-block;
-      transform: translateY(20px);
-      animation: popWord 0.6s forwards;
-    }
-
-    @keyframes popWord {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
 </head>
-<body class="flex items-center justify-center min-h-screen relative text-center px-4">
+<body class="bg-gray-950 text-white font-sans">
+  <div class="max-w-2xl mx-auto px-6 py-12">
+    <h1 class="text-3xl font-bold mb-6 text-center">Design Preise (Live BTC)</h1>
 
-  <div class="glow-bg"></div>
-
-  <div class="z-10">
-    <div class="text-white font-extrabold text-2xl sm:text-4xl space-y-3">
-      <div>
-        <span class="word" style="animation-delay: 0s">Get</span>
-        <span class="word" style="animation-delay: 0.2s">the</span>
-        <span class="word" style="animation-delay: 0.4s">best</span>
-        <span class="word" style="animation-delay: 0.6s">Designs</span>
-      </div>
-      <div>
-        <span class="word" style="animation-delay: 0.8s">for</span>
-        <span class="word" style="animation-delay: 1.0s">the</span>
-        <span class="word" style="animation-delay: 1.2s">cheapest</span>
-        <span class="word" style="animation-delay: 1.4s">price</span>
-      </div>
+    <div id="btcRate" class="text-center text-sm text-gray-400 mb-4">
+      Lade aktuellen BTC-Kurs...
     </div>
 
-    <div class="mt-10">
-      <a href="#prices" class="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-6 py-3 rounded-full transition-all">
-        See Prices
-      </a>
+    <div class="grid grid-cols-2 text-center bg-gray-800 rounded-md p-4 mb-2 font-semibold">
+      <div>Leistung</div>
+      <div>Preis (€ / BTC)</div>
+    </div>
+
+    <div id="priceList" class="divide-y divide-gray-700 text-sm">
+      <!-- Preise werden per JavaScript eingefügt -->
+    </div>
+
+    <div class="mt-10 text-center text-sm text-gray-400">
+      <p class="mb-4 font-semibold">Zahlung möglich mit:</p>
+      <div class="flex justify-center items-center space-x-6">
+        <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=026" alt="Bitcoin" class="h-8">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="h-6">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Paysafecard_logo.svg" alt="Paysafe" class="h-6">
+      </div>
+      <p class="text-xs mt-4">Wallet-Adresse & Kontakt auf Anfrage</p>
     </div>
   </div>
 
+  <script>
+    const pricesEUR = [
+      { name: "Einfaches Profilbild", euro: 5 },
+      { name: "Textlogo", euro: 8 },
+      { name: "Social Media Banner", euro: 10 },
+      { name: "Avatar (stilisiert)", euro: 12 },
+      { name: "Mini Paket (PFP + Banner)", euro: 15 },
+    ];
+
+    async function loadBTCPrice() {
+      try {
+        const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=eur");
+        const data = await res.json();
+        const rate = data.bitcoin.eur;
+        document.getElementById("btcRate").innerText = `Aktueller BTC-Kurs: 1 BTC = ${rate.toLocaleString("de-DE")} €`;
+
+        const list = document.getElementById("priceList");
+        list.innerHTML = "";
+
+        pricesEUR.forEach(item => {
+          const btc = (item.euro / rate).toFixed(6);
+          const row = document.createElement("div");
+          row.className = "flex justify-between py-3";
+          row.innerHTML = `<span>${item.name}</span><span>${item.euro} € / ${btc} BTC</span>`;
+          list.appendChild(row);
+        });
+      } catch (error) {
+        document.getElementById("btcRate").innerText = "Fehler beim Laden des BTC-Kurses.";
+      }
+    }
+
+    loadBTCPrice();
+  </script>
 </body>
 </html>
