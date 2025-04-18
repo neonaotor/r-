@@ -1,66 +1,34 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Design Preise – Live BTC</title>
+  <title>Designs by YOU</title>
   <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-950 text-white font-sans">
-  <div class="max-w-2xl mx-auto px-6 py-12">
-    <h1 class="text-3xl font-bold mb-6 text-center">Design Preise (Live BTC)</h1>
-
-    <div id="btcRate" class="text-center text-sm text-gray-400 mb-4">
-      Lade aktuellen BTC-Kurs...
-    </div>
-
-    <div class="grid grid-cols-2 text-center bg-gray-800 rounded-md p-4 mb-2 font-semibold">
-      <div>Leistung</div>
-      <div>Preis (€ / BTC)</div>
-    </div>
-
-    <div id="priceList" class="divide-y divide-gray-700 text-sm">
-      <!-- Preise werden per JavaScript eingefügt -->
-    </div>
-
-    <div class="mt-10 text-center text-sm text-gray-400">
-      <p>Zahlung via: <strong>PayPal | PSN Card | Bitcoin</strong></p>
-      <p class="text-xs mt-2">Wallet-Adresse & Kontakt auf Anfrage</p>
-    </div>
-  </div>
-
-  <script>
-    const pricesEUR = [
-      { name: "Einfaches Profilbild", euro: 5 },
-      { name: "Textlogo", euro: 8 },
-      { name: "Social Media Banner", euro: 10 },
-      { name: "Avatar (stilisiert)", euro: 12 },
-      { name: "Mini Paket (PFP + Banner)", euro: 15 },
-    ];
-
-    async function loadBTCPrice() {
-      try {
-        const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=eur");
-        const data = await res.json();
-        const rate = data.bitcoin.eur;
-        document.getElementById("btcRate").innerText = `Aktueller BTC-Kurs: 1 BTC = ${rate.toLocaleString("de-DE")} €`;
-
-        const list = document.getElementById("priceList");
-        list.innerHTML = "";
-
-        pricesEUR.forEach(item => {
-          const btc = (item.euro / rate).toFixed(6);
-          const row = document.createElement("div");
-          row.className = "flex justify-between py-3";
-          row.innerHTML = `<span>${item.name}</span><span>${item.euro} € / ${btc} BTC</span>`;
-          list.appendChild(row);
-        });
-      } catch (error) {
-        document.getElementById("btcRate").innerText = "Fehler beim Laden des BTC-Kurses.";
-      }
+  <style>
+    .fade-in {
+      animation: fadeIn 2s ease-in-out forwards;
+      opacity: 0;
     }
 
-    loadBTCPrice();
-  </script>
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    body {
+      background: linear-gradient(to bottom right, #000000, #0a0a0a);
+    }
+  </style>
+</head>
+<body class="text-white font-sans flex items-center justify-center min-h-screen px-6">
+  <div class="text-center fade-in">
+    <img src="your-logo.png" alt="Logo" class="w-32 mx-auto mb-6" />
+    <h1 class="text-3xl sm:text-5xl font-bold mb-4">Get the best Designs</h1>
+    <p class="text-xl sm:text-2xl text-gray-300 mb-8">for the cheapest price</p>
+    <a href="#prices" class="bg-cyan-500 text-black font-bold px-6 py-3 rounded-full hover:bg-cyan-400 transition-all">
+      See Prices
+    </a>
+  </div>
 </body>
 </html>
