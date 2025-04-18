@@ -25,29 +25,29 @@
       z-index: 0;
     }
 
-    .typewriter {
+    .typewriter-container {
+      display: inline-block;
       font-size: 2rem;
       font-weight: 800;
-      white-space: pre; /* respektiert \n */
-      overflow: hidden;
-      border-right: .15em solid cyan;
-      animation: typing 5s steps(50, end), blink-caret .75s step-end infinite;
       color: white;
-      backdrop-filter: blur(4px);
-      z-index: 1;
       text-align: center;
-      display: inline-block;
-      max-width: 100%;
+    }
+
+    .line {
+      overflow: hidden;
+      display: block;
+      white-space: nowrap;
+      width: 0;
+      animation: typing 2.5s steps(40, end) forwards;
+    }
+
+    .line:nth-child(2) {
+      animation-delay: 2.6s;
     }
 
     @keyframes typing {
       from { width: 0 }
       to { width: 100% }
-    }
-
-    @keyframes blink-caret {
-      from, to { border-color: transparent }
-      50% { border-color: cyan; }
     }
   </style>
 </head>
@@ -56,8 +56,9 @@
   <div class="glow-bg"></div>
 
   <div class="z-10">
-    <div class="typewriter">
-      Get the best Designs for\nthe cheapest price
+    <div class="typewriter-container">
+      <span class="line">Get the best Designs</span>
+      <span class="line">for the cheapest price</span>
     </div>
 
     <div class="mt-10">
