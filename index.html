@@ -25,29 +25,18 @@
       z-index: 0;
     }
 
-    .typewriter-container {
+    .word {
+      opacity: 0;
       display: inline-block;
-      font-size: 2rem;
-      font-weight: 800;
-      color: white;
-      text-align: center;
+      transform: translateY(20px);
+      animation: popWord 0.6s forwards;
     }
 
-    .line {
-      overflow: hidden;
-      display: block;
-      white-space: nowrap;
-      width: 0;
-      animation: typing 2.5s steps(40, end) forwards;
-    }
-
-    .line:nth-child(2) {
-      animation-delay: 2.6s;
-    }
-
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
+    @keyframes popWord {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
@@ -56,9 +45,19 @@
   <div class="glow-bg"></div>
 
   <div class="z-10">
-    <div class="typewriter-container">
-      <span class="line">Get the best Designs</span>
-      <span class="line">for the cheapest price</span>
+    <div class="text-white font-extrabold text-2xl sm:text-4xl space-y-3">
+      <div>
+        <span class="word" style="animation-delay: 0s">Get</span>
+        <span class="word" style="animation-delay: 0.2s">the</span>
+        <span class="word" style="animation-delay: 0.4s">best</span>
+        <span class="word" style="animation-delay: 0.6s">Designs</span>
+      </div>
+      <div>
+        <span class="word" style="animation-delay: 0.8s">for</span>
+        <span class="word" style="animation-delay: 1.0s">the</span>
+        <span class="word" style="animation-delay: 1.2s">cheapest</span>
+        <span class="word" style="animation-delay: 1.4s">price</span>
+      </div>
     </div>
 
     <div class="mt-10">
