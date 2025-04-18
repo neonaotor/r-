@@ -117,89 +117,109 @@
       </div>
     </div>
   </section>
+<script>
+  // Umschalten Hero → Preise
+  function showPrices() {
+    document.getElementById("hero").classList.add("hidden");
+    document.getElementById("prices").classList.remove("hidden");
+    loadBTCPrice();
+    loadCoupons(); // Lade Coupons direkt beim Anzeigen
+  }
 
-  <script>
-    // Umschalten Hero → Preise
-    function showPrices() {
-      document.getElementById("hero").classList.add("hidden");
-      document.getElementById("prices").classList.remove("hidden");
-      loadBTCPrice();
-    }
+  // Preise & BTC-Logik
+  const pricesEUR = [
+    { name: "Einfaches Profilbild", euro: 5 },
+    { name: "Textlogo", euro: 8 },
+    { name: "Social Media Banner", euro: 10 },
+    { name: "Avatar (stilisiert)", euro: 12 },
+    { name: "Mini Paket (PFP + Banner)", euro: 15 },
+  ];
 
-    // Preise & BTC-Logik
-    const pricesEUR = [
-      { name: "Einfaches Profilbild", euro: 5 },
-      { name: "Textlogo", euro: 8 },
-      { name: "Social Media Banner", euro: 10 },
-      { name: "Avatar (stilisiert)", euro: 12 },
-      { name: "Mini Paket (PFP + Banner)", euro: 15 },
-    ];
+  async function loadBTCPrice() {
+    try {
+      const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=eur");
+      const data = await res.json();
+      const rate = data.bitcoin.eur;
+      document.getElementById("btcRate").innerText = `Aktueller BTC-Kurs: 1 BTC = ${rate.toLocaleString("de-DE")} €`;
 
-    async function loadBTCPrice() {
-      try {
-        const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=eur");
-        const data = await res.json();
-        const rate = data.bitcoin.eur;
-        document.getElementById("btcRate").innerText = `Aktueller BTC-Kurs: 1 BTC = ${rate.toLocaleString("de-DE")} €`;
-
-        const list = document.getElementById("priceList");
-        list.innerHTML = "";
-
-        pricesEUR.forEach(item => {
-          const btc = (item.euro / rate).toFixed(6);
-          const card = document.createElement("div");
-          card.className = "bg-white/10 backdrop-blur-md border border-white/20 shadow-lg rounded-xl p-4 hover:scale-[1.02] transition-all";
-
-          card.innerHTML = `
-            <h3 class="text-lg font-semibold text-white mb-1">${item.name}</h3>
-            <p class="text-sm text-gray-300">€ ${item.euro.toFixed(2)}</p>
-            <p class="text-xs text-cyan-400 mt-1">${btc} BTC</p>
-          `;
-          list.appendChild(card);
-        });
-      } catch {
-        document.getElementById("btcRate").innerText = "Fehler beim Laden des BTC-Kurses.";
-      }
-    }
-
-    // Adminbereich
-    const coupons = [];
-    const adminPassword = "aX3Yz8QwLp29Ns7FjHr5";
-
-    function promptAdmin() {
-      const entered = prompt("Bitte Admin-Passwort eingeben:");
-      if (entered === adminPassword) {
-        document.getElementById("adminArea").classList.remove("hidden");
-        alert("Adminzugang freigeschaltet!");
-      } else {
-        alert("Falsches Passwort.");
-      }
-    }
-
-    function addCoupon() {
-      const code = document.getElementById("couponCode").value.trim().toUpperCase();
-      const value = parseFloat(document.getElementById("couponValue").value);
-
-      if (!code || isNaN(value) || value <= 0) {
-        alert("Bitte gültigen Coupon-Code und Betrag eingeben.");
-        return;
-      }
-
-      coupons.push({ code, value });
-      renderCoupons();
-      document.getElementById("couponCode").value = "";
-      document.getElementById("couponValue").value = "";
-    }
-
-    function renderCoupons() {
-      const list = document.getElementById("couponList");
+      const list = document.getElementById("priceList");
       list.innerHTML = "";
-      coupons.forEach(coupon => {
-        const li = document.createElement("li");
-        li.textContent = `${coupon.code} → ${coupon.value.toFixed(2)} € Rabatt`;
-        list.appendChild(li);
+
+      pricesEUR.forEach(item => {
+        const btc = (item.euro / rate).toFixed(6);
+        const card = document.createElement("div");
+        card.className = "bg-white/10 backdrop-blur-md border border-white/20 shadow-lg rounded-xl p-4 hover:scale-[1.02] transition-all";
+
+        card.innerHTML = `
+          <h3 class="text-lg font-semibold text-white mb-1">${item.name}</h3>
+          <p class="text-sm text-gray-300">€ ${item.euro.toFixed(2)}</p>
+          <p class="text-xs text-cyan-400 mt-1">${btc} BTC</p>
+        `;
+        list.appendChild(card);
       });
+    } catch {
+      document.getElementById("btcRate").innerText = "Fehler beim Laden des BTC-Kurses.";
     }
-  </script>
-</body>
-</html>
+  }
+
+  // Adminbereich & Coupon-Logik
+  let coupons = [];
+  const adminPassword = "aX3Yz8QwLp29Ns7FjHr5";
+
+  function promptAdmin() {
+    const entered = prompt("Bitte Admin-Passwort eingeben:");
+    if (entered === adminPassword) {
+      document.getElementById("adminArea").classList.remove("hidden");
+      loadCoupons();
+      alert("Adminzugang freigeschaltet!");
+    } else {
+      alert("Falsches Passwort.");
+    }
+  }
+
+  function addCoupon() {
+    const code = document.getElementById("couponCode").value.trim().toUpperCase();
+    const value = parseFloat(document.getElementById("couponValue").value);
+
+    if (!code || isNaN(value) || value <= 0) {
+      alert("Bitte gültigen Coupon-Code und Betrag eingeben.");
+      return;
+    }
+
+    coupons.push({ code, value });
+    localStorage.setItem("coupons", JSON.stringify(coupons));
+    renderCoupons();
+
+    document.getElementById("couponCode").value = "";
+    document.getElementById("couponValue").value = "";
+  }
+
+  function renderCoupons() {
+    const list = document.getElementById("couponList");
+    list.innerHTML = "";
+
+    coupons.forEach((coupon, index) => {
+      const li = document.createElement("li");
+      li.className = "flex justify-between items-center";
+      li.innerHTML = `
+        <span>${coupon.code} → ${coupon.value.toFixed(2)} € Rabatt</span>
+        <button onclick="deleteCoupon(${index})" class="ml-4 text-red-400 hover:text-red-600 text-xs">Löschen</button>
+      `;
+      list.appendChild(li);
+    });
+  }
+
+  function deleteCoupon(index) {
+    coupons.splice(index, 1);
+    localStorage.setItem("coupons", JSON.stringify(coupons));
+    renderCoupons();
+  }
+
+  function loadCoupons() {
+    const saved = localStorage.getItem("coupons");
+    if (saved) {
+      coupons = JSON.parse(saved);
+      renderCoupons();
+    }
+  }
+</script>
