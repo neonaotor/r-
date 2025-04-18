@@ -1,69 +1,124 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Design Preise – Live BTC</title>
+  <title>Designs</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle, #0f0f0f 0%, #000000 100%);
+      font-family: 'Segoe UI', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    .glow-bg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100vw;
+      height: 100vh;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(0,255,255,0.06), transparent 70%);
+      filter: blur(80px);
+      z-index: 0;
+    }
+
+    .word {
+      opacity: 0;
+      display: inline-block;
+      transform: translateY(20px);
+      animation: popWord 0.6s forwards;
+    }
+
+    @keyframes popWord {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </head>
-<body class="bg-gray-950 text-white font-sans overflow-x-hidden relative">
+<body class="relative text-center text-white">
 
-  <!-- Blur-Hintergrund -->
-  <div class="fixed inset-0 z-0 backdrop-blur-md bg-black/40"></div>
+  <!-- Glow Background -->
+  <div class="glow-bg"></div>
 
-  <!-- Inhalt -->
-  <div class="relative z-10">
-    <div class="max-w-2xl mx-auto px-6 py-12 mt-6 mb-12 bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]">
-
-      <h1 class="text-4xl font-bold mb-6 text-center text-white drop-shadow-lg">Design Preise (Live BTC)</h1>
-
-      <div id="btcRate" class="text-center text-sm text-gray-300 mb-6">
-        Lade aktuellen BTC-Kurs...
-      </div>
-
-      <!-- Neue Preiskarten -->
-      <div id="priceList" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <!-- Dynamische Karten -->
-      </div>
-
-      <!-- Zahlungsarten -->
-      <div class="mt-12 text-center text-sm text-gray-300">
-        <p class="mb-4 font-semibold text-white">Zahlung möglich mit:</p>
-        <div class="flex justify-center items-center space-x-6">
-          <img src="https://pngimg.com/uploads/bitcoin/bitcoin_PNG7.png" alt="Bitcoin" class="h-8">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="h-6 md:h-8">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Paysafecard_logo.svg/2560px-Paysafecard_logo.svg.png" alt="Paysafecard" class="h-6 md:h-8">
+  <!-- Hero Section -->
+  <section class="flex items-center justify-center min-h-screen relative px-4 z-10">
+    <div>
+      <div class="text-white font-extrabold text-2xl sm:text-4xl space-y-3">
+        <div>
+          <span class="word" style="animation-delay: 0s">Get</span>
+          <span class="word" style="animation-delay: 0.2s">the</span>
+          <span class="word" style="animation-delay: 0.4s">best</span>
+          <span class="word" style="animation-delay: 0.6s">Designs</span>
         </div>
-        <p class="text-xs mt-4">Wallet-Adresse & Kontakt auf Anfrage</p>
-      </div>
-
-      <!-- Admin Login Button -->
-      <div class="mt-12 text-center">
-        <button onclick="promptAdmin()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded font-semibold">
-          Admin Login
-        </button>
-      </div>
-
-      <!-- Adminbereich -->
-      <div id="adminArea" class="hidden mt-10">
-        <hr class="my-10 border-gray-700">
-        <h2 class="text-xl font-semibold mb-4 text-white">Admin – Coupon hinzufügen</h2>
-        <div class="space-y-4">
-          <input id="couponCode" type="text" placeholder="Coupon-Code (z. B. WINTER2025)" class="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400">
-          <input id="couponValue" type="number" placeholder="Wert in €" class="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400">
-          <button onclick="addCoupon()" class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded font-semibold">Coupon hinzufügen</button>
-        </div>
-
-        <div class="mt-6">
-          <h3 class="text-sm font-semibold text-gray-300 mb-2">Aktive Coupons:</h3>
-          <ul id="couponList" class="list-disc list-inside text-sm text-gray-400 space-y-1">
-            <!-- Dynamisch eingefügt -->
-          </ul>
+        <div>
+          <span class="word" style="animation-delay: 0.8s">for</span>
+          <span class="word" style="animation-delay: 1.0s">the</span>
+          <span class="word" style="animation-delay: 1.2s">cheapest</span>
+          <span class="word" style="animation-delay: 1.4s">price</span>
         </div>
       </div>
 
+      <div class="mt-10">
+        <a href="#prices" class="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-6 py-3 rounded-full transition-all">
+          See Prices
+        </a>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <!-- Preise Bereich -->
+  <section id="prices" class="relative z-10 px-6 py-16 max-w-2xl mx-auto bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]">
+    <h1 class="text-4xl font-bold mb-6 text-center text-white drop-shadow-lg">Design Preise (Live BTC)</h1>
+
+    <div id="btcRate" class="text-center text-sm text-gray-300 mb-6">
+      Lade aktuellen BTC-Kurs...
+    </div>
+
+    <div id="priceList" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <!-- Dynamische Preis-Karten -->
+    </div>
+
+    <div class="mt-12 text-center text-sm text-gray-300">
+      <p class="mb-4 font-semibold text-white">Zahlung möglich mit:</p>
+      <div class="flex justify-center items-center space-x-6">
+        <img src="https://pngimg.com/uploads/bitcoin/bitcoin_PNG7.png" alt="Bitcoin" class="h-8">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="h-6 md:h-8">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Paysafecard_logo.svg/2560px-Paysafecard_logo.svg.png" alt="Paysafecard" class="h-6 md:h-8">
+      </div>
+      <p class="text-xs mt-4">Wallet-Adresse & Kontakt auf Anfrage</p>
+    </div>
+
+    <!-- Admin Login -->
+    <div class="mt-12 text-center">
+      <button onclick="promptAdmin()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded font-semibold">
+        Admin Login
+      </button>
+    </div>
+
+    <!-- Admin Bereich -->
+    <div id="adminArea" class="hidden mt-10">
+      <hr class="my-10 border-gray-700">
+      <h2 class="text-xl font-semibold mb-4 text-white">Admin – Coupon hinzufügen</h2>
+      <div class="space-y-4">
+        <input id="couponCode" type="text" placeholder="Coupon-Code (z. B. WINTER2025)" class="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400">
+        <input id="couponValue" type="number" placeholder="Wert in €" class="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400">
+        <button onclick="addCoupon()" class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded font-semibold">Coupon hinzufügen</button>
+      </div>
+
+      <div class="mt-6">
+        <h3 class="text-sm font-semibold text-gray-300 mb-2">Aktive Coupons:</h3>
+        <ul id="couponList" class="list-disc list-inside text-sm text-gray-400 space-y-1">
+          <!-- Dynamisch eingefügt -->
+        </ul>
+      </div>
+    </div>
+  </section>
 
   <!-- SCRIPT -->
   <script>
@@ -104,9 +159,8 @@
       }
     }
 
-    // Coupon-System
     const coupons = [];
-    const adminPassword = "aX3Yz8QwLp29Ns7FjHr5"; // Dein sicheres Admin-Passwort
+    const adminPassword = "aX3Yz8QwLp29Ns7FjHr5";
 
     function promptAdmin() {
       const entered = prompt("Bitte Admin-Passwort eingeben:");
