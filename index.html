@@ -5,12 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Design Preise – Live BTC</title>
   <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-950 text-white font-sans">
-  <div class="max-w-2xl mx-auto px-6 py-12">
-    <h1 class="text-3xl font-bold mb-6 text-center">Design Preise (Live BTC)</h1>
+  <style>
+    /* Schneeflocken-Animation */
+    body {
+      position: relative;
+      overflow-x: hidden;
+    }
 
-    <div id="btcRate" class="text-center text-sm text-gray-400 mb-4">
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      z-index: 0;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10px) translateX(0);
+      }
+      100% {
+        transform: translateY(110vh) translateX(50px);
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-950 text-white font-sans relative">
+  <!-- Schneeflocken -->
+  <script>
+    for (let i = 0; i < 60; i++) {
+      const snowflake = document.createElement("div");
+      snowflake.className = "snowflake";
+      snowflake.style.left = `${Math.random() * 100}vw`;
+      snowflake.style.animationDuration = `${5 + Math.random() * 5}s`;
+      snowflake.style.width = snowflake.style.height = `${8 + Math.random() * 12}px`;
+      snowflake.style.opacity = Math.random() * 0.6 + 0.4;
+      document.body.appendChild(snowflake);
+    }
+  </script>
+
+  <div class="relative z-10 max-w-2xl mx-auto px-6 py-12 backdrop-blur-sm bg-gray-900/70 rounded-xl shadow-xl mt-6">
+    <h1 class="text-4xl font-bold mb-6 text-center text-white drop-shadow-lg">Design Preise (Live BTC)</h1>
+
+    <div id="btcRate" class="text-center text-sm text-gray-300 mb-4">
       Lade aktuellen BTC-Kurs...
     </div>
 
@@ -23,8 +64,8 @@
       <!-- Preise werden per JavaScript eingefügt -->
     </div>
 
-    <div class="mt-10 text-center text-sm text-gray-400">
-      <p class="mb-4 font-semibold">Zahlung möglich mit:</p>
+    <div class="mt-10 text-center text-sm text-gray-300">
+      <p class="mb-4 font-semibold text-white">Zahlung möglich mit:</p>
       <div class="flex justify-center items-center space-x-6">
         <img src="https://pngimg.com/uploads/bitcoin/bitcoin_PNG7.png" alt="Bitcoin" class="h-8">
         <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="h-6 md:h-8">
