@@ -39,15 +39,18 @@
       display: none;
     }
     .card-fixed {
-      height: 100%;
+      height: 460px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
     .image-fixed {
-      height: 200px;
-      object-fit: cover;
+      height: 260px;
       width: 100%;
+      object-fit: contain;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: transparent;
     }
   </style>
 </head>
@@ -81,7 +84,7 @@
   </section>
 
   <!-- PREISLISTE SECTION -->
-  <section id="preise" class="section-hidden bg-gray-950 py-20 px-6 min-h-screen">
+  <section id="preise" class="section-hidden bg-gray-950 py-20 px-0 min-h-screen">
     <div class="max-w-6xl mx-auto">
       <h1 class="text-3xl font-bold mb-10 text-center">Design Preise (Live BTC)</h1>
       <div id="btcRate" class="text-center text-sm text-gray-400 mb-8">
@@ -111,14 +114,12 @@
     }
 
     const pricesEUR = [
-      { name: "Einfaches Profilbild", euro: 5, image: "https://via.placeholder.com/300x200?text=Profilbild" },
-      { name: "Textlogo", euro: 8, image: "https://via.placeholder.com/300x200?text=Textlogo" },
-      { name: "Social Media Banner", euro: 10, image: "https://via.placeholder.com/300x200?text=Banner" },
-      { name: "Avatar (stilisiert)", euro: 12, image: "https://via.placeholder.com/300x200?text=Avatar" },
-      { name: "Mini Paket (PFP + Banner)", euro: 15, image: "https://via.placeholder.com/300x200?text=Mini+Paket" },
-      { name: "Story Highlight Icons", euro: 7, image: "https://via.placeholder.com/300x200?text=Highlight+Icons" },
-      { name: "Stream Overlay", euro: 13, image: "https://via.placeholder.com/300x200?text=Stream+Overlay" },
-      { name: "Handy Wallpaper", euro: 3, image: "https://media.discordapp.net/attachments/1361801346319388834/1363288285367107725/Mellisa_x_Kevin.png?ex=68057ca7&is=68042b27&hm=99df2dde86849027c6d9db969912f5ab5960b343105ccf047a0ff5cb9ab4ec53&=&format=webp&quality=lossless&width=395&height=855" },
+      { name: "Profilbild", euro: 5, image: "https://via.placeholder.com/300x200?text=Profilbild" },
+      { name: "Serverlogo", euro: 8, image: "https://via.placeholder.com/300x200?text=Textlogo" },
+      { name: "Serverbanner", euro: 10, image: "https://via.placeholder.com/300x200?text=Banner" },
+      { name: "Banner", euro: 12, image: "https://via.placeholder.com/300x200?text=Avatar" },
+      { name: "Mini Paket (PFP + Banner)", euro: 15, image: "https://via.placeholder.com/300x200?text=Mini+ : 7, image: "https://via.placeholder.com/300x200?text=Highlight+Icons" }
+      { name: "Handy Wallpaper", euro: 3, image: "https://cdn.discordapp.com/attachments/1361801346319388834/1363288285367107725/Mellisa_x_Kevin.png?ex=68057ca7&is=68042b27&hm=99df2dde86849027c6d9db969912f5ab5960b343105ccf047a0ff5cb9ab4ec53&" },
       { name: "PC Wallpaper", euro: 4, image: "https://cdn.discordapp.com/attachments/1361801346319388834/1363262581191606372/Billion_gta.png" },
       { name: "Emote Design", euro: 9, image: "https://via.placeholder.com/300x200?text=Emote" }
     ];
