@@ -11,7 +11,6 @@
       padding: 0;
       background: radial-gradient(circle, #0f0f0f 0%, #000000 100%);
       font-family: 'Segoe UI', sans-serif;
-      scroll-behavior: smooth;
     }
 
     .glow-bg {
@@ -41,14 +40,13 @@
     }
   </style>
 </head>
-<body class="relative text-center text-white">
+<body class="text-white relative">
 
-  <!-- Glow Background -->
   <div class="glow-bg"></div>
 
-  <!-- Hero Section (Startseite) -->
-  <section id="hero" class="flex items-center justify-center min-h-screen relative px-4 z-10">
-    <div>
+  <!-- Hero -->
+  <section class="flex items-center justify-center min-h-screen text-center px-4">
+    <div class="z-10">
       <div class="text-white font-extrabold text-2xl sm:text-4xl space-y-3">
         <div>
           <span class="word" style="animation-delay: 0s">Get</span>
@@ -58,168 +56,71 @@
         </div>
         <div>
           <span class="word" style="animation-delay: 0.8s">for</span>
-          <span class="word" style="animation-delay: 1.0s">the</span>
+          <span class="word" style="animation-delay: 1s">the</span>
           <span class="word" style="animation-delay: 1.2s">cheapest</span>
           <span class="word" style="animation-delay: 1.4s">price</span>
         </div>
       </div>
 
       <div class="mt-10">
-        <button onclick="showPrices()" class="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-6 py-3 rounded-full transition-all">
+        <a href="#products" class="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-6 py-3 rounded-full transition-all">
           See Prices
-        </button>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- Preisübersicht (versteckt am Anfang) -->
-  <section id="prices" class="hidden px-6 py-16 max-w-2xl mx-auto bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] my-20">
-    <h1 class="text-4xl font-bold mb-6 text-center text-white drop-shadow-lg"> Preise </h1>
+  <!-- Produkte -->
+  <section id="products" class="py-20 px-6 bg-black">
+    <h2 class="text-3xl font-bold text-center mb-12">Our Designs</h2>
+    <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
 
-    <div id="btcRate" class="text-center text-sm text-gray-300 mb-6">
-      Lade aktuellen BTC-Kurs...
-    </div>
-
-    <div id="priceList" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-      <!-- Dynamische Karten -->
-    </div>
-
-    <div class="mt-12 text-center text-sm text-gray-300">
-      <p class="mb-4 font-semibold text-white">Zahlung möglich mit:</p>
-      <div class="flex justify-center items-center space-x-6">
-        <img src="https://pngimg.com/uploads/bitcoin/bitcoin_PNG7.png" alt="Bitcoin" class="h-8">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="h-6 md:h-8">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Paysafecard_logo.svg/2560px-Paysafecard_logo.svg.png" alt="Paysafecard" class="h-6 md:h-8">
-      </div>
-      <p class="text-xs mt-4">Wallet-Adresse & Kontakt auf Anfrage</p>
-    </div>
-
-    <div class="mt-12 text-center">
-      <button onclick="promptAdmin()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded font-semibold">
-        Admin Login
-      </button>
-    </div>
-
-    <div id="adminArea" class="hidden mt-10">
-      <hr class="my-10 border-gray-700">
-      <h2 class="text-xl font-semibold mb-4 text-white">Admin – Coupon hinzufügen</h2>
-      <div class="space-y-4">
-        <input id="couponCode" type="text" placeholder="Coupon-Code (z. B. WINTER2025)" class="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400">
-        <input id="couponValue" type="number" placeholder="Wert in €" class="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400">
-        <button onclick="addCoupon()" class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded font-semibold">Coupon hinzufügen</button>
+      <!-- Produkt 1 -->
+      <div class="bg-gray-900 p-4 rounded-lg shadow-lg text-center">
+        <img src="https://via.placeholder.com/300x200" alt="Produkt 1" class="rounded mb-4 mx-auto" />
+        <h3 class="text-xl font-semibold mb-2">Basic Logo</h3>
+        <p class="text-gray-400 mb-2">5 €</p>
+        <p class="text-cyan-400 text-sm" data-euro="5">Loading BTC...</p>
       </div>
 
-      <div class="mt-6">
-        <h3 class="text-sm font-semibold text-gray-300 mb-2">Aktive Coupons:</h3>
-        <ul id="couponList" class="list-disc list-inside text-sm text-gray-400 space-y-1">
-          <!-- Dynamisch -->
-        </ul>
+      <!-- Produkt 2 -->
+      <div class="bg-gray-900 p-4 rounded-lg shadow-lg text-center">
+        <img src="https://via.placeholder.com/300x200" alt="Produkt 2" class="rounded mb-4 mx-auto" />
+        <h3 class="text-xl font-semibold mb-2">Animated Banner</h3>
+        <p class="text-gray-400 mb-2">10 €</p>
+        <p class="text-cyan-400 text-sm" data-euro="10">Loading BTC...</p>
       </div>
+
+      <!-- Produkt 3 -->
+      <div class="bg-gray-900 p-4 rounded-lg shadow-lg text-center">
+        <img src="https://via.placeholder.com/300x200" alt="Produkt 3" class="rounded mb-4 mx-auto" />
+        <h3 class="text-xl font-semibold mb-2">Full Package</h3>
+        <p class="text-gray-400 mb-2">15 €</p>
+        <p class="text-cyan-400 text-sm" data-euro="15">Loading BTC...</p>
+      </div>
+
     </div>
   </section>
-<script>
-  // Umschalten Hero → Preise
-  function showPrices() {
-    document.getElementById("hero").classList.add("hidden");
-    document.getElementById("prices").classList.remove("hidden");
-    loadBTCPrice();
-    loadCoupons(); // Lade Coupons direkt beim Anzeigen
-  }
 
-  // Preise & BTC-Logik
-  const pricesEUR = [
-    { name: "Einfaches Profilbild", euro: 5 },
-    { name: "Textlogo", euro: 8 },
-    { name: "Social Media Banner", euro: 10 },
-    { name: "Avatar (stilisiert)", euro: 12 },
-    { name: "Mini Paket (PFP + Banner)", euro: 15 },
-  ];
+  <!-- BTC Script -->
+  <script>
+    async function updateBTCPrices() {
+      try {
+        const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=eur");
+        const data = await res.json();
+        const rate = data.bitcoin.eur;
 
-  async function loadBTCPrice() {
-    try {
-      const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=eur");
-      const data = await res.json();
-      const rate = data.bitcoin.eur;
-      document.getElementById("btcRate").innerText = `Aktueller BTC-Kurs: 1 BTC = ${rate.toLocaleString("de-DE")} €`;
-
-      const list = document.getElementById("priceList");
-      list.innerHTML = "";
-
-      pricesEUR.forEach(item => {
-        const btc = (item.euro / rate).toFixed(6);
-        const card = document.createElement("div");
-        card.className = "bg-white/10 backdrop-blur-md border border-white/20 shadow-lg rounded-xl p-4 hover:scale-[1.02] transition-all";
-
-        card.innerHTML = `
-          <h3 class="text-lg font-semibold text-white mb-1">${item.name}</h3>
-          <p class="text-sm text-gray-300">€ ${item.euro.toFixed(2)}</p>
-          <p class="text-xs text-cyan-400 mt-1">${btc} BTC</p>
-        `;
-        list.appendChild(card);
-      });
-    } catch {
-      document.getElementById("btcRate").innerText = "Fehler beim Laden des BTC-Kurses.";
-    }
-  }
-
-  // Adminbereich & Coupon-Logik
-  let coupons = [];
-  const adminPassword = "aX3Yz8QwLp29Ns7FjHr5";
-
-  function promptAdmin() {
-    const entered = prompt("Bitte Admin-Passwort eingeben:");
-    if (entered === adminPassword) {
-      document.getElementById("adminArea").classList.remove("hidden");
-      loadCoupons();
-      alert("Adminzugang freigeschaltet!");
-    } else {
-      alert("Falsches Passwort.");
-    }
-  }
-
-  function addCoupon() {
-    const code = document.getElementById("couponCode").value.trim().toUpperCase();
-    const value = parseFloat(document.getElementById("couponValue").value);
-
-    if (!code || isNaN(value) || value <= 0) {
-      alert("Bitte gültigen Coupon-Code und Betrag eingeben.");
-      return;
+        document.querySelectorAll("[data-euro]").forEach(el => {
+          const eur = parseFloat(el.getAttribute("data-euro"));
+          const btc = (eur / rate).toFixed(6);
+          el.innerText = `${btc} BTC`;
+        });
+      } catch (err) {
+        console.error("Fehler beim Laden des BTC-Kurses");
+      }
     }
 
-    coupons.push({ code, value });
-    localStorage.setItem("coupons", JSON.stringify(coupons));
-    renderCoupons();
-
-    document.getElementById("couponCode").value = "";
-    document.getElementById("couponValue").value = "";
-  }
-
-  function renderCoupons() {
-    const list = document.getElementById("couponList");
-    list.innerHTML = "";
-
-    coupons.forEach((coupon, index) => {
-      const li = document.createElement("li");
-      li.className = "flex justify-between items-center";
-      li.innerHTML = `
-        <span>${coupon.code} → ${coupon.value.toFixed(2)} € Rabatt</span>
-        <button onclick="deleteCoupon(${index})" class="ml-4 text-red-400 hover:text-red-600 text-xs">Löschen</button>
-      `;
-      list.appendChild(li);
-    });
-  }
-
-  function deleteCoupon(index) {
-    coupons.splice(index, 1);
-    localStorage.setItem("coupons", JSON.stringify(coupons));
-    renderCoupons();
-  }
-
-  function loadCoupons() {
-    const saved = localStorage.getItem("coupons");
-    if (saved) {
-      coupons = JSON.parse(saved);
-      renderCoupons();
-    }
-  }
-</script>
+    updateBTCPrices();
+  </script>
+</body>
+</html>
