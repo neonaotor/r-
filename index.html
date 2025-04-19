@@ -40,32 +40,87 @@
     }
   </style>
 </head>
-<body class="flex items-center justify-center min-h-screen relative text-center px-4">
+<body class="text-white relative">
 
   <div class="glow-bg"></div>
 
-  <div class="z-10">
-    <div class="text-white font-extrabold text-2xl sm:text-4xl space-y-3">
-      <div>
-        <span class="word" style="animation-delay: 0s">Get</span>
-        <span class="word" style="animation-delay: 0.2s">the</span>
-        <span class="word" style="animation-delay: 0.4s">best</span>
-        <span class="word" style="animation-delay: 0.6s">Designs</span>
+  <!-- Hero -->
+  <section class="flex items-center justify-center min-h-screen text-center px-4">
+    <div class="z-10">
+      <div class="text-white font-extrabold text-2xl sm:text-4xl space-y-3">
+        <div>
+          <span class="word" style="animation-delay: 0s">Get</span>
+          <span class="word" style="animation-delay: 0.2s">the</span>
+          <span class="word" style="animation-delay: 0.4s">best</span>
+          <span class="word" style="animation-delay: 0.6s">Designs</span>
+        </div>
+        <div>
+          <span class="word" style="animation-delay: 0.8s">for</span>
+          <span class="word" style="animation-delay: 1s">the</span>
+          <span class="word" style="animation-delay: 1.2s">cheapest</span>
+          <span class="word" style="animation-delay: 1.4s">price</span>
+        </div>
       </div>
-      <div>
-        <span class="word" style="animation-delay: 0.8s">for</span>
-        <span class="word" style="animation-delay: 1.0s">the</span>
-        <span class="word" style="animation-delay: 1.2s">cheapest</span>
-        <span class="word" style="animation-delay: 1.4s">price</span>
+
+      <div class="mt-10">
+        <a href="#products" class="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-6 py-3 rounded-full transition-all">
+          See Prices
+        </a>
       </div>
     </div>
+  </section>
 
-    <div class="mt-10">
-      <a href="#prices" class="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-6 py-3 rounded-full transition-all">
-        See Prices
-      </a>
+  <!-- Produkte -->
+  <section id="products" class="py-20 px-6 bg-black">
+    <h2 class="text-3xl font-bold text-center mb-12">Our Designs</h2>
+    <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+
+      <!-- Produkt 1 -->
+      <div class="bg-gray-900 p-4 rounded-lg shadow-lg text-center">
+        <img src="https://via.placeholder.com/300x200" alt="Produkt 1" class="rounded mb-4 mx-auto" />
+        <h3 class="text-xl font-semibold mb-2">Basic Logo</h3>
+        <p class="text-gray-400 mb-2">5 €</p>
+        <p class="text-cyan-400 text-sm" data-euro="5">Loading BTC...</p>
+      </div>
+
+      <!-- Produkt 2 -->
+      <div class="bg-gray-900 p-4 rounded-lg shadow-lg text-center">
+        <img src="https://via.placeholder.com/300x200" alt="Produkt 2" class="rounded mb-4 mx-auto" />
+        <h3 class="text-xl font-semibold mb-2">Animated Banner</h3>
+        <p class="text-gray-400 mb-2">10 €</p>
+        <p class="text-cyan-400 text-sm" data-euro="10">Loading BTC...</p>
+      </div>
+
+      <!-- Produkt 3 -->
+      <div class="bg-gray-900 p-4 rounded-lg shadow-lg text-center">
+        <img src="https://via.placeholder.com/300x200" alt="Produkt 3" class="rounded mb-4 mx-auto" />
+        <h3 class="text-xl font-semibold mb-2">Full Package</h3>
+        <p class="text-gray-400 mb-2">15 €</p>
+        <p class="text-cyan-400 text-sm" data-euro="15">Loading BTC...</p>
+      </div>
+
     </div>
-  </div>
+  </section>
 
+  <!-- BTC Script -->
+  <script>
+    async function updateBTCPrices() {
+      try {
+        const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=eur");
+        const data = await res.json();
+        const rate = data.bitcoin.eur;
+
+        document.querySelectorAll("[data-euro]").forEach(el => {
+          const eur = parseFloat(el.getAttribute("data-euro"));
+          const btc = (eur / rate).toFixed(6);
+          el.innerText = `${btc} BTC`;
+        });
+      } catch (err) {
+        console.error("Fehler beim Laden des BTC-Kurses");
+      }
+    }
+
+    updateBTCPrices();
+  </script>
 </body>
 </html>
