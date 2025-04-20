@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Design Shop – Admin Transkript</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design Shop – Live BTC</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
-      margin: 0;
-      padding: 0;
       background: radial-gradient(circle, #0f0f0f 0%, #000000 100%);
       font-family: 'Segoe UI', sans-serif;
     }
@@ -31,25 +29,45 @@
 <body class="text-white relative">
   <div class="glow-bg"></div>
 
-  <!-- Hero -->
+  <!-- Hero Start -->
   <section id="hero" class="flex items-center justify-center min-h-screen text-center px-4">
     <div class="z-10">
       <h1 class="text-4xl font-extrabold mb-6">Design Shop</h1>
-      <p class="mb-10 text-gray-300">Willkommen! Wähle eine Option:</p>
       <div class="space-y-4">
-        <button onclick="showAdmin()" class="bg-purple-600 hover:bg-purple-500 px-6 py-3 rounded text-white font-bold w-64">
+        <button onclick="showPrices()" class="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-6 py-3 rounded-full">
+          See Prices
+        </button>
+        <button onclick="showAdmin()" class="bg-purple-500 hover:bg-purple-400 text-black font-bold px-6 py-3 rounded-full">
           Admin Transkript
         </button>
       </div>
     </div>
   </section>
 
-  <!-- Admin Bereich -->
+  <!-- Preise -->
+  <section id="preise" class="section-hidden bg-gray-950 py-20 px-4 min-h-screen">
+    <div class="max-w-6xl mx-auto">
+      <h1 class="text-3xl font-bold mb-10 text-center">Design Preise (Live BTC)</h1>
+      <div id="btcRate" class="text-center text-sm text-gray-400 mb-8">Lade aktuellen BTC-Kurs...</div>
+      <div id="priceList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      <div class="mt-16 text-center text-sm text-gray-400">
+        <p class="mb-4 font-semibold">Zahlung möglich mit:</p>
+        <div class="flex justify-center items-center space-x-6">
+          <img src="https://pngimg.com/uploads/bitcoin/bitcoin_PNG7.png" class="h-8" />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" class="h-6 md:h-8" />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Paysafecard_logo.svg/2560px-Paysafecard_logo.svg.png" class="h-6 md:h-8" />
+        </div>
+        <button onclick="goHome()" class="mt-6 bg-gray-800 hover:bg-gray-700 text-white font-bold px-5 py-2 rounded transition-all">
+          Zurück zur Startseite
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Admin -->
   <section id="admin" class="section-hidden bg-gray-950 py-20 px-4 min-h-screen">
     <div class="max-w-2xl mx-auto text-center">
       <h1 class="text-3xl font-bold mb-10">Admin Zugang</h1>
-
-      <!-- Code-Eingabe -->
       <div id="admin-auth">
         <input id="admin-code-input" type="password" placeholder="Admin-Code eingeben"
                class="w-full p-3 rounded bg-gray-800 text-white border border-gray-600 mb-4 text-center">
@@ -58,8 +76,6 @@
         </button>
         <p id="admin-error" class="text-red-500 mt-4 hidden">Falscher Code!</p>
       </div>
-
-      <!-- Admin Panel -->
       <div id="admin-panel" class="hidden mt-10">
         <h2 class="text-xl font-semibold mb-4">HTML-Datei anzeigen</h2>
         <input id="admin-url-input" type="text" placeholder="z. B. transkript_T-ADFCJCDJIH.html"
@@ -67,34 +83,36 @@
         <button onclick="loadAdminIframe()" class="bg-cyan-500 hover:bg-cyan-400 px-6 py-3 rounded text-black font-bold">
           Anzeigen
         </button>
-
-        <!-- Transkript-Anzeige -->
         <div id="admin-frame-container" class="mt-10 hidden">
           <iframe id="admin-frame" src="" class="w-full h-[700px] rounded border border-gray-700"
                   style="background-color: #2b2d31;" sandbox></iframe>
         </div>
-
-        <!-- Zurück -->
-        <div class="mt-8">
-          <button onclick="goHome()" class="mt-6 bg-gray-800 hover:bg-gray-700 text-white font-bold px-5 py-2 rounded transition-all">
-            Zurück zur Startseite
-          </button>
-        </div>
+        <button onclick="goHome()" class="mt-10 bg-gray-800 hover:bg-gray-700 text-white font-bold px-5 py-2 rounded transition-all">
+          Zurück zur Startseite
+        </button>
       </div>
     </div>
   </section>
 
-  <!-- JS -->
+  <!-- Script -->
   <script>
     const ADMIN_CODE = "aX3Yz8QwLp29Ns7FjHr5";
 
+    function showPrices() {
+      document.getElementById("hero").classList.add("section-hidden");
+      document.getElementById("preise").classList.remove("section-hidden");
+      document.getElementById("admin").classList.add("section-hidden");
+    }
+
     function showAdmin() {
       document.getElementById("hero").classList.add("section-hidden");
+      document.getElementById("preise").classList.add("section-hidden");
       document.getElementById("admin").classList.remove("section-hidden");
     }
 
     function goHome() {
       document.getElementById("hero").classList.remove("section-hidden");
+      document.getElementById("preise").classList.add("section-hidden");
       document.getElementById("admin").classList.add("section-hidden");
     }
 
@@ -119,9 +137,45 @@
         iframe.src = url;
         container.classList.remove("hidden");
       } else {
-        alert("Bitte eine gültige HTML-Datei angeben.");
+        alert("Bitte eine gültige HTML-Datei angeben (z. B. transkript.html)");
       }
     }
+
+    const pricesEUR = [
+      { name: "Profilbild", euro: 5, image: "https://via.placeholder.com/300x200?text=Profilbild" },
+      { name: "Profilbanner", euro: 8, image: "https://via.placeholder.com/300x200?text=Profilbanner" },
+      { name: "Serverlogo", euro: 6, image: "https://via.placeholder.com/300x200?text=Serverlogo" },
+      { name: "Serverbanner", euro: 9, image: "https://via.placeholder.com/300x200?text=Serverbanner" }
+    ];
+
+    async function loadBTCPrice() {
+      try {
+        const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=eur");
+        const data = await res.json();
+        const rate = data.bitcoin.eur;
+        document.getElementById("btcRate").innerText = `Aktueller BTC-Kurs: 1 BTC = ${rate.toLocaleString("de-DE")} €`;
+
+        const list = document.getElementById("priceList");
+        list.innerHTML = "";
+
+        pricesEUR.forEach(item => {
+          const btc = (item.euro / rate).toFixed(6);
+          const card = document.createElement("div");
+          card.className = "bg-gray-900 rounded-lg p-4 shadow-md text-center";
+          card.innerHTML = `
+            <img src="${item.image}" alt="${item.name}" class="w-full rounded mb-4">
+            <h3 class="text-xl font-semibold">${item.name}</h3>
+            <p class="text-gray-400">${item.euro} €</p>
+            <p class="text-cyan-400 text-sm">${btc} BTC</p>
+          `;
+          list.appendChild(card);
+        });
+      } catch {
+        document.getElementById("btcRate").innerText = "Fehler beim Laden des BTC-Kurses.";
+      }
+    }
+
+    loadBTCPrice();
   </script>
 </body>
 </html>
