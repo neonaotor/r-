@@ -1,172 +1,140 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Alternative für Hamster (AFH)</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #e6f7ff;
+      font-family: 'Inter', sans-serif;
+      background: #f5faff;
+      color: #111;
     }
-
     header {
-      background-color: #0082c9;
+      background: #007aff;
       color: white;
-      padding: 10px 20px;
+      padding: 20px 40px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-    }
-
-    .logo {
-      display: flex;
       align-items: center;
     }
-
-    .logo img {
+    header img {
       height: 50px;
-      margin-right: 10px;
     }
-
-    nav {
-      display: flex;
-      gap: 15px;
-    }
-
     nav a {
+      margin-left: 20px;
       color: white;
       text-decoration: none;
       font-weight: bold;
     }
-
-    .hero {
-      background-color: #005a8d;
+    section {
+      padding: 60px 20px;
       text-align: center;
-      padding: 20px;
-      color: white;
     }
-
-    .hero img {
-      max-width: 300px;
-      margin: 20px auto;
-      display: block;
+    h1, h2 {
+      color: #007aff;
     }
-
-    .button-red {
-      background-color: red;
+    .button {
+      background: #ff3b30;
       color: white;
-      padding: 12px 20px;
+      padding: 15px 30px;
+      border-radius: 12px;
       font-weight: bold;
-      border: none;
-      border-radius: 5px;
       font-size: 16px;
-      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 20px;
     }
-
-    .section {
-      padding: 30px 20px;
-      background-color: white;
-    }
-
-    .section h2 {
-      color: #005a8d;
-    }
-
-    .newsletter {
-      background-color: #d9f3ff;
-      padding: 20px;
-      border-radius: 10px;
-      max-width: 500px;
+    ul {
+      list-style: none;
+      padding: 0;
+      max-width: 600px;
       margin: auto;
+      text-align: left;
     }
-
-    .newsletter input {
-      padding: 10px;
-      width: 80%;
-      margin: 10px 0;
+    li {
+      padding: 10px 0;
+      border-bottom: 1px solid #ccc;
     }
-
-    .newsletter button {
-      background-color: red;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      cursor: pointer;
+    .details {
+      display: none;
+      text-align: left;
+      margin-top: 20px;
+      max-width: 700px;
+      margin-inline: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
-
     footer {
-      background-color: #0082c9;
+      background: #007aff;
       color: white;
       text-align: center;
-      padding: 10px;
+      padding: 20px;
       font-size: 14px;
-    }
-
-    .cta-buttons {
-      text-align: center;
-      margin: 30px 0;
-    }
-
-    .cta-buttons .button-red {
-      display: block;
-      margin: 10px auto;
-      width: 80%;
-      max-width: 300px;
     }
   </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">
-    <img src="https://cdn.discordapp.com/attachments/1215014622990704641/1366861428543324270/2D5C95FE-75E3-4BA3-902C-F512A4BAACD8.png" alt="AFH-Logo">
-    <h1>AFH</h1>
-  </div>
+  <img src="https://cdn.discordapp.com/attachments/1215014622990704641/1366861428543324270/2D5C95FE-75E3-4BA3-902C-F512A4BAACD8.png" alt="AFH Logo" />
   <nav>
+    <a href="#start">Start</a>
     <a href="#programm">Wahlprogramm</a>
-    <a href="#newsletter">Infobrief</a>
+    <a href="#mitglied">Mitglied</a>
     <a href="#spenden">Spenden</a>
   </nav>
 </header>
 
-<div class="hero">
-  <h2>AFH-Wahlprogramm zur Nestwahl 2025</h2>
-  <img src="https://cdn.discordapp.com/attachments/1215014622990704641/1366861428543324270/2D5C95FE-75E3-4BA3-902C-F512A4BAACD8.png" alt="Wahlplakat-Hamster">
-  <p><strong>JETZT INFORMIEREN: UNSER WAHLPROGRAMM!</strong></p>
-  <button class="button-red">JETZT HERUNTERLADEN!</button>
-</div>
+<section id="start">
+  <h1>Alternative für Hamster</h1>
+  <p>Die Zukunft gehört dem Nager!</p>
+  <img src="https://cdn.discordapp.com/attachments/1215014622990704641/1366861428543324270/2D5C95FE-75E3-4BA3-902C-F512A4BAACD8.png" alt="Hamster" width="150" />
+  <a href="#programm" class="button">Zum Wahlprogramm</a>
+</section>
 
-<div class="section" id="programm">
-  <h2>Unser Wahlprogramm</h2>
+<section id="programm">
+  <h2>Unser Wahlprogramm 2025</h2>
   <ul>
-    <li>Jede Hamsterbehausung bekommt ein zweites Rad!</li>
-    <li>Sonnenblumenkerne als Grundrecht</li>
-    <li>Schutzmaßnahmen gegen Katzenbesuche</li>
-    <li>Ausbau der Röhrensysteme unterirdisch und überirdisch</li>
-    <li>Stroh statt Steuern: 0% Abgaben auf Nistmaterial</li>
+    <li>Mehr Rad für alle!</li>
+    <li>Ein Korn am Tag – gesetzlich garantiert.</li>
+    <li>Katzensichere Zone in jedem Haushalt.</li>
+    <li>Tunnelbau-Offensive 2025</li>
+    <li>Nistmaterial steuerfrei!</li>
   </ul>
-</div>
-
-<div class="cta-buttons">
-  <button class="button-red">MITGLIED WERDEN!</button>
-  <button class="button-red">JETZT SPENDEN!</button>
-</div>
-
-<div class="section" id="newsletter">
-  <h2>Informiert bleiben!</h2>
-  <div class="newsletter">
-    <p>Trage dich hier für den Hamster-Infobrief ein und verpasse keine Nuss!</p>
-    <input type="email" placeholder="Deine E-Mail-Adresse">
-    <br>
-    <button>Anmelden</button>
+  <a href="javascript:void(0)" class="button" onclick="document.getElementById('details').style.display='block'">Details anzeigen</a>
+  <div id="details" class="details">
+    <h3>Wahlprogramm – Details</h3>
+    <p><strong>Rad-Garantie:</strong> Jeder Hamster hat Anspruch auf zwei Laufräder – quietschfrei und kugelgelagert.</p>
+    <p><strong>Korn-Grundsicherung:</strong> Ein Korn am Tag hält den Stress im Gehege fern. Gesetzlich verankert!</p>
+    <p><strong>Katzo-Stop:</strong> Verpflichtende Katzen-Sperrzonen mit Ultraschall-Sensoren.</p>
+    <p><strong>NagerNetz:</strong> Förderung des Tunnelbaus – auch in Mietwohnungen!</p>
+    <p><strong>Flauschfrei:</strong> Nistmaterial von der Hamstersteuer befreit!</p>
   </div>
-</div>
+</section>
+
+<section id="mitglied">
+  <h2>Mitglied werden</h2>
+  <p>Du willst Teil der AFH-Revolution werden?</p>
+  <p>Dann melde dich unter <strong>mitglied@afh.de</strong></p>
+</section>
+
+<section id="spenden">
+  <h2>Spenden</h2>
+  <p>Unterstütze uns mit einer freiwilligen Nuss-Spende:</p>
+  <p><strong>IBAN:</strong> DE00 0000 0000 0000 0000 00</p>
+  <p><strong>BIC:</strong> HAMSTERBANKXXX</p>
+</section>
 
 <footer>
-  &copy; 2025 Alternative für Hamster (AFH) – Für ein besseres Nest!<br>
-  Made by Neo
+  &copy; 2025 Alternative für Hamster (AFH) – Made by Neo
 </footer>
 
 </body>
