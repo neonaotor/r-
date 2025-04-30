@@ -2,90 +2,172 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Alternative für Hamster - AFH</title>
+  <title>Alternative für Hamster (AFH)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #e0f7ff;
       margin: 0;
-      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #e6f7ff;
     }
+
     header {
       background-color: #0082c9;
       color: white;
-      padding: 20px;
-      text-align: center;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
-    img.logo {
-      max-width: 150px;
-      margin-top: 10px;
+
+    .logo {
+      display: flex;
+      align-items: center;
     }
+
+    .logo img {
+      height: 50px;
+      margin-right: 10px;
+    }
+
     nav {
-      background-color: #005a8d;
-      text-align: center;
-      padding: 10px;
+      display: flex;
+      gap: 15px;
     }
+
     nav a {
       color: white;
       text-decoration: none;
-      margin: 0 15px;
       font-weight: bold;
     }
-    main {
+
+    .hero {
+      background-color: #005a8d;
+      text-align: center;
       padding: 20px;
+      color: white;
     }
-    h2 {
+
+    .hero img {
+      max-width: 300px;
+      margin: 20px auto;
+      display: block;
+    }
+
+    .button-red {
+      background-color: red;
+      color: white;
+      padding: 12px 20px;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .section {
+      padding: 30px 20px;
+      background-color: white;
+    }
+
+    .section h2 {
       color: #005a8d;
     }
+
+    .newsletter {
+      background-color: #d9f3ff;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    .newsletter input {
+      padding: 10px;
+      width: 80%;
+      margin: 10px 0;
+    }
+
+    .newsletter button {
+      background-color: red;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+    }
+
     footer {
       background-color: #0082c9;
       color: white;
       text-align: center;
       padding: 10px;
-      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .cta-buttons {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .cta-buttons .button-red {
+      display: block;
+      margin: 10px auto;
+      width: 80%;
+      max-width: 300px;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Alternative für Hamster (AFH)</h1>
-    <img class="logo" src="https://cdn.discordapp.com/attachments/1215014622990704641/1366861428543324270/2D5C95FE-75E3-4BA3-902C-F512A4BAACD8.png?ex=68127c67&is=68112ae7&hm=8f05f71cbb2c231557f7e60dcd922a4dce8306f47141d304f8c9ca8f5c01b63e&" alt="AFH Logo">
-  </header>
 
+<header>
+  <div class="logo">
+    <img src="https://cdn.discordapp.com/attachments/1215014622990704641/1366861428543324270/2D5C95FE-75E3-4BA3-902C-F512A4BAACD8.png" alt="AFH-Logo">
+    <h1>AFH</h1>
+  </div>
   <nav>
     <a href="#programm">Wahlprogramm</a>
-    <a href="#kandidaten">Kandidaten</a>
-    <a href="#kontakt">Kontakt</a>
+    <a href="#newsletter">Infobrief</a>
+    <a href="#spenden">Spenden</a>
   </nav>
+</header>
 
-  <main>
-    <section id="programm">
-      <h2>Unser Wahlprogramm</h2>
-      <ul>
-        <li>Mehr Laufräder in jeder Behausung</li>
-        <li>Bio-Sonnenblumenkerne für alle</li>
-        <li>Schutz vor neugierigen Katzen</li>
-        <li>Ausbau hamsterfreundlicher Tunnel-Infrastruktur</li>
-        <li>Einführung eines Napf-Grundeinkommens</li>
-      </ul>
-    </section>
+<div class="hero">
+  <h2>AFH-Wahlprogramm zur Nestwahl 2025</h2>
+  <img src="https://cdn.discordapp.com/attachments/1215014622990704641/1366861428543324270/2D5C95FE-75E3-4BA3-902C-F512A4BAACD8.png" alt="Wahlplakat-Hamster">
+  <p><strong>JETZT INFORMIEREN: UNSER WAHLPROGRAMM!</strong></p>
+  <button class="button-red">JETZT HERUNTERLADEN!</button>
+</div>
 
-    <section id="kandidaten">
-      <h2>Unsere Spitzenhamster</h2>
-      <p><strong>Hammy McFluff:</strong> Vorsitzender und Laufrad-Experte</p>
-      <p><strong>Luna Nussbacke:</strong> Ernährungsbeauftragte</p>
-    </section>
+<div class="section" id="programm">
+  <h2>Unser Wahlprogramm</h2>
+  <ul>
+    <li>Jede Hamsterbehausung bekommt ein zweites Rad!</li>
+    <li>Sonnenblumenkerne als Grundrecht</li>
+    <li>Schutzmaßnahmen gegen Katzenbesuche</li>
+    <li>Ausbau der Röhrensysteme unterirdisch und überirdisch</li>
+    <li>Stroh statt Steuern: 0% Abgaben auf Nistmaterial</li>
+  </ul>
+</div>
 
-    <section id="kontakt">
-      <h2>Kontakt</h2>
-      <p>AFH-Parteizentrale im Streugebiet 7<br>
-         12345 Nagerhausen<br>
-         Email: info@afh-hamsterpartei.de</p>
-    </section>
-  </main>
+<div class="cta-buttons">
+  <button class="button-red">MITGLIED WERDEN!</button>
+  <button class="button-red">JETZT SPENDEN!</button>
+</div>
 
-  <footer>
-    &copy; 2025 Alternative für Hamster (AFH). Für ein besseres Nest!<br>
-    <em>Made by Neo</em>
-  </footer>
+<div class="section" id="newsletter">
+  <h2>Informiert bleiben!</h2>
+  <div class="newsletter">
+    <p>Trage dich hier für den Hamster-Infobrief ein und verpasse keine Nuss!</p>
+    <input type="email" placeholder="Deine E-Mail-Adresse">
+    <br>
+    <button>Anmelden</button>
+  </div>
+</div>
+
+<footer>
+  &copy; 2025 Alternative für Hamster (AFH) – Für ein besseres Nest!<br>
+  Made by Neo
+</footer>
+
+</body>
+</html>
