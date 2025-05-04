@@ -30,12 +30,13 @@
       border-radius: 1rem;
       overflow: hidden;
       border: 1px solid rgba(255,255,255,0.05);
-      transition: background-color 0.15s ease-in-out;
+      transition: background-color 0.15s ease-in-out, transform 0.2s ease-in-out;
       text-decoration: none;
       cursor: pointer;
     }
     .card:hover {
       background-color: rgba(255, 255, 255, 0.025);
+      transform: scale(1.02);
     }
     .card * {
       text-decoration: none !important;
@@ -81,7 +82,9 @@
       font-size: 0.85rem;
     }
     #detailView {
-      display: none;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
       position: fixed;
       top: 0;
       left: 0;
@@ -92,11 +95,9 @@
       padding: 2rem;
       overflow: auto;
       z-index: 9999;
-      opacity: 0;
-      transition: opacity 0.3s ease-in-out;
     }
     #detailView.show {
-      display: block;
+      pointer-events: all;
       opacity: 1;
     }
     #detailView button {
@@ -122,47 +123,56 @@
   </style>
 </head>
 <body>
-  <div class="grid-container">
-    <a class="card" onclick="openDetailView(); return false;">
-      <img src="https://imagedelivery.net/HL_Fwm__tlvUGLZF2p74xw/0d933a58-e996-431b-6cae-d355d5dc2f00/public" alt="REWE Logs" loading="lazy">
-      <div class="card-content">
-        <div class="card-title">REWE LOGS</div>
-        <div class="card-status">Out of Stock</div>
-        <div class="card-price">
-          <span class="price-current">€1.50 – €29.99</span>
-          <span class="price-old">€3.00 – €50.00</span>
-        </div>
-      </div>
-    </a>
-  </div>
+  <div class="grid-container" id="productGrid"></div>
 
   <!-- Detail View -->
   <div id="detailView">
     <button onclick="closeDetailView()">X</button>
-    <h1 style="margin-top:2rem;">REWE LOGS</h1>
-    <img src="https://imagedelivery.net/HL_Fwm__tlvUGLZF2p74xw/0d933a58-e996-431b-6cae-d355d5dc2f00/public" style="width:100%;max-width:500px;border-radius:1rem;margin:1rem 0;">
-    <pre style="background:#111;padding:1rem;border-radius:0.5rem;white-space:pre-wrap;">
-Using these Rewe logs, you can log in to the Rewe app and use the credit to shop.
-The credit you redeem will be deducted from the app.
-
-Telegram >>> @BalbinoDROP <<<
-    </pre>
+    <h1 style="margin-top:2rem;" id="detailTitle">REWE LOGS</h1>
+    <img id="detailImage" src="" style="width:100%;max-width:500px;border-radius:1rem;margin:1rem 0;">
+    <pre id="detailDescription" style="background:#111;padding:1rem;border-radius:0.5rem;white-space:pre-wrap;"></pre>
   </div>
 
   <script>
-    function openDetailView() {
-      const view = document.getElementById('detailView');
-      view.classList.add('show');
+    const products = [
+      {
+        title: "REWE LOGS",
+        status: "Out of Stock",
+        currentPrice: "€1.50 – €29.99",
+        oldPrice: "€3.00 – €50.00",
+        img: "https://imagedelivery.net/HL_Fwm__tlvUGLZF2p74xw/0d933a58-e996-431b-6cae-d355d5dc2f00/public",
+        description: `Using these Rewe logs, you can log in to the Rewe app and use the credit to shop.\nThe credit you redeem will be deducted from the app.\n\nTelegram >>> @BalbinoDROP <<<`
+      }
+      // Weitere Produkte können hier folgen
+    ];
+
+    const grid = document.getElementById("productGrid");
+    products.forEach((product, index) => {
+      const card = document.createElement("a");
+      card.className = "card";
+      card.onclick = () => openDetailView(product);
+      card.innerHTML = `
+        <img src="${product.img}" alt="${product.title}" loading="lazy">
+        <div class="card-content">
+          <div class="card-title">${product.title}</div>
+          <div class="card-status">${product.status}</div>
+          <div class="card-price">
+            <span class="price-current">${product.currentPrice}</span>
+            <span class="price-old">${product.oldPrice}</span>
+          </div>
+        </div>`;
+      grid.appendChild(card);
+    });
+
+    function openDetailView(product) {
+      document.getElementById("detailTitle").textContent = product.title;
+      document.getElementById("detailImage").src = product.img;
+      document.getElementById("detailDescription").textContent = product.description;
+      document.getElementById("detailView").classList.add("show");
     }
 
     function closeDetailView() {
-      const view = document.getElementById('detailView');
-      view.classList.remove('show');
-      setTimeout(() => {
-        view.style.display = 'none';
-        view.offsetHeight; // force reflow
-        view.style.display = 'block';
-      }, 300);
+      document.getElementById("detailView").classList.remove("show");
     }
   </script>
 </body>
