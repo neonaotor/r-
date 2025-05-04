@@ -32,6 +32,7 @@
       border: 1px solid rgba(255,255,255,0.05);
       transition: background-color 0.15s ease-in-out;
       text-decoration: none;
+      cursor: pointer;
     }
     .card:hover {
       background-color: rgba(255, 255, 255, 0.025);
@@ -79,6 +80,36 @@
       margin-left: 0.5rem;
       font-size: 0.85rem;
     }
+    #detailView {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #000000dd;
+      color: white;
+      padding: 2rem;
+      overflow: auto;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+    #detailView.show {
+      display: block;
+      opacity: 1;
+    }
+    #detailView button {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: #333;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
     @media (max-width: 1024px) {
       .card { flex: 1 1 calc(33.333% - 1rem); }
     }
@@ -92,7 +123,7 @@
 </head>
 <body>
   <div class="grid-container">
-    <a class="card" href="#" onclick="document.getElementById('detailView').style.display='block'; return false;">
+    <a class="card" onclick="openDetailView(); return false;">
       <img src="https://imagedelivery.net/HL_Fwm__tlvUGLZF2p74xw/0d933a58-e996-431b-6cae-d355d5dc2f00/public" alt="REWE Logs" loading="lazy">
       <div class="card-content">
         <div class="card-title">REWE LOGS</div>
@@ -106,8 +137,8 @@
   </div>
 
   <!-- Detail View -->
-  <div id="detailView" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:#000000dd;color:white;padding:2rem;overflow:auto;z-index:9999;">
-    <button onclick="document.getElementById('detailView').style.display='none';" style="position:absolute;top:1rem;right:1rem;background:#333;color:white;border:none;padding:0.5rem 1rem;border-radius:0.5rem;">X</button>
+  <div id="detailView">
+    <button onclick="closeDetailView()">X</button>
     <h1 style="margin-top:2rem;">REWE LOGS</h1>
     <img src="https://imagedelivery.net/HL_Fwm__tlvUGLZF2p74xw/0d933a58-e996-431b-6cae-d355d5dc2f00/public" style="width:100%;max-width:500px;border-radius:1rem;margin:1rem 0;">
     <pre style="background:#111;padding:1rem;border-radius:0.5rem;white-space:pre-wrap;">
@@ -117,5 +148,22 @@ The credit you redeem will be deducted from the app.
 Telegram >>> @BalbinoDROP <<<
     </pre>
   </div>
+
+  <script>
+    function openDetailView() {
+      const view = document.getElementById('detailView');
+      view.classList.add('show');
+    }
+
+    function closeDetailView() {
+      const view = document.getElementById('detailView');
+      view.classList.remove('show');
+      setTimeout(() => {
+        view.style.display = 'none';
+        view.offsetHeight; // force reflow
+        view.style.display = 'block';
+      }, 300);
+    }
+  </script>
 </body>
 </html>
