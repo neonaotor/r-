@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>REWE Logs Selector</title>
+  <title>REWE Logs Card</title>
   <style>
     body {
       background-color: #0d0d0d;
@@ -11,114 +11,79 @@
       font-family: sans-serif;
       display: flex;
       justify-content: center;
+      align-items: center;
+      height: 100vh;
       padding: 2rem;
     }
-    .card {
-      width: 100%;
-      max-width: 420px;
+    .product-card {
       background-color: #1c1c1c;
       border: 1px solid rgba(255, 255, 255, 0.05);
       border-radius: 1rem;
-      padding: 1.5rem;
+      overflow: hidden;
+      max-width: 400px;
+      text-align: left;
+      cursor: pointer;
+      transition: transform 0.2s ease;
     }
-    .price-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
+    .product-card:hover {
+      transform: scale(1.01);
+      background-color: rgba(255, 255, 255, 0.025);
     }
-    .variant-section label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: bold;
+    .product-image {
+      padding: 0.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
-    .variant-button {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.75rem 1rem;
-      border-radius: 0.75rem;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid transparent;
-      margin-bottom: 0.5rem;
-      cursor: not-allowed;
-    }
-    .variant-button span {
-      font-size: 0.9rem;
-      color: #aaa;
-    }
-    .variant-price {
-      font-weight: bold;
-    }
-    .price-old {
-      text-decoration: line-through;
-      margin-left: 0.5rem;
-      color: #777;
-      font-size: 0.85rem;
-    }
-    .quantity-selector {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-      opacity: 0.5;
-    }
-    .quantity-selector input,
-    .quantity-selector button {
-      background: rgba(255, 255, 255, 0.05);
-      border: none;
-      color: white;
-      padding: 0.5rem 1rem;
+    .product-image img {
+      width: 100%;
       border-radius: 0.5rem;
+      object-fit: contain;
+      aspect-ratio: 16/9;
     }
-    .action-buttons {
-      display: flex;
-      gap: 1rem;
+    .product-info {
+      padding: 1.25rem 1.5rem 1rem 1.5rem;
     }
-    .action-buttons button {
-      flex: 1;
-      padding: 0.75rem;
-      border-radius: 0.5rem;
-      border: none;
+    .product-title {
+      font-size: 1.125rem;
       font-weight: bold;
-      cursor: not-allowed;
+      margin-bottom: 0.25rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    .add-to-cart {
-      background-color: #3dd0ff;
-      color: black;
+    .product-stock {
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 0.5rem;
     }
-    .buy-now {
-      background-color: transparent;
-      border: 1px solid #3dd0ff;
+    .product-price {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.75);
+    }
+    .product-price span:first-child {
       color: #3dd0ff;
+      font-weight: bold;
+    }
+    .product-price span.line-through {
+      text-decoration: line-through;
+      color: rgba(255, 255, 255, 0.35);
+      font-size: 0.875rem;
+      margin-left: 0.5rem;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="price-top">
-      <div>€1.50</div>
-      <div>Out of Stock</div>
+  <a href="#" class="product-card">
+    <div class="product-image">
+      <img src="https://imagedelivery.net/HL_Fwm__tlvUGLZF2p74xw/0d933a58-e996-431b-6cae-d355d5dc2f00/public" alt="REWE LOGS">
     </div>
-    <div class="variant-section">
-      <label for="variant">Variant</label>
-      <div class="variant-button"><div>REWE Logs 5–10€<br/><span>Out of Stock</span></div><div><span class="variant-price">€1.50</span><span class="price-old">€3.00</span></div></div>
-      <div class="variant-button"><div>REWE Logs 10–20€<br/><span>Out of Stock</span></div><div><span class="variant-price">€7.99</span></div></div>
-      <div class="variant-button"><div>REWE Logs 20–30€<br/><span>Out of Stock</span></div><div><span class="variant-price">€13.00</span></div></div>
-      <div class="variant-button"><div>REWE Logs 30–40€<br/><span>Out of Stock</span></div><div><span class="variant-price">€16.00</span><span class="price-old">€19.00</span></div></div>
-      <div class="variant-button"><div>REWE Logs 40–60€<br/><span>Out of Stock</span></div><div><span class="variant-price">€29.99</span><span class="price-old">€50.00</span></div></div>
+    <div class="product-info">
+      <div class="product-title">REWE LOGS</div>
+      <div class="product-stock">Out of Stock</div>
+      <div class="product-price">
+        <span>€1.50 – €29.99</span>
+        <span class="line-through">€3.00 – €50.00</span>
+      </div>
     </div>
-    <div class="quantity-selector">
-      <button disabled>-</button>
-      <input type="number" value="1" disabled>
-      <button disabled>+</button>
-    </div>
-    <div class="action-buttons">
-      <button class="add-to-cart" disabled>Add to Cart</button>
-      <button class="buy-now" disabled>Buy Now</button>
-    </div>
-  </div>
+  </a>
 </body>
 </html>
