@@ -3,177 +3,122 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>REWE Logs Grid</title>
+  <title>REWE Logs Selector</title>
   <style>
     body {
-      background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAACVCAYAAAB7T5CvAAAAF0lEQVR42mP8//8/AxQwMMBQAACioQQHEZmaOgAAAABJRU5ErkJggg==") repeat-x top;
-      background-color: #000;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 2rem;
+      background-color: #0d0d0d;
+      color: white;
+      font-family: sans-serif;
       display: flex;
       justify-content: center;
-    }
-    .grid-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      max-width: 1200px;
-      width: 100%;
+      padding: 2rem;
     }
     .card {
+      width: 100%;
+      max-width: 420px;
       background-color: #1c1c1c;
-      color: white;
-      width: 100%;
-      max-width: 300px;
-      flex: 1 1 calc(25% - 1rem);
+      border: 1px solid rgba(255, 255, 255, 0.05);
       border-radius: 1rem;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.05);
-      transition: background-color 0.15s ease-in-out, transform 0.2s ease-in-out;
-      text-decoration: none;
-      cursor: pointer;
+      padding: 1.5rem;
     }
-    .card:hover {
-      background-color: rgba(255, 255, 255, 0.025);
-      transform: scale(1.02);
+    .price-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
     }
-    .card * {
-      text-decoration: none !important;
-    }
-    .card img {
-      width: 100%;
-      aspect-ratio: 16/9;
-      object-fit: scale-down;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      padding: 0.5rem;
-    }
-    .card-content {
-      padding: 1rem;
-    }
-    .card-title {
-      font-size: 1.2rem;
+    .variant-section label {
+      display: block;
+      margin-bottom: 0.5rem;
       font-weight: bold;
-      margin-bottom: 0.5rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
-    .card-status {
-      color: #aaa;
+    .variant-button {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      border-radius: 0.75rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid transparent;
+      margin-bottom: 0.5rem;
+      cursor: not-allowed;
+    }
+    .variant-button span {
       font-size: 0.9rem;
-      margin-bottom: 0.5rem;
+      color: #aaa;
     }
-    .card-price {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #ccc;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .price-current {
-      color: #3dd0ff;
+    .variant-price {
       font-weight: bold;
     }
     .price-old {
-      color: #777;
+      text-decoration: line-through;
       margin-left: 0.5rem;
+      color: #777;
       font-size: 0.85rem;
     }
-    #detailView {
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.3s ease-in-out;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: #000000dd;
-      color: white;
-      padding: 2rem;
-      overflow: auto;
-      z-index: 9999;
+    .quantity-selector {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
     }
-    #detailView.show {
-      pointer-events: all;
-      opacity: 1;
-    }
-    #detailView button {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: #333;
-      color: white;
+    .quantity-selector input,
+    .quantity-selector button {
+      background: rgba(255, 255, 255, 0.05);
       border: none;
+      color: white;
       padding: 0.5rem 1rem;
       border-radius: 0.5rem;
-      cursor: pointer;
     }
-    @media (max-width: 1024px) {
-      .card { flex: 1 1 calc(33.333% - 1rem); }
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
     }
-    @media (max-width: 768px) {
-      .card { flex: 1 1 calc(50% - 1rem); }
+    .action-buttons button {
+      flex: 1;
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      border: none;
+      font-weight: bold;
+      cursor: not-allowed;
     }
-    @media (max-width: 500px) {
-      .card { flex: 1 1 100%; }
+    .add-to-cart {
+      background-color: #3dd0ff;
+      color: black;
+    }
+    .buy-now {
+      background-color: transparent;
+      border: 1px solid #3dd0ff;
+      color: #3dd0ff;
     }
   </style>
 </head>
 <body>
-  <div class="grid-container" id="productGrid"></div>
-
-  <!-- Detail View -->
-  <div id="detailView">
-    <button onclick="closeDetailView()">X</button>
-    <h1 style="margin-top:2rem;" id="detailTitle">REWE LOGS</h1>
-    <img id="detailImage" src="" style="width:100%;max-width:500px;border-radius:1rem;margin:1rem 0;">
-    <pre id="detailDescription" style="background:#111;padding:1rem;border-radius:0.5rem;white-space:pre-wrap;"></pre>
+  <div class="card">
+    <div class="price-top">
+      <div>€1.50</div>
+      <div>Out of Stock</div>
+    </div>
+    <div class="variant-section">
+      <label for="variant">Variant</label>
+      <div class="variant-button"><div>REWE Logs 5–10€<br/><span>Out of Stock</span></div><div><span class="variant-price">€1.50</span><span class="price-old">€3.00</span></div></div>
+      <div class="variant-button"><div>REWE Logs 10–20€<br/><span>Out of Stock</span></div><div><span class="variant-price">€7.99</span></div></div>
+      <div class="variant-button"><div>REWE Logs 20–30€<br/><span>Out of Stock</span></div><div><span class="variant-price">€13.00</span></div></div>
+      <div class="variant-button"><div>REWE Logs 30–40€<br/><span>Out of Stock</span></div><div><span class="variant-price">€16.00</span><span class="price-old">€19.00</span></div></div>
+      <div class="variant-button"><div>REWE Logs 40–60€<br/><span>Out of Stock</span></div><div><span class="variant-price">€29.99</span><span class="price-old">€50.00</span></div></div>
+    </div>
+    <div class="quantity-selector">
+      <button disabled>-</button>
+      <input type="number" value="1" disabled>
+      <button disabled>+</button>
+    </div>
+    <div class="action-buttons">
+      <button class="add-to-cart" disabled>Add to Cart</button>
+      <button class="buy-now" disabled>Buy Now</button>
+    </div>
   </div>
-
-  <script>
-    const products = [
-      {
-        title: "REWE LOGS",
-        status: "Out of Stock",
-        currentPrice: "€1.50 – €29.99",
-        oldPrice: "€3.00 – €50.00",
-        img: "https://imagedelivery.net/HL_Fwm__tlvUGLZF2p74xw/0d933a58-e996-431b-6cae-d355d5dc2f00/public",
-        description: `Using these Rewe logs, you can log in to the Rewe app and use the credit to shop.\nThe credit you redeem will be deducted from the app.\n\nTelegram >>> @BalbinoDROP <<<`
-      }
-      // Weitere Produkte können hier folgen
-    ];
-
-    const grid = document.getElementById("productGrid");
-    products.forEach((product, index) => {
-      const card = document.createElement("a");
-      card.className = "card";
-      card.onclick = () => openDetailView(product);
-      card.innerHTML = `
-        <img src="${product.img}" alt="${product.title}" loading="lazy">
-        <div class="card-content">
-          <div class="card-title">${product.title}</div>
-          <div class="card-status">${product.status}</div>
-          <div class="card-price">
-            <span class="price-current">${product.currentPrice}</span>
-            <span class="price-old">${product.oldPrice}</span>
-          </div>
-        </div>`;
-      grid.appendChild(card);
-    });
-
-    function openDetailView(product) {
-      document.getElementById("detailTitle").textContent = product.title;
-      document.getElementById("detailImage").src = product.img;
-      document.getElementById("detailDescription").textContent = product.description;
-      document.getElementById("detailView").classList.add("show");
-    }
-
-    function closeDetailView() {
-      document.getElementById("detailView").classList.remove("show");
-    }
-  </script>
 </body>
 </html>
