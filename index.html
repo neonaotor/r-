@@ -1,90 +1,69 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SNAP Shop</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>REWE Logs Card</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
-
     body {
-      margin: 0;
-      font-family: 'Orbitron', sans-serif;
-      background: radial-gradient(circle at center, #0f0f0f, #000000);
-      color: #e0f7ff;
-    }
-
-    header {
-      text-align: center;
-      padding: 2rem;
-      font-size: 3rem;
-      color: #b9ecff;
-      text-shadow: 0 0 10px #aef, 0 0 20px #8cf;
-      letter-spacing: 0.2em;
-    }
-
-    .products {
+      background-color: #000;
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
-      gap: 2rem;
-      padding: 2rem;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
     }
-
-    .product-card {
-      background: rgba(0, 20, 30, 0.7);
-      border: 2px solid #7ee0ff;
-      box-shadow: 0 0 15px #5ad4ff;
-      padding: 1.5rem;
-      border-radius: 10px;
-      width: 200px;
-      text-align: center;
-      transition: transform 0.3s ease;
+    .card {
+      background-color: #1c1c1c;
+      color: white;
+      width: 300px;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
     }
-
-    .product-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px #aef;
+    .card img {
+      width: 100%;
+      display: block;
     }
-
-    button {
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      background: #7ee0ff;
-      border: none;
-      color: #000;
+    .card-content {
+      padding: 1rem;
+    }
+    .card-title {
+      font-size: 1.2rem;
       font-weight: bold;
-      cursor: pointer;
-      border-radius: 5px;
-      transition: background 0.3s ease;
+      margin-bottom: 0.5rem;
     }
-
-    button:hover {
-      background: #aef;
+    .card-status {
+      color: #aaa;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    .card-price {
+      font-size: 0.95rem;
+    }
+    .price-current {
+      color: #3dd0ff;
+      font-weight: bold;
+    }
+    .price-old {
+      text-decoration: line-through;
+      color: #777;
+      margin-left: 0.5rem;
     }
   </style>
 </head>
 <body>
-  <header>
-    SNAP
-  </header>
-
-  <section class="products">
-    <div class="product-card">
-      <h2>Frost Hoodie</h2>
-      <p>Kühler Look mit kantigem Style.</p>
-      <button>Kaufen</button>
+  <div class="card">
+    <img src="2e0b1487-3ae4-44a1-b457-c55995fa3460.png" alt="REWE Logs">
+    <div class="card-content">
+      <div class="card-title">REWE LOGS</div>
+      <div class="card-status">Out of Stock</div>
+      <div class="card-price">
+        <span class="price-current">€1.50 – €29.99</span>
+        <span class="price-old">€3.00 – €50.00</span>
+      </div>
     </div>
-    <div class="product-card">
-      <h2>Ice Cap</h2>
-      <p>Snap dein Outfit mit Stil.</p>
-      <button>Kaufen</button>
-    </div>
-    <div class="product-card">
-      <h2>Frozen Socks</h2>
-      <p>Für kalte Tage – oder heiße Moves.</p>
-      <button>Kaufen</button>
-    </div>
-  </section>
+  </div>
 </body>
 </html>
