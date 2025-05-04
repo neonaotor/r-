@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Designs</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design Shop – Live BTC</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
@@ -12,7 +12,6 @@
       background: radial-gradient(circle, #0f0f0f 0%, #000000 100%);
       font-family: 'Segoe UI', sans-serif;
     }
-
     .glow-bg {
       position: absolute;
       top: 50%;
@@ -24,29 +23,55 @@
       filter: blur(80px);
       z-index: 0;
     }
-
     .word {
       opacity: 0;
       display: inline-block;
       transform: translateY(20px);
       animation: popWord 0.6s forwards;
     }
-
     @keyframes popWord {
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
+    .section-hidden {
+      display: none;
+    }
+    .card-fixed {
+      height: 460px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .image-wrapper {
+      position: relative;
+      height: 260px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: transparent;
+    }
+    .image-fixed {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
+    .watermark {
+      position: absolute;
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-align: center;
+      pointer-events: none;
+    }
   </style>
 </head>
-<body class="text-white scroll-smooth relative">
-
-  <!-- Glow Background -->
+<body class="text-white relative">
   <div class="glow-bg"></div>
 
-  <!-- HERO SECTION -->
-  <section class="flex items-center justify-center min-h-screen text-center px-4">
+  <section id="hero" class="flex items-center justify-center min-h-screen text-center px-4">
     <div class="z-10">
       <div class="text-white font-extrabold text-2xl sm:text-4xl space-y-3">
         <div>
@@ -62,15 +87,90 @@
           <span class="word" style="animation-delay: 1.4s">price</span>
         </div>
       </div>
-
       <div class="mt-10">
-        <a href="prices.html" class="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-6 py-3 rounded-full transition-all">
+        <button onclick="showPrices()" class="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-6 py-3 rounded-full transition-all">
           See Prices
-        </a>
+        </button>
       </div>
     </div>
   </section>
 
+  <section id="preise" class="section-hidden bg-gray-950 py-20 px-0 min-h-screen">
+    <div class="max-w-6xl mx-auto">
+      <h1 class="text-3xl font-bold mb-10 text-center">Design Preise (Live BTC)</h1>
+      <div id="btcRate" class="text-center text-sm text-gray-400 mb-8">
+        Lade aktuellen BTC-Kurs...
+      </div>
+
+      <div id="priceList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Karten mit Bildern und Preisen werden per JavaScript geladen -->
+      </div>
+
+      <div class="mt-16 text-center text-sm text-gray-400">
+        <p class="mb-4 font-semibold">Zahlung möglich mit:</p>
+        <div class="flex justify-center items-center space-x-6">
+          <img src="https://pngimg.com/uploads/bitcoin/bitcoin_PNG7.png" alt="Bitcoin" class="h-8">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="h-6 md:h-8">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Paysafecard_logo.svg/2560px-Paysafecard_logo.svg.png" alt="Paysafecard" class="h-6 md:h-8">
+        </div>
+        <p class="text-xs mt-4">Wallet-Adresse & Kontakt auf Anfrage</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function showPrices() {
+      const hero = document.getElementById("hero");
+      const preise = document.getElementById("preise");
+      hero.classList.add("hidden");
+      preise.classList.remove("section-hidden");
+    }
+
+    const pricesEUR = [
+      { name: "Profilbild", euro: 5, image: "https://via.placeholder.com/300x200?text=Profilbild" },
+      { name: "Profilbanner", euro: 8, image: "https://cdn.discordapp.com/attachments/1361801346319388834/1363288287489425428/zyakuma_banner-Sinaloa.png?ex=68057ca8&is=68042b28&hm=25c3d13b5b7a7c312a068d6d4649e45c8dcb9f93c83b62fe1aa0e61063eac9ee&" },
+      { name: "Serverlogo", euro: 6, image: "https://cdn.discordapp.com/attachments/1361801346319388834/1363288283563688116/logo.png?ex=68057ca7&is=68042b27&hm=054bc327a312082ffde43463fc195cb3f2ed1d3cd3e25d2fec61c6b11545a016&" },
+      { name: "Serverbanner", euro: 9, image: "https://cdn.discordapp.com/attachments/1361801346319388834/1363287590115086587/ggservice.png?ex=68057c02&is=68042a82&hm=3d72fb2d9f7966c9b6ad5f9d1f5645f660f732979ec162d6b4f413eb2f97c2a4&" },
+      { name: "Mini Paket (PFP + Banner)", euro: 15, image: "https://via.placeholder.com/300x200?text=Mini+Paket" },
+      { name: "PC Wallpaper", euro: 4, image: "https://cdn.discordapp.com/attachments/1361801346319388834/1363262581191606372/Billion_gta.png?ex=680564b7&is=68041337&hm=78c1b2cd4be34d46fc9dee610567c5799ce3e357f53eaaa68a75bbab5451b224&" },
+      { name: "Handy Wallpaper", euro: 3, image: "https://cdn.discordapp.com/attachments/1361801346319388834/1363288285367107725/Mellisa_x_Kevin.png?ex=68057ca7&is=68042b27&hm=99df2dde86849027c6d9db969912f5ab5960b343105ccf047a0ff5cb9ab4ec53&" },
+      { name: "Komplett Learn Paket ohne GFX Template", euro: 20, image: "https://via.placeholder.com/300x200?text=Learn+ohne+Template" },
+      { name: "Komplett Learn Paket mit GFX Template", euro: 30, image: "https://via.placeholder.com/300x200?text=Learn+mit+Template" }
+    ];
+
+    async function loadBTCPrice() {
+      try {
+        const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=eur");
+        const data = await res.json();
+        const rate = data.bitcoin.eur;
+        document.getElementById("btcRate").innerText = `Aktueller BTC-Kurs: 1 BTC = ${rate.toLocaleString("de-DE")} €`;
+
+        const list = document.getElementById("priceList");
+        list.innerHTML = "";
+
+        pricesEUR.forEach(item => {
+          const btc = (item.euro / rate).toFixed(6);
+          const card = document.createElement("div");
+          card.className = "bg-gray-900 rounded-lg p-4 shadow-md text-center card-fixed";
+          card.innerHTML = `
+            <div class="image-wrapper">
+              <img src="${item.image}" alt="${item.name}" class="rounded image-fixed">
+              <div class="watermark">GS Service</div>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mt-3">${item.name}</h3>
+              <p class="text-gray-400">${item.euro} €</p>
+              <p class="text-cyan-400 text-sm">${btc} BTC</p>
+            </div>
+          `;
+          list.appendChild(card);
+        });
+      } catch (error) {
+        document.getElementById("btcRate").innerText = "Fehler beim Laden des BTC-Kurses.";
+      }
+    }
+
+    loadBTCPrice();
+  </script>
 </body>
 </html>
-
