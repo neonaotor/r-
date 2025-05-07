@@ -1,81 +1,244 @@
 <!DOCTYPE html>
-<html lang="de">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Webcam Map</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <title>2D Weltkarte mit Kameras</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+
   <style>
     #map {
       height: 100vh;
       width: 100%;
     }
-    .popup-content {
-      text-align: center;
-    }
-    .popup-content img {
-      max-width: 100%;
-      height: auto;
+    body, html {
+      margin: 0;
+      padding: 0;
     }
   </style>
 </head>
 <body>
-  <div id="map"></div>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
-    const cams = [
-      {
-        "stream": "http://87.57.111.162:80/mjpg/video.mjpg",
-        "country": "Denmark",
-        "country_code": null,
-        "region": "Nordjylland",
-        "city": "Aalborg",
-        "latitude": 57.048,
-        "longitude": 9.9187,
-        "timezone": "+01:00",
-        "preview_url": "http://insecam.org/static/thumb/538554.jpg",
-        "is_iframe": false,
-        "is_static": false,
-        "is_popular": false,
-        "categories": ["traffic"]
-      },
-      {
-        "stream": "http://43.252.62.93:8083/jpgmulreq/1/image.jpg?key=1516975535684&lq=1&0",
-        "country": "India",
-        "country_code": null,
-        "region": "Gujarat",
-        "city": "Ankleshwar",
-        "latitude": 21.6,
-        "longitude": 73,
-        "timezone": "+05:30",
-        "preview_url": "http://insecam.org/static/thumb/814253.jpg",
-        "is_iframe": false,
-        "is_static": false,
-        "is_popular": false,
-        "categories": ["other"]
-      }
-    ];
+<div id="map"></div>
 
-    const map = L.map('map').setView([20, 0], 2);
+<script>
+  // Kamera-Daten
+  const cameras = [
+    {
+      stream: "http://185.204.132.10:8080/webcapture.jpg?command=snap&channel=1?1732815716",
+      country: "Italy",
+      region: "Puglia",
+      city: "Barletta",
+      latitude: 41.31183,
+      longitude: 16.29077,
+      preview_url: "http://insecam.org/static/thumb/877938.jpg"
+    },
+    {
+      stream: "http://50.199.215.189:80/mjpg/video.mjpg",
+      country: "United States",
+      region: "Massachusetts",
+      city: "Barnstable",
+      latitude: 41.70011,
+      longitude: -70.29947,
+      preview_url: "http://insecam.org/static/thumb/827973.jpg"
+    },
+    {
+      stream: "http://50.199.215.185:80/mjpg/video.mjpg",
+      country: "United States",
+      region: "Massachusetts",
+      city: "Barnstable",
+      latitude: 41.70011,
+      longitude: -70.29947,
+      preview_url: "http://insecam.org/static/thumb/827414.jpg"
+    },
+    {
+      stream: "http://185.82.236.32:80/mjpg/video.mjpg",
+      country: "Czech Republic",
+      region: "Moravskoslezsky Kraj",
+      city: "Baska",
+      latitude: 49.64584,
+      longitude: 18.37233,
+      preview_url: "http://insecam.org/static/thumb/740938.jpg"
+    },
+    {
+      stream: "http://91.187.63.35:88/mjpg/video.mjpg",
+      country: "Czech Republic",
+      region: "Moravskoslezsky Kraj",
+      city: "Baska",
+      latitude: 49.64584,
+      longitude: 18.37233,
+      preview_url: "http://insecam.org/static/thumb/257846.jpg"
+    },
+    {
+      stream: "http://24.180.232.6:8000/mjpg/video.mjpg",
+      country: "United States",
+      region: "Michigan",
+      city: "Bay City",
+      latitude: 43.59447,
+      longitude: -83.88886,
+      preview_url: "http://insecam.org/static/thumb/168349.jpg"
+    },
+    {
+      stream: "http://23.24.250.10:80/mjpg/video.mjpg",
+      country: "United States",
+      region: "Oregon",
+      city: "Beaverton",
+      latitude: 45.48706,
+      longitude: -122.80371,
+      preview_url: "http://insecam.org/static/thumb/242016.jpg"
+    },
+    {
+      stream: "http://166.239.143.98:8081/-wvhttp-01-/GetOneShot?image_size=640x480&frame_count=1000000000",
+      country: "United States",
+      region: "New Jersey",
+      city: "Bedminster",
+      latitude: 40.6675,
+      longitude: -74.65556,
+      preview_url: "http://insecam.org/static/thumb/948037.jpg"
+    },
+    {
+      stream: "http://185.18.129.86:80/mjpg/video.mjpg",
+      country: "Germany",
+      region: "Bayern",
+      city: "Beilngries",
+      latitude: 49.0341,
+      longitude: 11.47393,
+      preview_url: "http://insecam.org/static/thumb/387586.jpg"
+    },
+    {
+      stream: "http://103.217.216.197:8001/jpg/image.jpg?1732815717",
+      country: "Indonesia",
+      region: "Jawa Barat",
+      city: "Bekasi",
+      latitude: -6.2349,
+      longitude: 106.9896,
+      preview_url: "http://insecam.org/static/thumb/934926.jpg"
+    },
+    {
+      stream: "http://93.87.72.254:8084/mjpg/video.mjpg",
+      country: "Serbia",
+      region: "Vojvodina",
+      city: "Bela Crkva",
+      latitude: 44.8975,
+      longitude: 21.41722,
+      preview_url: "http://insecam.org/static/thumb/324950.jpg"
+    },
+    {
+      stream: "http://87.116.152.189:80/asp/video.cgi",
+      country: "Serbia",
+      region: "Beograd",
+      city: "Belgrade",
+      latitude: 44.80401,
+      longitude: 20.46513,
+      preview_url: "http://insecam.org/static/thumb/970825.jpg"
+    },
+    {
+      stream: "http://109.206.96.127:8080/cam_1.cgi",
+      country: "Serbia",
+      region: "Beograd",
+      city: "Belgrade",
+      latitude: 44.80401,
+      longitude: 20.46513,
+      preview_url: "http://insecam.org/static/thumb/968747.jpg"
+    },
+    {
+      stream: "http://109.206.96.75:8080/cam_1.cgi",
+      country: "Serbia",
+      region: "Beograd",
+      city: "Belgrade",
+      latitude: 44.80401,
+      longitude: 20.46513,
+      preview_url: "http://insecam.org/static/thumb/812476.jpg"
+    },
+    {
+      stream: "http://109.206.96.58:8080/cam_1.cgi",
+      country: "Serbia",
+      region: "Central Serbia",
+      city: "Belgrade",
+      latitude: 44.80401,
+      longitude: 20.46513,
+      preview_url: "http://insecam.org/static/thumb/570197.jpg"
+    },
+    {
+      stream: "http://109.206.96.249:8080/cam_1.cgi",
+      country: "Serbia",
+      region: "Central Serbia",
+      city: "Belgrade",
+      latitude: 44.80401,
+      longitude: 20.46513,
+      preview_url: "http://insecam.org/static/thumb/440906.jpg"
+    },
+    {
+      stream: "http://195.32.50.219:1024/oneshotimage1?0",
+      country: "Italy",
+      region: "Piemonte",
+      city: "Alice Castello",
+      latitude: 45.36516,
+      longitude: 8.07292,
+      preview_url: "http://insecam.org/static/thumb/851494.jpg"
+    },
+    {
+      stream: "http://87.57.111.162:80/mjpg/video.mjpg",
+      country: "Denmark",
+      region: "Nordjylland",
+      city: "Aalborg",
+      latitude: 57.048,
+      longitude: 9.9187,
+      preview_url: "http://insecam.org/static/thumb/538554.jpg"
+    },
+    {
+      stream: "http://217.181.189.201:80/mjpg/video.mjpg",
+      country: "United Kingdom",
+      region: "England",
+      city: "Abingdon",
+      latitude: 51.67109,
+      longitude: -1.28278,
+      preview_url: "http://insecam.org/static/thumb/850577.jpg"
+    },
+    {
+      stream: "http://212.170.102.212:80/webcapture.jpg?command=snap&channel=1?0",
+      country: "Spain",
+      region: "Canarias",
+      city: "Adeje",
+      latitude: 28.12271,
+      longitude: -16.726,
+      preview_url: "http://insecam.org/static/thumb/829971.jpg"
+    },
+    {
+      stream: "http://195.77.185.114:8081/oneshotimage1?1732815720",
+      country: "Spain",
+      region: "Catalonia",
+      city: "Barcelona",
+      latitude: 41.38879,
+      longitude: 2.15899,
+      preview_url: "http://insecam.org/static/thumb/352151.jpg"
+    }
+  ];
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap-Mitwirkende'
-    }).addTo(map);
+  // Karte initialisieren
+  const map = L.map('map').setView([20, 0], 2);
 
-    cams.forEach(cam => {
-      const popupContent = `
-        <div class="popup-content">
-          <strong>${cam.city}, ${cam.region}</strong><br/>
-          <img src="${cam.preview_url}" alt="Preview" /><br/>
-          <a href="${cam.stream}" target="_blank">Live-Stream öffnen</a><br/>
-          Kategorie: ${cam.categories.join(", ")}
-        </div>
-      `;
-      L.marker([cam.latitude, cam.longitude])
-        .addTo(map)
-        .bindPopup(popupContent);
-    });
-  </script>
+  // OpenStreetMap Layer
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap-Mitwirkende'
+  }).addTo(map);
+
+  // Marker für alle Kameras
+  cameras.forEach(camera => {
+    L.marker([camera.latitude, camera.longitude])
+      .addTo(map)
+      .bindPopup(`
+        <b>${camera.city}, ${camera.region}</b><br>
+        <img src="${camera.preview_url}" alt="Preview" width="200"><br>
+        <a href="${camera.stream}" target="_blank">Stream öffnen</a>
+      `);
+  });
+</script>
+
 </body>
 </html>
