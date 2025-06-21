@@ -2,57 +2,90 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Bild im Bild auf Hand</title>
+  <title>Bild-im-Bild auf Handy</title>
   <style>
     body {
-      font-family: sans-serif;
-      background: #f0f0f0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       margin: 0;
-      padding: 20px;
+      font-family: sans-serif;
+      background: url('IMG_2313.jpeg') no-repeat center/cover;
+      height: 100vh;
+      overflow: hidden;
     }
-    .container {
-      position: relative;
-      display: inline-block;
-    }
-    .hand-image {
-      width: 300px;
-      border-radius: 10px;
-    }
-    .overlay-image {
+
+    .overlay-container {
       position: absolute;
-      top: 70%;
-      left: 55%;
-      width: 100px;
-      height: 120px;
+      bottom: 30px;
+      right: 20px;
+      width: 160px;
+      height: 240px;
+      background-color: #000;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      display: none;
+    }
+
+    .overlay-container img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      border-radius: 12px;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 0 10px rgba(0,0,0,0.4);
     }
-    input {
-      margin-top: 20px;
+
+    .controls {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      right: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: white;
+      font-size: 18px;
     }
+
+    .play-button {
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(4px);
+      border-radius: 50%;
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+
+    .upload {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(255,255,255,0.8);
+      padding: 8px 12px;
+      border-radius: 8px;
+    }
+
   </style>
 </head>
 <body>
 
-  <h2>Bild-im-Bild auf der Hand</h2>
-
-  <div class="container">
-    <img src="IMG_2313.jpeg" alt="Hand" class="hand-image" id="handBase">
-    <img src="" alt="Overlay" class="overlay-image" id="overlayImg" style="display:none;">
+  <div class="upload">
+    <label>Bild auswählen:
+      <input type="file" accept="image/*" onchange="showOverlay(event)">
+    </label>
   </div>
 
-  <input type="file" accept="image/*" onchange="loadImage(event)">
+  <div class="overlay-container" id="overlayBox">
+    <img id="previewImg" src="" alt="Bild im Bild">
+    <div class="controls">
+      <div class="play-button">▶</div>
+      <div>0:10</div>
+    </div>
+  </div>
 
   <script>
-    function loadImage(event) {
-      const image = document.getElementById('overlayImg');
-      image.src = URL.createObjectURL(event.target.files[0]);
-      image.style.display = 'block';
+    function showOverlay(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const url = URL.createObjectURL(file);
+        document.getElementById('previewImg').src = url;
+        document.getElementById('overlayBox').style.display = 'block';
+      }
     }
   </script>
 
