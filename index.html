@@ -2,74 +2,70 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>😈 Überraschung</title>
+  <title>Warte kurz...</title>
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
-      background-color: black;
-      color: white;
-      font-family: sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      background: black;
       overflow: hidden;
     }
-    #startText {
-      font-size: 2em;
-    }
     #jumpscare {
-      display: none;
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background-color: black;
-      z-index: 9999;
+      display: none;
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      text-align: center;
+      z-index: 10;
     }
     #jumpscare img {
       width: 100vw;
       height: 100vh;
       object-fit: cover;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: -1;
     }
-    #message {
+    #text {
+      display: none;
+      position: absolute;
+      top: 40%;
+      width: 100%;
       color: red;
       font-size: 3em;
-      text-shadow: 2px 2px black;
-      z-index: 10;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      text-shadow: 2px 2px 8px black;
+      z-index: 20;
     }
   </style>
 </head>
 <body>
 
-  <div id="startText">Warte mal kurz...</div>
-
   <div id="jumpscare">
-    <img src="https://i.imgur.com/DFj1T1v.jpg" alt="Gruselig">
-    <div id="message">Du kleiner Schlingel,<br>wolltest du Aimee gucken, ja?</div>
-    <audio id="scream" preload="auto">
-      <source src="https://www.soundjay.com/human/screams/female-scream-01.mp3" type="audio/mpeg">
+    <img src="https://i.imgur.com/ehRzgjk.jpg" alt="Jumpscare">
+    <audio id="scream" autoplay>
+      <source src="https://www.myinstants.com/media/sounds/scream.mp3" type="audio/mpeg">
     </audio>
   </div>
 
+  <div id="text">
+    Du kleiner Schlingel,<br>wolltest du Aimee gucken, ja?
+  </div>
+
   <script>
+    // Nach 4 Sekunden: Jumpscare anzeigen
     setTimeout(() => {
-      document.getElementById("startText").style.display = "none";
-      const jumpscare = document.getElementById("jumpscare");
-      jumpscare.style.display = "flex";
-      const scream = document.getElementById("scream");
-      scream.play();
-    }, 4000); // 4 Sekunden Verzögerung
+      document.getElementById("jumpscare").style.display = "flex";
+      document.getElementById("scream").play();
+    }, 4000);
+
+    // Nach 6 Sekunden: Jumpscare ausblenden, Text anzeigen
+    setTimeout(() => {
+      document.getElementById("jumpscare").style.display = "none";
+      document.getElementById("text").style.display = "block";
+    }, 6500);
   </script>
 
 </body>
