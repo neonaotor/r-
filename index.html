@@ -1,72 +1,43 @@
 <!DOCTYPE html>
-<html lang="de">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Warte kurz...</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: black;
-      overflow: hidden;
-    }
-    #jumpscare {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      z-index: 10;
-    }
-    #jumpscare img {
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-    }
-    #text {
-      display: none;
-      position: absolute;
-      top: 40%;
-      width: 100%;
-      color: red;
-      font-size: 3em;
-      text-align: center;
-      font-family: Arial, sans-serif;
-      text-shadow: 2px 2px 8px black;
-      z-index: 20;
-    }
-  </style>
+	<title></title>
+
+	<style type="text/css">
+		
+		#stick{
+			width:200px;
+			height:300px;
+			background-image:url(https://blogs.uww.edu/artofmakai/files/2021/03/commonStickFigure.png);
+			background-size:cover;
+			background-repeat: no-repeat;
+			position:absolute;
+		}
+	</style>
 </head>
 <body>
+<center><h1>Press any letter key to move the stick guy</h1></center>
+<center>**Make sure to click on the screen first**</center>
+	<div id="stick"></div>
 
-  <div id="jumpscare">
-    <img src="https://i.imgur.com/ehRzgjk.jpg" alt="Jumpscare">
-    <audio id="scream" autoplay>
-      <source src="https://www.myinstants.com/media/sounds/scream.mp3" type="audio/mpeg">
-    </audio>
-  </div>
+	<audio src="sneeze2.m4a" id="sneeze"></audio>
 
-  <div id="text">
-    Du kleiner Schlingel,<br>wolltest du Aimee gucken, ja?
-  </div>
+	<script type="text/javascript">
 
-  <script>
-    // Nach 4 Sekunden: Jumpscare anzeigen
-    setTimeout(() => {
-      document.getElementById("jumpscare").style.display = "flex";
-      document.getElementById("scream").play();
-    }, 4000);
+		var left =0;
 
-    // Nach 6 Sekunden: Jumpscare ausblenden, Text anzeigen
-    setTimeout(() => {
-      document.getElementById("jumpscare").style.display = "none";
-      document.getElementById("text").style.display = "block";
-    }, 6500);
-  </script>
+		document.addEventListener("click", function(){
+			sneeze.play()
+		})
+
+		document.addEventListener("keypress", function(event){
+
+			left = left +10;
+			stick.style.left = left +"px";
+			
+			
+		})
+	</script>
 
 </body>
 </html>
