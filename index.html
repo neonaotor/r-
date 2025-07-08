@@ -2,91 +2,74 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Bild-im-Bild auf Handy</title>
+  <title>😈 Überraschung</title>
   <style>
     body {
       margin: 0;
+      padding: 0;
+      background-color: black;
+      color: white;
       font-family: sans-serif;
-      background: url('IMG_2313.jpeg') no-repeat center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       height: 100vh;
       overflow: hidden;
     }
-
-    .overlay-container {
-      position: absolute;
-      bottom: 30px;
-      right: 20px;
-      width: 160px;
-      height: 240px;
-      background-color: #000;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    #startText {
+      font-size: 2em;
+    }
+    #jumpscare {
       display: none;
-    }
-
-    .overlay-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .controls {
-      position: absolute;
-      bottom: 10px;
-      left: 10px;
-      right: 10px;
-      display: flex;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: black;
+      z-index: 9999;
+      justify-content: center;
       align-items: center;
-      justify-content: space-between;
-      color: white;
-      font-size: 18px;
+      flex-direction: column;
+      text-align: center;
     }
-
-    .play-button {
-      background: rgba(255, 255, 255, 0.3);
-      backdrop-filter: blur(4px);
-      border-radius: 50%;
-      padding: 6px 10px;
-      cursor: pointer;
-    }
-
-    .upload {
+    #jumpscare img {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
       position: absolute;
-      top: 20px;
-      left: 20px;
-      background: rgba(255,255,255,0.8);
-      padding: 8px 12px;
-      border-radius: 8px;
+      top: 0;
+      left: 0;
+      z-index: -1;
     }
-
+    #message {
+      color: red;
+      font-size: 3em;
+      text-shadow: 2px 2px black;
+      z-index: 10;
+    }
   </style>
 </head>
 <body>
 
-  <div class="upload">
-    <label>Bild auswählen:
-      <input type="file" accept="image/*" onchange="showOverlay(event)">
-    </label>
-  </div>
+  <div id="startText">Warte mal kurz...</div>
 
-  <div class="overlay-container" id="overlayBox">
-    <img id="previewImg" src="" alt="Bild im Bild">
-    <div class="controls">
-      <div class="play-button">▶</div>
-      <div>0:10</div>
-    </div>
+  <div id="jumpscare">
+    <img src="https://i.imgur.com/DFj1T1v.jpg" alt="Gruselig">
+    <div id="message">Du kleiner Schlingel,<br>wolltest du Aimee gucken, ja?</div>
+    <audio id="scream" preload="auto">
+      <source src="https://www.soundjay.com/human/screams/female-scream-01.mp3" type="audio/mpeg">
+    </audio>
   </div>
 
   <script>
-    function showOverlay(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const url = URL.createObjectURL(file);
-        document.getElementById('previewImg').src = url;
-        document.getElementById('overlayBox').style.display = 'block';
-      }
-    }
+    setTimeout(() => {
+      document.getElementById("startText").style.display = "none";
+      const jumpscare = document.getElementById("jumpscare");
+      jumpscare.style.display = "flex";
+      const scream = document.getElementById("scream");
+      scream.play();
+    }, 4000); // 4 Sekunden Verzögerung
   </script>
 
 </body>
